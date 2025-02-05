@@ -437,5 +437,4 @@ https://bit.ly/3tK1Uao.
 
 image:../images/image4.png[image,width=792,height=1121]
 
- git config --global user.email "sandeeprudra30@gmail.com"
-  git config --global user.name "Sandeep Rudra"
+
