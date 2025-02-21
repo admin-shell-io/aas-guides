@@ -1,4 +1,4 @@
-image:../images/image1.png[image, width=793, height=1122]
+image::image1.png[image, width=793, height=1122]
 
 == Asset Administration Shell Reading Guide
 
@@ -18,7 +18,7 @@ The structure of the AAS is defined via a technology independent metamodel and s
 
 The interaction with the AAS can follow different patterns which have different technical requirements, i.e. file exchange, server-client and peer-to-peer interaction (Figure 1).
 
-image:../images/image2.jpeg[Ein Bild, das Text, Screenshot, Diagramm, Design enthält. Automatisch generierte Beschreibung, width=297, height=187]
+image::image2.jpeg[Ein Bild, das Text, Screenshot, Diagramm, Design enthält. Automatisch generierte Beschreibung, width=297, height=187]
 
 Figure 1: AAS interaction patterns
 
@@ -52,7 +52,7 @@ The analysis in [21] aims at giving companies orientation when designing their d
 
 The most important documents are the AAS Specifications found on [12]. They are divided into multiple parts and specify all aspects of the metamodel, the API, AASX file format, etc. [13] describes the possible workflows and necessary working steps to create a Submodel template. For implementations the open source projects on https://github.com/admin-shell-io and others (see below) are highly recommended. Because the recent release of the specification has introduced some significant changes, we recommend taking a look at the tutorial [23]. As an overview [8] describes the different shapes of the AAS from a technical perspective including security. The first part of the international standard IEC 63278 "Asset Administration Shell for industrial applications" has been published. Further parts are in progress. [11] creates an understanding of how the three elements capabilities, skills and services can be used for new production concepts.
 
-image:../images/image3.jpeg[Ein Bild, das Text, Himmel enthält. Automatisch generierte Beschreibung, width=297, height=362]
+image::image3.jpeg[Ein Bild, das Text, Himmel enthält. Automatisch generierte Beschreibung, width=297, height=362]
 
 === For users of the AAS and domain experts
 
@@ -95,4 +95,4 @@ The Eclipse Digital Twin Top-Level Project found at https://projects.eclipse.org
 . „Describing Capabilities of Industrie 4.0 Components”, 12/2020: https://bit.ly/3tK1Uao.
 . "AAS Tutorials" [Videos], IDTA: https://bit.ly/3DVsCXQ.
 
-image:../images/image4.png[image, width=792, height=1121]
+image::image4.png[image, width=792, height=1121]
