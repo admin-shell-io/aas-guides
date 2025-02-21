@@ -1,4 +1,4 @@
-image:../images/image1.png[image, width=793, height=1122]
+image:../images/rg_front.jpeg[image, width=793, height=1122]
 
 == Asset Administration Shell Reading Guide
 
@@ -95,4 +95,4 @@ The Eclipse Digital Twin Top-Level Project found at https://projects.eclipse.org
 . „Describing Capabilities of Industrie 4.0 Components”, 12/2020: https://bit.ly/3tK1Uao.
 . "AAS Tutorials" [Videos], IDTA: https://bit.ly/3DVsCXQ.
 
-image:../images/image4.png[image, width=792, height=1121]
+image:../images/rg_back.jpeg[image, width=792, height=1121]
