@@ -1,99 +1,98 @@
-= Asset Administration Shell Reading Guide
-03. November 2022
-:doctype: book
-:toc: left
-:icons: font
+image:../images/image1.png[image, width=793, height=1122]
 
-== Aim of this Document
+== Asset Administration Shell Reading Guide
 
-Over the course of the last years the Plattform Industrie 4.0 and related organizations have published numerous papers concerning the Asset Administration Shell. This document acts as a guide by recommending selected "must-read" documents for different reader groups and will be updated regularly.
+=== Aim of this document
 
-== Goals of Industrie 4.0
+Over the course of the last years IDTA and related organizations have published numerous papers concerning the Asset Administration Shell. This document acts as a guide by recommending selected „must-read” documents for different reader groups and will be updated regularly.
 
-Industrie 4.0 (I4.0) refers to the intelligent networking of machines and processes for industry with the help of information and communication technology. Today’s rigid and strictly defined value chains are replaced by flexible, highly dynamic and globally connected value networks with new forms of cooperation. The Asset Administration Shell helps implement digital twins for I4.0 and creates interoperability across the solutions of different suppliers.
+=== Goals of Industrie 4.0
 
-== Asset Administration Shell in a Nutshell
+Industrie 4.0 (I4.0) refers to the intelligent networking of machines and processes for industry with the help of information and communication technology. Today’s rigid and strictly defined value chains are replaced by flexible, highly dynamic and globally connected value networks with new forms of cooperation. The Asset Administration Shell helps implementing Digital Twins for I4.0 and creating interoperability across the solutions of different suppliers.
 
-The Asset Administration Shell (AAS) is the digital representation of an asset. The AAS consists of a number of submodels in which all the information and functionalities of a given asset – including its features, characteristics, properties, statuses, parameters, measurement data and capabilities – can be described. It allows for the use of different communication channels and applications and serves as the link between objects and the connected, digital and distributed world.
+=== Asset Administration Shell in a nutshell
 
-The structure of the AAS is defined via a technology independent metamodel and several technology-specific serialization mappings such as XML, JSON or OPC UA. Its contents are defined via domain-specific submodel templates.
+The Asset Administration Shell (AAS) is the digital representation of an asset. The AAS consists of a number of Submodels in which all the information and functionalities of a given asset – including its features, characteristics, properties, statuses, parameters, measurement data and capabilities – can be described. It allows for the use of different communication channels and applications and serves as the link between objects and the connected, digital and distributed world.
 
-The interaction with the AAS can follow different patterns which have different technical requirements, i.e. file exchange, server-client, and peer-to-peer interaction.
+The structure of the AAS is defined via a technology independent metamodel and several technology specific serialization mappings such as XML, JSON or RDF. Its contents are defined via domain- or application-specific Submodel templates.
 
-[NOTE]
-====
+The interaction with the AAS can follow different patterns which have different technical requirements, i.e. file exchange, server-client and peer-to-peer interaction (Figure 1).
+
+image:../images/image2.jpeg[Ein Bild, das Text, Screenshot, Diagramm, Design enthält. Automatisch generierte Beschreibung, width=297, height=187]
+
 Figure 1: AAS interaction patterns
-====
 
-== Recommended Documents
+== Recommended documents
 
-=== Where to Start
+For this reading guide the documents have been sorted by interest groups rather than topics. In some cases, only specific pages or sections are recommended reading material.
 
-When completely new to the topic of I4.0 and the AAS, it is highly recommended to visit the website of the Plattform Industrie 4.0 [1]. Then start with the Two-Pager [2] and the presentation slides [3]. The first few slides of the Presentation [4] cover general AAS topics, while later slides introduce some advanced topics. For a deep dive, [5] gives a comprehensive overview of recent and current activities of the Plattform I4.0.
+* *Where to start:* If you have never heard of the AAS
+* *For the generally interested reader:* If you want to learn more about the subject
+* *For decision makers:* If you are interested in the business side of I4.0
+* *For software developers and architects:* If you want to know how to create software for the AAS
+* *For users of the AAS and domain experts:* If you are interested in using the AAS for specific tasks
+* *Security and AI:* If you want to deep dive into these special topics.
 
-=== For the Generally Interested Reader
+=== Where to start
 
-The most extensive introduction into I4.0 can be found in the book [6]. The introduction and the chapters on how to transport semantic information are insightful, although some technical sections are partially outdated. [7] provides a condensed overview of the concepts and serves as a leading picture, also outlining how existing and future standards should be aligned with these concepts. [9] is recommended because it covers all major aspects of I4.0 (including finding use cases, creating semantic models, and operation) by using a drive as an example. The described concepts can easily be transferred to sensors and actors in general. Additionally, https://fluidtechnik40.de/en/ is an initiative of the VDMA offering an overview, use cases, and examples.
+When completely new to the topic of I4.0 and the AAS we highly recommend visiting the website of the Plattform Industrie 4.0 [1]. Then start with the Two-Pager [2] and the presentation slides [3]. The first few slides of the Presentation [4] cover general AAS topics, later slides introduce some advanced topics. All these should provide a brief and quick introduction into the topic in general. For a deep dive [5] gives a comprehensive overview of recent and current activities of the Plattform I4.0.
 
-=== For Decision Makers
+=== For the generally interested reader
 
-[8] explains why semantic interoperability will become crucial for future manufacturing. [10] includes a detailed list of technical criteria that need to be fulfilled for an I4.0 component, along with a technology roadmap and examples of commercially available products that meet these criteria. [11] provides support for companies to revise their data organization with step-by-step realization guidelines. [16] introduces an initiative to use the AAS for providing a Digital Product Passport, including the Product Carbon Footprint.
+I4.0 has undergone a long journey, but [6] shows on a single page how things developed and how it all fits together. [7] gives a condensed overview of the AAS concepts and serves in many ways as a leading picture. [8] summarizes the major technical aspects and different shapes of the AAS. [9] is recommended, because it covers all major aspects of I4.0 (including finding use cases, creating semantic models, and operation) by using a drive as an example. The described concepts can easily be transferred to sensors and actors in general.
+https://fluidtechnik40.de/en/ is an initiative of the VDMA with an overview, use cases and examples.
 
-=== For Software Developers and Architects
+=== For decision makers
 
-The most important documents for this group are [12] and [13]. Part 1 of the series "Asset Administration Shell in Detail" covers the AAS metamodel and its technology-specific serializations, while Part 2 focuses on the concept and realization of the AAS API. For implementations, the open source projects on https://github.com/admin-shell-io (among others) are highly recommended. Due to significant changes in the recent specification release, the tutorial [23] is also advised. As an overview, [8] describes the different shapes of the AAS from a technical perspective, including security aspects. Note that the international standard IEC 63278 "Asset Administration Shell for industrial applications", which covers all aspects of the AAS, is in work; the first part will cover the AAS structure, with further parts to follow.
+[10] includes a detailed list of technical criteria that need to be fulfilled for an I4.0 component. It also includes a technology roadmap and lists several examples of commercially available products that fulfil these criteria. [16] introduces an initiative to utilize the AAS to provide a Digital Product Passport including the Product Carbon Footprint with the aim to fulfil future requirements of the EU Green Deal.
 
-=== For Users of the AAS and Domain Experts
+The analysis in [21] aims at giving companies orientation when designing their digital business models using 22 practical examples. Initiatives like https://catena-x.net/en and Manufacturing-X are applying the AAS as one of their core technologies.
 
-If you are interested in using or creating an AAS, it is recommended to start by exploring the AASX package explorer (see below) and the screencasts at http://admin-shell-io.com/screencasts/. New submodel templates are continuously being released and are available on the IDTA website at https://industrialdigitaltwin.org/en/content-hub/submodels. Additionally, documents [11] and [15] might also be of interest. [14] shows best practice patterns for implementing the AAS, providing practical guidance on modeling the AAS (including cases where an asset is composed of multiple sub-assets) and its use in applications.
+=== For software developers and architects
+
+The most important documents are the AAS Specifications found on [12]. They are divided into multiple parts and specify all aspects of the metamodel, the API, AASX file format, etc. [13] describes the possible workflows and necessary working steps to create a Submodel template. For implementations the open source projects on https://github.com/admin-shell-io and others (see below) are highly recommended. Because the recent release of the specification has introduced some significant changes, we recommend taking a look at the tutorial [23]. As an overview [8] describes the different shapes of the AAS from a technical perspective including security. The first part of the international standard IEC 63278 "Asset Administration Shell for industrial applications" has been published. Further parts are in progress. [11] creates an understanding of how the three elements capabilities, skills and services can be used for new production concepts.
+
+image:../images/image3.jpeg[Ein Bild, das Text, Himmel enthält. Automatisch generierte Beschreibung, width=297, height=362]
+
+=== For users of the AAS and domain experts
+
+If you are interested in using or creating AAS we recommend starting by looking into the software tool AASX package explorer (see below) and the screencasts at http://admin-shell-io.com/screencasts/. New Submodel templates are continuously being released and are available on the website of the IDTA https://industrialdigitaltwin.org/en/content-hub/submodels. Documents [11] and [15] might also be of interest. [13] describes how to create a new Submodel template. [14] shows best practice patterns for the implementation of AAS. It provides practical guidance on how to model the AAS (including AAS for assets composed of multiple assets) and how to use it in applications.
 
 === Security and AI
 
-Although not dealing exclusively with the AAS, [15] highlights requirements for the secure use of OPC UA in I4.0 scenarios and presents implementation options. [17] describes requirements and implementations for secure communication in engineering processes. [18] explains different secure data access architectures, addressing questions regarding implementation and applicability. [19] focuses on the application of AI in industrial production, analyzing various use cases for potential impact and related questions. [22] discusses the capability and skill needed to provide standardized information about an asset's functionality.
+[17] describes requirements and implementations of a secure communication in the engineering process. [18] explains different secure data access architectures and looks at questions regarding at implementation and applicability. [19] focusses on the application of AI in industrial production and analyses different use cases for potential impact and questions. [11] and [22] discuss the means of capabilities, skills and services to provide standardized information about and access to asset functionalities.
 
-=== Tools, Examples, and Prototypes
+=== Tools, examples and prototypes
 
-The website https://github.com/admin-shell-io hosts the latest version of the AASX package explorer, which can be used to create, edit, and view AAS file serializations (*.aasx). This site also includes the AASX-server available as code, binaries, or pre-built Docker images, making AASX packages accessible via REST, OPC UA, and MQTT, along with a highly recommended FAQ featuring best practices (https://github.com/admin-shell-io/questions-and-answers/) and additional resources.
+The website https://github.com/eclipse-aaspe/aaspe contains the latest version of the *AASX package explorer*, which can be used to create, edit and view AAS file serializations (*.aasx). The site https://github.com/admin-shell-io includes the *AASX-server* as code, binaries or pre-built docker images making AASX packages accessible via standardized APIs, a highly recommended FAQ with best practices and further resources.
 
-The Eclipse Digital Twin Top-Level Project, available at https://projects.eclipse.org/projects/dt, is a collaborative open source initiative under the Eclipse Foundation that fosters the development of reference implementations for AAS activities driven by the IDTA. Step-by-step, further AAS software projects will be added. Additionally, http://www.i40-aas.de/ provides access to numerous AAS examples from different vendors based on the digital nameplate use case.
+The Eclipse Digital Twin Top-Level Project found at https://projects.eclipse.org/projects/dt is a collaborative, open source initiative at the Eclipse Foundation fostering the development of reference implementations for the AAS activities driven by the IDTA. Eclipse BaSyx (https://eclipse.dev/basyx/) is an open source AAS middleware. https://admin-shell-io.com/ provides various tools and examples including a running AAS server with a web interface and AAS for exemplary products. However, not all examples have been updated to v3.0 of the AAS specification, yet.
 
 == References
 
-[1] "What is Industrie 4.0?": https://bit.ly/3kaRz2N  
-[2] "The Asset Administration Shell: Implementing digital twins for use in Industrie 4.0, A starter kit for developers", 12/2019: https://bit.ly/3kZZSPl  
-[3] "The digital twin in Industrie 4.0 - A short introduction to properties, submodels & Asset Administration Shells (AAS)", 05/2021: https://bit.ly/32FVdOf  
-[4] "Details of the Administration Shell - from idea to implementation", 07/2019: https://bit.ly/2H8c2Hn  
-[5] "Fortschrittsbericht 2022. Industrie 4.0 gestalten. Resilient, nachhaltig, wettbewerbsstark" (English version pending), 05/2022: https://bit.ly/3fYESe9  
-[6] The Reference Architecture Model RAMI 4.0 and the Industrie 4.0 component, ISBN: 978-3-8007-4990-4, 2018  
-[7] "Structure of the Administration Shell", 04/2018: https://bit.ly/34jbHdo  
-[8] "What is the Asset Administration Shell from a technical perspective?" 04/2021: https://bit.ly/3d0kvbw  
-[9] "Drive 4.0 - Vision becomes Reality", 04/2018: https://bit.ly/388ST35  
-[10] "Which criteria do Industrie 4.0 products need to fulfil?", 12/2020: https://bit.ly/2Tdti0d  
-[11] "Interoperability by standardized properties", 08/2019: (available upon request) https://bit.ly/3oVQpLh  
-[12] "Details of the Asset Administration Shell, Part 1", 05/2022: https://bit.ly/3phSUYB  
-[13] "Details of the Asset Administration Shell, Part 2", 11/2021: https://bit.ly/3phSUYB  
-[14] "AAS Reference Modelling", 12/2021: https://bit.ly/3qAm4U3  
-[15] "Secure Implementation of OPC UA for operators, integrators and manufacturers", 04/2018: https://bit.ly/3kZm2kJ  
-[16] "ZVEI-Show-Case PCF@Control Cabinet - Product Carbon Footprint Calculation of a Control Cabinet using the Asset Administration Shell", 05/2022: https://bit.ly/3RYoEz4  
-[17] "Secure Download Service", 10/2020: https://bit.ly/3cPSq6A  
-[18] "Access control for Industrie 4.0 components for application by manufacturers, operators and integrators", 12/2018: https://bit.ly/37qAJJQ  
-[19] "AI Application Guide", 09/2020: https://bit.ly/3KbCIT4  
-[20] "German Standardization Roadmap Industrie 4.0", 03/2020: https://bit.ly/3dKrRQj  
-[21] "Digital business models for Industrie 4.0", 02/2019: https://bit.ly/2FOroA6  
-[22] "Describing Capabilities of Industrie 4.0 Components", 12/2020: https://bit.ly/3tK1Uao  
-[23] "Details of the Asset Administration Shell Taken Literally – Learn about the underlying UML Information Model V3.0RC02", 05/2022: https://bit.ly/3UF8JaP  
+[arabic]
+. „What is Industrie 4.0?”: https://bit.ly/3kaRz2N.
+. „The Asset Administration Shell: Implementing digital twins for use in Industrie 4.0, A starter kit for developers”, 12/2019: https://bit.ly/3kZZSPl.
+. „The digital twin in Industrie 4.0 - A short introduction to properties, submodels & Asset Administration Shells (AAS)”, 05/2021: https://bit.ly/32FVdOf.%20[https://bit.ly/32FVdOf.]
+. „Details of the Administration Shell - from idea to implementation”, 07/2019: https://bit.ly/2H8c2Hn.
+. "Fortschrittsbericht 2023. Industrie 4.0: Auf dem Weg zur intelligent vernetzten Industrie." (German only), 07/2023: https://bit.ly/3MfKrCi.
+. Industrie 4.0 Timeline, 2024: https://bit.ly/3Bpq5DT.
+. „Structure of the Administration Shell”, 04/2018: https://bit.ly/34jbHdo.
+. „What is the Asset Administration Shell from a technical perspective?” 04/2021: https://bit.ly/3w46sPz.
+. „Drive 4.0 - Vision becomes Reality”, 04/2018: https://bit.ly/388ST35.
+. „Which criteria do Industrie 4.0 products need to fulfil?”, 12/2020: https://bit.ly/2Tdti0d.
+. "Information Model for Capabilities, Skills & Services", 08/2022: https://bit.ly/3MfKDl0.
+. "AAS Specifications" landing page: https://industrialdigitaltwin.org/en/content-hub/aasspecifications.
+. "How to Create a Submodel Template Specification", 12/2022: https://bit.ly/3QyV5GM.
+. „AAS Reference Modelling”, 12/2021: https://bit.ly/3qAm4U3.
+. "Industrie 4.0 Communication Guideline", 07/2023: https://bit.ly/49baG6y.
+. "ZVEI-Show-Case PCF@Control Cabinet - Product Carbon Footprint Calculation of a Control Cabinet using the Asset Administration Shell", 05/2022: https://bit.ly/3RYoEz4.
+. „Secure Download Service”, 10/2020: https://bit.ly/3cPSq6A.
+. „Access control for Industrie 4.0 components for application by manufacturers, operators and integrators”, 12/2018: https://bit.ly/37qAJJQ.
+. „AI Application Guide“, 09/2020: https://bit.ly/3KbCIT4.
+. „German Standardization Roadmap Industrie 4.0”, 03/2020: https://bit.ly/3dKrRQj.
+. „Digital business models for Industrie 4.0”, 02/2019: https://bit.ly/2FOroA6.
+. „Describing Capabilities of Industrie 4.0 Components”, 12/2020: https://bit.ly/3tK1Uao.
+. "AAS Tutorials" [Videos], IDTA: https://bit.ly/3DVsCXQ.
 
-== Authors and Contact
-
-AUTHORS:
-* Dr. Sten Grüner (ABB AG)
-* Dr. Jörg Neidig (Siemens AG)
-* Andreas Orzelski (Phoenix Contact GmbH & Co. KG)
-* Stefan Pollmeier (ESR Pollmeier GmbH)
-
-CONTACT:
-Industrial Digital Twin Association e. V.  
-Lyoner Straße 18  
-60528 Frankfurt am Main  
-Phone: +49 69 6603 1939  
-E-Mail: info@idtwin.org
+image:../images/image4.png[image, width=792, height=1121]
