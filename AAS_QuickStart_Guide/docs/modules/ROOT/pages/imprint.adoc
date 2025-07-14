@@ -1,13 +1,18 @@
-== Imprint
+= Imprint
 
-=== Publisher
+== Copyright
+
 Industrial Digital Twin Association
+
 Lyoner Strasse 18
+
 60528 Frankfurt am Main
+
 Germany
+
 https://www.industrialdigitaltwin.org/
 
-=== Version history
+== Version history
 [cols="1,1,1"]
 |===
 | Date | Version/Revision | Changes made
