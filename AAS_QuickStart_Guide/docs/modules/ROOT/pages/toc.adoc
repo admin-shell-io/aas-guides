@@ -1,16 +1,6 @@
 = Contents
-:toc:
+:toc: macro
+:toclevels: 2
 
-== General
-
-=== About this document
-
-== Think Big, Start Small, Scale up!
-
-=== How to get started with the Asset Administration Shell
-
-=== Start for Data Provider
-
-=== Start for Data Consumer
-
-=== AAS Software Landscape
+* xref:general.adoc[General]
+* xref:guide.adoc[Quick Start Guide]
