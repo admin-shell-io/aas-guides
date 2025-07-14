@@ -15,11 +15,8 @@ Want to learn more about the AAS and Submodels? Have a look at the specification
 | image::qr-code_AASSpec.png[width=150]
 | image::qr-code_Submodels.png[width=150]
 
-| *IDTA Specifications of the AAS* +
-https://industrialdigitaltwin.org/en/content-hub/aasspecifications
-
-| *IDTA Submodel Templates* +
-https://industrialdigitaltwin.org/en/content-hub/submodels
+| link:https://industrialdigitaltwin.org/en/content-hub/aasspecifications[IDTA Specifications of the AAS]
+| link:https://industrialdigitaltwin.org/en/content-hub/submodels[IDTA Submodel Templates]
 |===
 
 
