@@ -1,5 +1,6 @@
 name: AAS Quick Start Guide
 version: '1.0'
-start_page: ROOT:index.adoc
+# start_page: ROOT:index.adoc
+start_page: ROOT:imprint.adoc
 nav:
   - modules/ROOT/nav.adoc
