@@ -1,0 +1,70 @@
+== Think Big, Start Small, Scale up!
+
+=== How to get started with the Asset Administration Shell
+Digital Twins are the digital repesentation of an asset, where asset is anything that has an added value to organisations. The AAS is the standardized digital representation of this asset.
+
+The AAS consists of Submodels and can be addressed by unique identifier. Submodels are groups of data based on aspect of an asset, for example a digital nameplate. In addition to this, the semantic definitions, for example based on ECLASS, IEC CDD, can be used to provide unambigious meaning to this data.
+
+.Data groupped in different Submodels of an AAS
+image::images/23-04-25_IDTA_Infografiken_Screencast_01.jpg[width=100%]
+
+Want to learn more about the AAS and Submodels? Have a look at the specifications for the AAS provided by IDTA (Metamodel, API, Data Specification and AASX Package File Format). Additionally, detailed information on different Submodels can be found in IDTA’s Submodel overview.
+
+[cols="1,1"]
+|===
+| image::images/qr_code_AASSpec.png[width=100%] | image::images/qr_code_Submodels.png[width=100%]
+| IDTA Specifications of the AAS | IDTA Submodel Templates
+| https://industrialdigitaltwin.org/en/content-hub/aasspecifications | https://industrialdigitaltwin.org/en/content-hub/submodels
+|===
+
+This document considers two different cases: The user is a data provider or a data consumer. In the end, the document also covers a software tools landscape for AAS to ease implementation.
+
+=== Start for Data Provider
+Steps to be followed by data provider:
+[cols="1,1"]
+|===
+| Step 1 | Choose an asset, for instance, a product type from one product class.
+| Step 2 | Choose a use case and corresponding Submodel template. We recommend starting with a simple use case of the Digital Nameplate.
+| Step 3 | Model the AAS and the chosen Submodel with the help of a modelling tool (for instance, https://github.com/eclipse-aaspe/package-explorer [AASX Package Explorer]).
+| Step 4 | Validate the modelled AAS with the AAS-Validators (for instance, https://github.com/admin-shell-io/aas-test-engines [AAS test engine]).
+| Step 5 | Choose an AAS Server from available open source or proprietary solutions to deploy the modelled AAS. Please refer to the software tools landscape section of this document for more information.
+| Step 6 | Register the AAS with its endpoint into the AAS-Registry to make it discoverable.
+| Step 7 | Repeat for other product types and instances, add more Submodels to the AAS.
+|===
+
+.Providing Asset-related Information by AAS and Submodels
+image::images/DataProviderSteps.png[width=100%]
+
+The result may look as below:
+
+.Example AAS with Digital Nameplate using AASX Package Explorer
+image::images/DataProviderResult.png[width=100%]
+
+=== Start for Data Consumer
+If you are a consumer and want to access the data from the AAS, you can use the AAS Client to connect and retrieve the information from the AAS-Registry, AAS-Discovery and the AAS-/Submodel-Repositories.
+* Registry (AAS/SM): Directories in which AAS IDs and Submodel IDs are stored together with the associated endpoints.
+* Discovery: Supports fast search and only stores copies of the essential information, i.e. key-value pairs to find IDs based on other IDs.
+* Repositories (AAS/SM): Stores data from the AAS, Submodels and concept descriptions.
+
+Steps to be followed by data consumer:
+[cols="1,1"]
+|===
+| Step 1 | Retrieve an AssetId, for instance from a QR code on the asset, RFID for the asset, firmware of the asset, or an asset database.
+| Step 2 | Retrieve the related AAS-Id with AssetId via Discovery Interface (“GetAllAssetAdministrationShellIdsByAssetLink”)
+| Step 3 | Retrieve the AAS descriptor with the AAS-Id from step 2 using AAS Registry Interface (“GetAssetAdministrationShellDescriptorById”). This descriptor consists of AAS-Endpoint (typically a URL-path into a repository or to a single AAS).
+| Step 4 | Use the AAS-Endpoint retrieved in step 3 to query the AAS. This AAS consists of all the Submodel-references of the AAS.
+| Step 5 | Choose a Submodel-reference to be used for further steps. For instance, if you want to retrieve the data related to Digital Nameplate, choose the Submodel-reference which consists of the Submodel-Id of Digital Nameplate. The Submodel-Id can be found at key/value in a Submodel-reference.
+| Step 6 | Use this Submodel-Id to Submodel Registry Interface to retrieve Submodel-Endpoint (“GetSubmodelDescriptorById”).
+| Step 7 | Retrieve the Submodel using the Submodel-Endpoint.
+|===
+
+.Retrieval of Asset-related Information by AAS and Submodels
+image::images/DataConsumerSteps.png[width=100%]
+
+=== AAS Software Landscape
+This section provides information about the AAS tools/solutions based on the level/phase of AAS-implementation.
+
+IDTA fosters the development of reference implementations for the AAS through collaborative open source initiative at Eclipse Foundation called https://projects.eclipse.org/projects/dt [Eclipse Digital Twin Top-Level Project]. In addition to the open source tools and Software Development Kits (SDK) mentioned above, there are some proprietary solutions as well. These can be found at IDTA’s https://industrialdigitaltwin.org/solutions-hub [Solution-Hub].
+
+.AAS Software Landscape
+image::images/241108_IDTA_QuickStartGuide_Grafik_grey.jpg[width=100%]

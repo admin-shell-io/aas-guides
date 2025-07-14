@@ -1,0 +1,4 @@
+== General
+
+=== About this document
+This Document provides a starter guide for developers, to help in implementing a basic Asset Administration Shell (AAS) for an asset. The idea of this document is to start with a single use case, for instance a Digital Nameplate, and to build additional use cases upon it.

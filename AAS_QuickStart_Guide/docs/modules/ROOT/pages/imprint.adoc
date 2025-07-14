@@ -1,0 +1,15 @@
+== Imprint
+
+=== Publisher
+Industrial Digital Twin Association
+Lyoner Strasse 18
+60528 Frankfurt am Main
+Germany
+https://www.industrialdigitaltwin.org/
+
+=== Version history
+[cols="1,1,1"]
+|===
+| Date | Version/Revision | Changes made
+| Nov. 2024 | 1.0 | AAS Quick Start Guide published
+|===
