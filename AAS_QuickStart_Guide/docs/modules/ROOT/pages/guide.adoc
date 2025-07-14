@@ -6,13 +6,13 @@ Digital Twins are the digital repesentation of an asset, where asset is anything
 The AAS consists of Submodels and can be addressed by unique identifier. Submodels are groups of data based on aspect of an asset, for example a digital nameplate. In addition to this, the semantic definitions, for example based on ECLASS, IEC CDD, can be used to provide unambigious meaning to this data.
 
 .Data groupped in different Submodels of an AAS
-image::images/23-04-25_IDTA_Infografiken_Screencast_01.jpg[width=100%]
+image::23-04-25_IDTA_Infografiken_Screencast_01.jpg[width=100%]
 
 Want to learn more about the AAS and Submodels? Have a look at the specifications for the AAS provided by IDTA (Metamodel, API, Data Specification and AASX Package File Format). Additionally, detailed information on different Submodels can be found in IDTA’s Submodel overview.
 
 [cols="1,1"]
 |===
-| image::images/qr_code_AASSpec.png[width=100%] | image::images/qr_code_Submodels.png[width=100%]
+| image::qr_code_AASSpec.png[width=100%] | image::qr_code_Submodels.png[width=100%]
 | IDTA Specifications of the AAS | IDTA Submodel Templates
 | https://industrialdigitaltwin.org/en/content-hub/aasspecifications | https://industrialdigitaltwin.org/en/content-hub/submodels
 |===
@@ -33,12 +33,12 @@ Steps to be followed by data provider:
 |===
 
 .Providing Asset-related Information by AAS and Submodels
-image::images/DataProviderSteps.png[width=100%]
+image::DataProviderSteps.png[width=100%]
 
 The result may look as below:
 
 .Example AAS with Digital Nameplate using AASX Package Explorer
-image::images/DataProviderResult.png[width=100%]
+image::DataProviderResult.png[width=100%]
 
 === Start for Data Consumer
 If you are a consumer and want to access the data from the AAS, you can use the AAS Client to connect and retrieve the information from the AAS-Registry, AAS-Discovery and the AAS-/Submodel-Repositories.
@@ -59,7 +59,7 @@ Steps to be followed by data consumer:
 |===
 
 .Retrieval of Asset-related Information by AAS and Submodels
-image::images/DataConsumerSteps.png[width=100%]
+image::DataConsumerSteps.png[width=100%]
 
 === AAS Software Landscape
 This section provides information about the AAS tools/solutions based on the level/phase of AAS-implementation.
@@ -67,4 +67,4 @@ This section provides information about the AAS tools/solutions based on the lev
 IDTA fosters the development of reference implementations for the AAS through collaborative open source initiative at Eclipse Foundation called https://projects.eclipse.org/projects/dt [Eclipse Digital Twin Top-Level Project]. In addition to the open source tools and Software Development Kits (SDK) mentioned above, there are some proprietary solutions as well. These can be found at IDTA’s https://industrialdigitaltwin.org/solutions-hub [Solution-Hub].
 
 .AAS Software Landscape
-image::images/241108_IDTA_QuickStartGuide_Grafik_grey.jpg[width=100%]
+image::241108_IDTA_QuickStartGuide_Grafik_grey.jpg[width=100%]
