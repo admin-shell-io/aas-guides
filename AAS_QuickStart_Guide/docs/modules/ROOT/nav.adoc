@@ -8,8 +8,6 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ////
 
-image::IDTA_AAS-Quick-Start-Guide-Titel.jpg
-
 * xref:imprint.adoc[Imprint]
 
 * xref:general.adoc[General]
