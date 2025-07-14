@@ -1,6 +1,6 @@
 = Contents
 :toc: macro
-:toclevels: 2
+:toclevels: 3
 
 * xref:general.adoc[General]
-* xref:guide.adoc[Quick Start Guide]
+* xref:guide.adoc[Think Big, Start Small, Scale up!]
