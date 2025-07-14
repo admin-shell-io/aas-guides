@@ -10,10 +10,6 @@ SPDX-License-Identifier: CC-BY-4.0
 
 * xref:imprint.adoc[Imprint]
 
-* xref:toc.adoc[Table of Contents]
-
-* xref:figures.adoc[Figures]
-
 * xref:general.adoc[General]
 
 * xref:guide.adoc[Quick Start Guide]
