@@ -12,13 +12,11 @@ SPDX-License-Identifier: CC-BY-4.0
 
 * xref:toc.adoc[Table of Contents]
 
-* xref: figures.adoc[Figures]
+* xref:figures.adoc[Figures]
 
-// Begin : AAS_QuickStart_Guide
+* xref:general.adoc[General]
 
-* xref: general.adoc[General]
-
-* xref: guide.adoc[Quick Start Guide]
+* xref:guide.adoc[Quick Start Guide]
 
 
 
