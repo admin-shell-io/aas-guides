@@ -10,7 +10,7 @@ image::23-04-25_IDTA_Infografiken_Screencast_01.jpg[width=100%]
 
 Want to learn more about the AAS and Submodels? Have a look at the specifications for the AAS provided by IDTA (Metamodel, API, Data Specification and AASX Package File Format). Additionally, detailed information on different Submodels can be found in IDTA's Submodel overview.
 
-[cols="1,1", frame=none, grid=none]
+[cols="a,a", frame=none, grid=none]
 |===
 | image::qr-code_AASSpec.png[width=150]
 | image::qr-code_Submodels.png[width=150]
