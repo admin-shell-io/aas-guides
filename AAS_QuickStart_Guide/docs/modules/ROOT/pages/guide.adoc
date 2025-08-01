@@ -24,7 +24,7 @@ This document considers two different cases: The user is a data provider or a da
 
 === Start for Data Provider
 Steps to be followed by data provider:
-[cols="1,1"]
+[cols="15,85"]
 |===
 | Step 1 | Choose an asset, for instance, a product type from one product class.
 | Step 2 | Choose a use case and corresponding Submodel template. We recommend starting with a simple use case of the Digital Nameplate.
@@ -50,7 +50,7 @@ If you are a consumer and want to access the data from the AAS, you can use the 
 * Repositories (AAS/SM): Stores data from the AAS, Submodels and concept descriptions.
 
 Steps to be followed by data consumer:
-[cols="1,1"]
+[cols="15,85"]
 |===
 | Step 1 | Retrieve an AssetId, for instance from a QR code on the asset, RFID for the asset, firmware of the asset, or an asset database.
 | Step 2 | Retrieve the related AAS-Id with AssetId via Discovery Interface ("GetAllAssetAdministrationShellIdsByAssetLink")
