@@ -6,17 +6,25 @@ Digital Twins are the digital repesentation of an asset, where asset is anything
 The AAS consists of Submodels and can be addressed by unique identifier. Submodels are groups of data based on aspect of an asset, for example a digital nameplate. In addition to this, the semantic definitions, for example based on ECLASS, IEC CDD, can be used to provide unambigious meaning to this data.
 
 .Data groupped in different Submodels of an AAS
-image::23-04-25_IDTA_Infografiken_Screencast_01.jpg[width=100%]
+image::23-04-25_IDTA_Infografiken_Screencast_01.jpg[width=90%]
 
 Want to learn more about the AAS and Submodels? Have a look at the specifications for the AAS provided by IDTA (Metamodel, API, Data Specification and AASX Package File Format). Additionally, detailed information on different Submodels can be found in IDTA's Submodel overview.
 
 [cols="a,a", frame=none, grid=none]
 |===
-| image::qr-code_AASSpec.png[width=150]
-| image::qr-code_Submodels.png[width=150]
+| 
+[.text-center]
+image::qr-code_AASSpec.png[width=150]
+| 
+[.text-center]
+image::qr-code_Submodels.png[width=150]
 
-| link:https://industrialdigitaltwin.org/en/content-hub/aasspecifications[IDTA Specifications of the AAS]
-| link:https://industrialdigitaltwin.org/en/content-hub/submodels[IDTA Submodel Templates]
+| 
+[.text-center]
+link:https://industrialdigitaltwin.org/en/content-hub/aasspecifications[IDTA Specifications of the AAS]
+| 
+[.text-center]
+link:https://industrialdigitaltwin.org/en/content-hub/submodels[IDTA Submodel Templates]
 |===
 
 
@@ -41,7 +49,7 @@ Steps to be followed by data provider:
 |===
 
 .Providing Asset-related Information by AAS and Submodels
-image::DataProviderSteps.png[width=100%]
+image::DataProviderSteps.png[width=80%]
 
 The result may look as below:
 
