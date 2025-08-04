@@ -54,7 +54,7 @@ image::DataProviderSteps.png[width=80%]
 The result may look as below:
 
 .Example AAS with Digital Nameplate using AASX Package Explorer
-image::DataProviderResult.png[width=100%]
+image::DataProviderResult.png[width=200%]
 
 === Start for Data Consumer
 If you are a consumer and want to access the data from the AAS, you can use the AAS Client to connect and retrieve the information from the AAS-Registry, AAS-Discovery and the AAS-/Submodel-Repositories.
