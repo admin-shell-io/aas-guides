@@ -26,12 +26,17 @@ This document considers two different cases: The user is a data provider or a da
 Steps to be followed by data provider:
 [cols="15,85"]
 |===
-| Step 1 | Choose an asset, for instance, a product type from one product class.
+| Step 1 | Choose an asset, for instance, a product type from one product class. + 
+🎥 link:https://www.youtube.com/watch?v=181FsPbeacQ[Watch screencast on step 1 and step 2]
 | Step 2 | Choose a use case and corresponding Submodel template. We recommend starting with a simple use case of the Digital Nameplate.
-| Step 3 | Model the AAS and the chosen Submodel with the help of a modelling tool (for instance, link:https://github.com/eclipse-aaspe/package-explorer[AASX Package Explorer]).
-| Step 4 | Validate the modelled AAS with the AAS-Validators (for instance, link:https://github.com/admin-shell-io/aas-test-engines[AAS test engine]).
-| Step 5 | Choose an AAS Server from available open source or proprietary solutions to deploy the modelled AAS. Please refer to the software tools landscape section of this document for more information.
-| Step 6 | Register the AAS with its endpoint into the AAS-Registry to make it discoverable.
+| Step 3 | Model the AAS and the chosen Submodel with the help of a modelling tool (for instance, link:https://github.com/eclipse-aaspe/package-explorer[AASX Package Explorer]). + 
+🎥 link:https://www.youtube.com/watch?v=0SjdAaaGDZA[Watch screencast on step 3]
+| Step 4 | Validate the modelled AAS with the AAS-Validators (for instance, https://github.com/admin-shell-io/aas-test-engines[AAS test engine]). + 
+🎥 link:https://www.youtube.com/watch?v=M9AvI0VxV4s[Watch screencast on step 4]
+| Step 5 | Choose an AAS Server from available open source or proprietary solutions to deploy the modelled AAS. Please refer to the software tools landscape section of this document for more information. + 
+🎥 link:https://www.youtube.com/watch?v=iEeuUi_95lQ[Watch screencast on step 5]
+| Step 6 | Register the AAS with its endpoint into the AAS-Registry to make it discoverable. +
+🎥 link:https://www.youtube.com/watch?v=YYS3o3yU1EY[Watch screencast on step 6]
 | Step 7 | Repeat for other product types and instances, add more Submodels to the AAS.
 |===
 
@@ -45,18 +50,23 @@ image::DataProviderResult.png[width=100%]
 
 === Start for Data Consumer
 If you are a consumer and want to access the data from the AAS, you can use the AAS Client to connect and retrieve the information from the AAS-Registry, AAS-Discovery and the AAS-/Submodel-Repositories.
+
 * Registry (AAS/SM): Directories in which AAS IDs and Submodel IDs are stored together with the associated endpoints.
 * Discovery: Supports fast search and only stores copies of the essential information, i.e. key-value pairs to find IDs based on other IDs.
 * Repositories (AAS/SM): Stores data from the AAS, Submodels and concept descriptions.
 
+🎥 link:https://www.youtube.com/watch?v=IJJVVr3HjL0[Watch the introduction for Data Consumer]
+
 Steps to be followed by data consumer:
 [cols="15,85"]
 |===
-| Step 1 | Retrieve an AssetId, for instance from a QR code on the asset, RFID for the asset, firmware of the asset, or an asset database.
+| Step 1 | Retrieve an AssetId, for instance from a QR code on the asset, RFID for the asset, firmware of the asset, or an asset database. +
+🎥 link:https://www.youtube.com/watch?v=rQSNnuZ9azs[Watch screencast on step 1 to step 4]
 | Step 2 | Retrieve the related AAS-Id with AssetId via Discovery Interface ("GetAllAssetAdministrationShellIdsByAssetLink")
 | Step 3 | Retrieve the AAS descriptor with the AAS-Id from step 2 using AAS Registry Interface ("GetAssetAdministrationShellDescriptorById"). This descriptor consists of AAS-Endpoint (typically a URL-path into a repository or to a single AAS).
 | Step 4 | Use the AAS-Endpoint retrieved in step 3 to query the AAS. This AAS consists of all the Submodel-references of the AAS.
-| Step 5 | Choose a Submodel-reference to be used for further steps. For instance, if you want to retrieve the data related to Digital Nameplate, choose the Submodel-reference which consists of the Submodel-Id of Digital Nameplate. The Submodel-Id can be found at key/value in a Submodel-reference.
+| Step 5 | Choose a Submodel-reference to be used for further steps. For instance, if you want to retrieve the data related to Digital Nameplate, choose the Submodel-reference which consists of the Submodel-Id of Digital Nameplate. The Submodel-Id can be found at key/value in a Submodel-reference. +
+🎥 link:https://www.youtube.com/watch?v=MKjOsG9CLP4[Watch screencast on step 5 to step 7]
 | Step 6 | Use this Submodel-Id to Submodel Registry Interface to retrieve Submodel-Endpoint ("GetSubmodelDescriptorById").
 | Step 7 | Retrieve the Submodel using the Submodel-Endpoint.
 |===

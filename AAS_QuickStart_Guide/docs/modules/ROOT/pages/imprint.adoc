@@ -12,9 +12,10 @@ Germany
 
 https://www.industrialdigitaltwin.org/
 
-== Version history
+=== Version history
 [cols="1,1,1"]
 |===
 | Date | Version/Revision | Changes made
-| Nov. 2024 | 1.0 | AAS Quick Start Guide published
+| Nov. 2024 | 1st Version | AAS Quick Start Guide
+| July. 2025 | Update | Links to related screencasts added
 |===
