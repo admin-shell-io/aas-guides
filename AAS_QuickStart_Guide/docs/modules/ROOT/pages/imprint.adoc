@@ -1,3 +1,7 @@
+:doctype: book
+:media: prepress
+:front-cover-image: image:IDTA_AAS-Quick-Start-Guide-Titel.jpg[fit=cover]
+
 = Imprint
 
 == Copyright
