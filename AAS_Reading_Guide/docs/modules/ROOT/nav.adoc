@@ -10,7 +10,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 * xref:aasReadingGuide.adoc[Asset Administration Shell Reading Guide]
 
-* xref:RecommendedDocs.adoc[Recommended Documents]
+* xref:recommendedDocs.adoc[Recommended Documents]
 
 * xref:refereneces.adoc[References]
 
