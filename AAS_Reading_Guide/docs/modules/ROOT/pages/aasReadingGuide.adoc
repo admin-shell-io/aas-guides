@@ -1,0 +1,21 @@
+== Asset Administration Shell Reading Guide
+
+=== Aim of this document
+
+Over the course of the last years IDTA and related organizations have published numerous papers concerning the Asset Administration Shell. This document acts as a guide by recommending selected „must-read” documents for different reader groups and will be updated regularly.
+
+=== Goals of Industrie 4.0
+
+Industrie 4.0 (I4.0) refers to the intelligent networking of machines and processes for industry with the help of information and communication technology. Today’s rigid and strictly defined value chains are replaced by flexible, highly dynamic and globally connected value networks with new forms of cooperation. The Asset Administration Shell helps implementing Digital Twins for I4.0 and creating interoperability across the solutions of different suppliers.
+
+=== Asset Administration Shell in a nutshell
+
+The Asset Administration Shell (AAS) is the digital representation of an asset. The AAS consists of a number of Submodels in which all the information and functionalities of a given asset – including its features, characteristics, properties, statuses, parameters, measurement data and capabilities – can be described. It allows for the use of different communication channels and applications and serves as the link between objects and the connected, digital and distributed world.
+
+The structure of the AAS is defined via a technology independent metamodel and several technology specific serialization mappings such as XML, JSON or RDF. Its contents are defined via domain- or application-specific Submodel templates.
+
+The interaction with the AAS can follow different patterns which have different technical requirements, i.e. file exchange, server-client and peer-to-peer interaction (Figure 1).
+
+image::image2.jpeg[Ein Bild, das Text, Screenshot, Diagramm, Design enthält. Automatisch generierte Beschreibung, width=297, height=187]
+
+Figure 1: AAS interaction patterns

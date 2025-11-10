@@ -1,0 +1,26 @@
+== References
+
+[arabic]
+. „What is Industrie 4.0?”: https://bit.ly/3kaRz2N.
+. „The Asset Administration Shell: Implementing digital twins for use in Industrie 4.0, A starter kit for developers”, 12/2019: https://bit.ly/3kZZSPl.
+. „The digital twin in Industrie 4.0 - A short introduction to properties, submodels & Asset Administration Shells (AAS)”, 05/2021: https://bit.ly/32FVdOf.%20[https://bit.ly/32FVdOf.]
+. „Details of the Administration Shell - from idea to implementation”, 07/2019: https://bit.ly/2H8c2Hn.
+. "Fortschrittsbericht 2023. Industrie 4.0: Auf dem Weg zur intelligent vernetzten Industrie." (German only), 07/2023: https://bit.ly/3MfKrCi.
+. Industrie 4.0 Timeline, 2024: https://bit.ly/3Bpq5DT.
+. „Structure of the Administration Shell”, 04/2018: https://bit.ly/34jbHdo.
+. „What is the Asset Administration Shell from a technical perspective?” 04/2021: https://bit.ly/3w46sPz.
+. „Drive 4.0 - Vision becomes Reality”, 04/2018: https://bit.ly/388ST35.
+. „Which criteria do Industrie 4.0 products need to fulfil?”, 12/2020: https://bit.ly/2Tdti0d.
+. "Information Model for Capabilities, Skills & Services", 08/2022: https://bit.ly/3MfKDl0.
+. "AAS Specifications" landing page: https://industrialdigitaltwin.org/en/content-hub/aasspecifications.
+. "How to Create a Submodel Template Specification", 12/2022: https://bit.ly/3QyV5GM.
+. „AAS Reference Modelling”, 12/2021: https://bit.ly/3qAm4U3.
+. "Industrie 4.0 Communication Guideline", 07/2023: https://bit.ly/49baG6y.
+. "ZVEI-Show-Case PCF@Control Cabinet - Product Carbon Footprint Calculation of a Control Cabinet using the Asset Administration Shell", 05/2022: https://bit.ly/3RYoEz4.
+. „Secure Download Service”, 10/2020: https://bit.ly/3cPSq6A.
+. „Access control for Industrie 4.0 components for application by manufacturers, operators and integrators”, 12/2018: https://bit.ly/37qAJJQ.
+. „AI Application Guide“, 09/2020: https://bit.ly/3KbCIT4.
+. „German Standardization Roadmap Industrie 4.0”, 03/2020: https://bit.ly/3dKrRQj.
+. „Digital business models for Industrie 4.0”, 02/2019: https://bit.ly/2FOroA6.
+. „Describing Capabilities of Industrie 4.0 Components”, 12/2020: https://bit.ly/3tK1Uao.
+. "AAS Tutorials" [Videos], IDTA: https://bit.ly/3DVsCXQ.

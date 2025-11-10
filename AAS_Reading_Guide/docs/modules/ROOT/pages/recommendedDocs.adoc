@@ -1,0 +1,45 @@
+== Recommended documents
+
+For this reading guide the documents have been sorted by interest groups rather than topics. In some cases, only specific pages or sections are recommended reading material.
+
+* *Where to start:* If you have never heard of the AAS
+* *For the generally interested reader:* If you want to learn more about the subject
+* *For decision makers:* If you are interested in the business side of I4.0
+* *For software developers and architects:* If you want to know how to create software for the AAS
+* *For users of the AAS and domain experts:* If you are interested in using the AAS for specific tasks
+* *Security and AI:* If you want to deep dive into these special topics.
+
+=== Where to start
+
+When completely new to the topic of I4.0 and the AAS we highly recommend visiting the website of the Plattform Industrie 4.0 [1]. Then start with the Two-Pager [2] and the presentation slides [3]. The first few slides of the Presentation [4] cover general AAS topics, later slides introduce some advanced topics. All these should provide a brief and quick introduction into the topic in general. For a deep dive [5] gives a comprehensive overview of recent and current activities of the Plattform I4.0.
+
+=== For the generally interested reader
+
+I4.0 has undergone a long journey, but [6] shows on a single page how things developed and how it all fits together. [7] gives a condensed overview of the AAS concepts and serves in many ways as a leading picture. [8] summarizes the major technical aspects and different shapes of the AAS. [9] is recommended, because it covers all major aspects of I4.0 (including finding use cases, creating semantic models, and operation) by using a drive as an example. The described concepts can easily be transferred to sensors and actors in general.
+https://fluidtechnik40.de/en/ is an initiative of the VDMA with an overview, use cases and examples.
+
+=== For decision makers
+
+[10] includes a detailed list of technical criteria that need to be fulfilled for an I4.0 component. It also includes a technology roadmap and lists several examples of commercially available products that fulfil these criteria. [16] introduces an initiative to utilize the AAS to provide a Digital Product Passport including the Product Carbon Footprint with the aim to fulfil future requirements of the EU Green Deal.
+
+The analysis in [21] aims at giving companies orientation when designing their digital business models using 22 practical examples. Initiatives like https://catena-x.net/en and Manufacturing-X are applying the AAS as one of their core technologies.
+
+=== For software developers and architects
+
+The most important documents are the AAS Specifications found on [12]. They are divided into multiple parts and specify all aspects of the metamodel, the API, AASX file format, etc. [13] describes the possible workflows and necessary working steps to create a Submodel template. For implementations the open source projects on https://github.com/admin-shell-io and others (see below) are highly recommended. Because the recent release of the specification has introduced some significant changes, we recommend taking a look at the tutorial [23]. As an overview [8] describes the different shapes of the AAS from a technical perspective including security. The first part of the international standard IEC 63278 "Asset Administration Shell for industrial applications" has been published. Further parts are in progress. [11] creates an understanding of how the three elements capabilities, skills and services can be used for new production concepts.
+
+image::image3.jpeg[Ein Bild, das Text, Himmel enthält. Automatisch generierte Beschreibung, width=297, height=362]
+
+=== For users of the AAS and domain experts
+
+If you are interested in using or creating AAS we recommend starting by looking into the software tool AASX package explorer (see below) and the screencasts at http://admin-shell-io.com/screencasts/. New Submodel templates are continuously being released and are available on the website of the IDTA https://industrialdigitaltwin.org/en/content-hub/submodels. Documents [11] and [15] might also be of interest. [13] describes how to create a new Submodel template. [14] shows best practice patterns for the implementation of AAS. It provides practical guidance on how to model the AAS (including AAS for assets composed of multiple assets) and how to use it in applications.
+
+=== Security and AI
+
+[17] describes requirements and implementations of a secure communication in the engineering process. [18] explains different secure data access architectures and looks at questions regarding at implementation and applicability. [19] focusses on the application of AI in industrial production and analyses different use cases for potential impact and questions. [11] and [22] discuss the means of capabilities, skills and services to provide standardized information about and access to asset functionalities.
+
+=== Tools, examples and prototypes
+
+The website https://github.com/eclipse-aaspe/aaspe contains the latest version of the *AASX package explorer*, which can be used to create, edit and view AAS file serializations (*.aasx). The site https://github.com/admin-shell-io includes the *AASX-server* as code, binaries or pre-built docker images making AASX packages accessible via standardized APIs, a highly recommended FAQ with best practices and further resources.
+
+The Eclipse Digital Twin Top-Level Project found at https://projects.eclipse.org/projects/dt is a collaborative, open source initiative at the Eclipse Foundation fostering the development of reference implementations for the AAS activities driven by the IDTA. Eclipse BaSyx (https://eclipse.dev/basyx/) is an open source AAS middleware. https://admin-shell-io.com/ provides various tools and examples including a running AAS server with a web interface and AAS for exemplary products. However, not all examples have been updated to v3.0 of the AAS specification, yet.
