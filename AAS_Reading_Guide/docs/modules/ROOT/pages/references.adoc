@@ -13,7 +13,7 @@
 . „Which criteria do Industrie 4.0 products need to fulfil?”, 12/2020: https://bit.ly/2Tdti0d.
 . "Information Model for Capabilities, Skills & Services", 08/2022: https://bit.ly/3MfKDl0.
 . "AAS Specifications" landing page: https://industrialdigitaltwin.org/en/content-hub/aasspecifications.
-. "How to Create a Submodel Template Specification", 12/2022: https://bit.ly/3QyV5GM.
+. "How to Create a Submodel Template Specification", 06/2025: https://industrialdigitaltwin.org/wp-content/uploads/2025/06/IDTA_How-to-write-a-SMT-v1.1.pdf.
 . „AAS Reference Modelling”, 12/2021: https://bit.ly/3qAm4U3.
 . "Industrie 4.0 Communication Guideline", 07/2023: https://bit.ly/49baG6y.
 . "ZVEI-Show-Case PCF@Control Cabinet - Product Carbon Footprint Calculation of a Control Cabinet using the Asset Administration Shell", 05/2022: https://bit.ly/3RYoEz4.
