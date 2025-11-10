@@ -1,5 +1,5 @@
 name: AAS Reading Guide
 version: 'In Progress'
-start_page: ROOT:index.adoc
+start_page: ROOT:aasReadingGuide.adoc
 nav:
   - modules/ROOT/nav.adoc
