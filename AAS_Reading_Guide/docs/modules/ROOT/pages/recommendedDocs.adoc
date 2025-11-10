@@ -34,6 +34,10 @@ image::image3.jpeg[Ein Bild, das Text, Himmel enthält. Automatisch generierte B
 
 If you are interested in using or creating AAS we recommend starting by looking into the software tool AASX package explorer (see below) and the screencasts at http://admin-shell-io.com/screencasts/. New Submodel templates are continuously being released and are available on the website of the IDTA https://industrialdigitaltwin.org/en/content-hub/submodels. Documents [11] and [15] might also be of interest. [13] describes how to create a new Submodel template. [14] shows best practice patterns for the implementation of AAS. It provides practical guidance on how to model the AAS (including AAS for assets composed of multiple assets) and how to use it in applications.
 
+==== Other domain specific documents
+
+* *Building Information Model (BIM)*: A guideline with the title 'BIM-Gebäudemodell zur Integration von Maschinen, gebäudetechnischen Anlagen und externen Geräten mittels Verwaltungsschale'. This document outlines how integrating BIM with AAS enables a comprehensive digital twin of buildings. The approach improves planning, operation, and maintenance efficiency while supporting sustainability and collaboration across systems.
+
 === Security and AI
 
 [17] describes requirements and implementations of a secure communication in the engineering process. [18] explains different secure data access architectures and looks at questions regarding at implementation and applicability. [19] focusses on the application of AI in industrial production and analyses different use cases for potential impact and questions. [11] and [22] discuss the means of capabilities, skills and services to provide standardized information about and access to asset functionalities.
