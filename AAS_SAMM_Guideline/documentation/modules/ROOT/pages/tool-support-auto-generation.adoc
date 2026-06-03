@@ -1,0 +1,103 @@
+= Tool support for automatic generation of Aspect Models from AASX and vice versa
+
+== Introduction
+
+Note: The generators may not (yet) support all mapping rules of this document, i.e. manual work might be needed after generating or exporting.
+
+== With the ESMF SAMM CLI
+
+Use the SAMM CLI to transform an Aspect Model into a Submodel Template and vice versa.
+
+=== Prerequisites
+
+* The *SAMM CLI* is available on your computer. If not, for more information, refer to xref:introduction.adoc#ESMF-SAMM-CLI[ESMF SAMM CLI].
+* The *example Aspect Model* (or any other Aspect Model) is stored on your computer with all its corresponding folders. +
+If not, please store it on your computer. Please link:https://eclipse-esmf.github.io/esmf-developer-guide/tooling-guide/samm-cli.html#models-directory-structure[understand the models directory structure,window=_blank] that is crucial for correct execution.
+
+=== How to proceed for generating AASX from an Aspect Model
+
+. Open the SAMM CLI.
+. Add the *samm aspect to aas* command.
+.. The values in the command depend on where you stored the Aspect Model on your computer and where you want the new file to be stored. Also, you can choose whether you need an AASX file (to open it in the Package Explorer) or an XML file.
+.. For example: +
+`samm aspect "C:\org.eclipse.examples\1.0.0\Movement.ttl" to aas -f="aasx" -o="C:\Movement.aasx"` +
+`samm aspect "C:\org.eclipse.examples\1.0.0\Movement.ttl" to aas -f="xml" -o="C:\Movement.xml"`
+.. For more information, consult the link:https://eclipse-esmf.github.io/esmf-developer-guide/tooling-guide/samm-cli.html[SAMM CLI user documentation,window=_blank].
+. Hit the Enter key on your keyboard.
+
+=== How to proceed for generating an Aspect Model from an AASX
+
+. Open the SAMM CLI.
+. Add the *samm aspect to aas* command.
+.. The values in the command depend on where you stored the Aspect Model on your computer and where you want the new file to be stored. Also, you can choose whether you need an AASX file (to open it in the Package Explorer) or an XML file.
+.. For example: +
+`samm aas Movement.aasx to aspect`.
+.. For more information, consult the link:https://eclipse-esmf.github.io/esmf-developer-guide/tooling-guide/samm-cli.html[SAMM CLI user documentation,window=_blank].
+. Hit the Enter key on your keyboard.
+
+=== Result
+
+The SAMM CLI generates the corresponding AASX or XML file, and names and stores the file as you requested it in the command. You can now open the AASX file in the Package Explorer or the XML file in an editor of your choice.
+
+*Tip:* If you just want to directly see the XML structure for the Submodel Template and do not need a file, leave out the `-f` and `-o` arguments. The SAMM CLI will then just display the XML code for the Submodel Template.
+
+Example command:
+
+`samm aspect "C:\org.eclipse.examples\1.0.0\Movement.ttl" to aas`.
+
+
+== With the Eclipse AASX Package Explorer
+
+Use the Package Explorer to transform an Aspect Model into a Submodel Template or vice versa.
+
+Note: this is only supported when using SAMM specific extensions (see xref:iec61360-concept-descriptions.adoc[ConceptDescriptions with IEC61360 Data Specification]) and not the data specification IEC61360 for concept descriptions.
+
+The corresponding step-by-step documentation can be found here: link:https://github.com/eclipse-aaspe/package-explorer/tree/main/src/AasxCore.Samm2_2_0/documentation[https://github.com/eclipse-aaspe/package-explorer/tree/main/src/AasxCore.Samm2_2_0/documentation,window=_blank].
+
+=== Prerequisite
+
+* The *AASX* Package *Explorer* is available on your computer. If not, for more
+  information, refer to xref:introduction.adoc#Eclipse-AASX-Package-Explorer[Eclipse AASX Package Explorer].
+
+=== How to proceed: SAMM to AASX
+
+. Open the Package Explorer.
+. Import Aspect Model you want to convert with *"File/Import .../Import SAMM aspect into ConceptDescriptions ..."*
+. Create an Asset Administration Shell.
+. create a Submodel Template within this new AAS with *"Workspace/Create.../New Submodel from SMT/SAMM ConceptDescription"*. You will be guided throught the process whether to create a complete Submodel or step by step for every element in the Aspect Model considering mandatory and optional elements.
+
+=== Result
+
+A Submodel Template conformant to the Aspect Model.
+
+=== How to proceed: AASX to SAMM
+
+. Open the Package Explorer.
+. Open the AASX with SAMM extensions you want to convert to SAMM.
+. Export AASX from chosen concept description using *"File/Export .../Export SAMM aspect model by selected CD"*
+
+=== Result
+
+An Aspect Model conformant to SAMM.
+
+== With the ESMF Aspect Model Editor
+
+Use the Aspect Model Editor to transform an Aspect Model into a Submodel Template.
+
+=== Prerequisite
+
+The Aspect Model Editor is available on your computer. If not, for more information, refer to xref:introduction.adoc#esmf-aspect-model-editor[ESMF Aspect Model Editor].
+
+=== How to proceed
+
+. Open the Aspect Model Editor.
+. Open the example Aspect Model: select *File > New > Movement.ttl*.
+. Generate the corresponding Submodel Template: select *Generate > AASX / XML*.
+. At the dialog window, choose whether you want to generate an AASX file or an XML file.
+. Click Generate.
+
+=== Result
+
+The Aspect Model Editor generates the corresponding AASX or XML file and asks you back how to name it and where to store it.
+
+You can then open the file in the Package Explorer (AASX file) or an editor of your choice (XML file).

@@ -1,0 +1,356 @@
+= Introduction
+
+## General
+
+The Asset Administration Shell (AAS) has emerged as a crucial standard for enabling interoperability in the realm of digital twins, particularly within Industry 4.0 and mobility domains. By providing a structured approach to representing assets and their properties, AAS facilitates seamless data exchange and collaboration across different systems and applications. A core component of AAS is the Submodel Template (SMT), which defines specific aspects of an asset, such as its technical data, operational parameters, or documentation. While the AAS specifications define the structure for these Submodel Templates, it intentionally leaves open how the semantic meaning of their content should be modeled. This flexibility allows domain experts to tailor Submodel Templates to their specific needs while still adhering to the overall AAS framework.
+
+This openness, however, also presents a challenge: how to ensure consistent semantic modeling when the content of Submodel Templates can be modeled in various ways? How to employ a flexible and expressive approach for semantic modeling? One powerful approach to address this challenge is the Eclipse Semantic Modeling Framework (ESMF) and its Semantic Aspect Meta Model (SAMM). SAMM provides a metamodel specification for creating Aspect Models, which serve as formal semantic descriptions for Submodel Templates.
+
+While SAMM provides a modeling approach for formally describing semantics, practical initiatives such as those led by the Industrial Digital Twin Association (IDTA) help mitigate this challenge. By publishing standardized Submodel Templates that embed agreed-upon semantic references, IDTA provides reusable structures for common domains. However, for domain-specific or new use cases, the flexibility of semantic modeling remains necessary – and SAMM can support that structured development.
+
+Employing SAMM has already been successfully adopted within the Catena-X automotive network, demonstrating its practical value in complex industrial ecosystems.
+
+This paper provides a detailed guide for professionals in technical domains on how to leverage the combined power of SAMM and AAS. Specifically, this document focuses on the use of SAMM Aspect Models as semantic models for Submodel Templates. It will show how to create SAMM Aspect Models, and subsequently, how SAMM elements can be incorporated within the AAS framework.
+
+Note: There is no bi-directional or round-trip generation between a SMT and an Aspect Model. More information can be found in xref:samm2smt.adoc[SAMM2SMT].
+
+The Semantic Aspect Meta Model (SAMM) is the core part of the Eclipse Semantic Modeling Framework (ESMF) project.
+
+The Eclipse Semantic Modeling Framework (ESMF) project hosts the SAMM specification and the surrounding tool landscape.
+
+The Eclipse Semantic Modeling Framework (ESMF) tools help with semantic modeling itself and with developing software applications based on semantic models (Aspect Models).
+
+The Eclipse Semantic Modeling Framework (ESMF) project is hosted under the umbrella of the Eclipse Digital Twin top-level project driven by the Industrial Digital Twin Association (IDTA).
+
+ESMF project: link:https://projects.eclipse.org/projects/dt.esmf[window=_blank] +
+
+IDTA top-level project: link:https://projects.eclipse.org/projects/dt[window=_blank] +
+
+The Asset Administration Shell (AAS) is the standardized digital representation of assets defined by the Industrial Digital Twin Association (IDTA). It enables interoperability between systems by structuring data in a semantically consistent way throughout the asset lifecycle.
+
+Submodels within the AAS contain structured elements such as Properties, Ranges, or Operations. These elements can be semantically enriched by referencing concepts defined in external ontologies — including SAMM-based Aspect Models. This connection is made via the `semanticId` attribute in the AAS metamodel, typically linking to SAMM `.ttl` files.
+
+The AAS and SAMM therefore complement each other:
+
+* SAMM provides a rich semantic vocabulary for defining domain concepts
+* AAS provides the structural and operational shell to deploy those semantics across distributed systems
+
+More information on the AAS can be found here:
+
+* IDTA Website: link:https://www.idta.org[window=_blank]
+* AAS GitHub organization: link:https://github.com/admin-shell-io[window=_blank]
+* AAS Metamodel Specification (V3): link:https://github.com/admin-shell-io/aas-specs[window=_blank]
+* AASX Package Explorer: link:https://github.com/admin-shell-io/aasx-package-explorer[window=_blank]
+* AAS Test Engines: link:https://github.com/admin-shell-io/aas-test-engines[window=_blank]
+
+The AAS is part of the *Eclipse Digital Twin top-level project*: link:https://projects.eclipse.org/projects/dt[window=_blank]. +
+
+This guideline focuses on the practical integration of SAMM-based semantic models into AAS Submodel Templates to enable standard-based, interoperable digital twins.
+
+Together, AAS and SAMM form the backbone of semantically interoperable digital twins, combining lifecycle-wide structuring (via AAS) with rich domain semantics (via SAMM).
+
+The following sections briefly describe the Semantic Aspect Meta Model (SAMM) specification and the surrounding tool landscape provided by the Eclipse Semantic Modeling Framework (ESMF) project.
+
+== Submodel Template Specifications
+
+The Submodel Template (SMT) specification defines how the structure and semantics of Submodels are described within the Asset Administration Shell (AAS). Submodel Templates serve as reusable blueprints for modeling consistent asset-related information across domains, supporting semantic interoperability and data exchange in Industry 4.0 environments.
+
+The Industrial Digital Twin Association (IDTA) publishes official Submodel Template specifications to provide guidance and consistency for both tool providers and domain experts. These specifications define the formal structure, element types, and semantic references that should be used when developing Submodels. The goal is to simplify the creation, sharing, and consumption of digital twin data by promoting common, machine-interpretable modeling patterns.
+
+The IDTA provides several resources to support Submodel Template development:
+
+* The link:https://industrialdigitaltwin.org/en/content-hub/create-a-submodel[Create a submodel - IDTA,window=_blank] [4]provides an entry point for submitting proposals to develop new Submodel Templates and initiate the IDTA’s standardization process.
+* The detailed link:https://industrialdigitaltwin.org/en/wp-content/uploads/sites/2/2025/06/IDTA_How-to-write-a-SMT-v1.1.pdf[How to write a SMT,window=_blank] [1]document offers practical modeling instructions, including element selection, `semanticId` referencing, and best practices for consistency and reusability.
+* The link:https://github.com/admin-shell-io/submodel-templates[admin-shell-io/submodel-templates: IDTA Submodel Templates for AAS,window=_blank] [5]hosts published SMTs, making reusable templates openly available for tool integration and reference.
+
+These specifications ensure that Submodel Templates are not only syntactically valid but also semantically meaningful, enabling automated validation, interoperability, and standardized cross-company information exchange.
+
+=== Goals and benefits
+
+The Submodel Template specification ensures standardized and interoperable data modeling within the AAS framework. Its main goals are:
+
+* *Standardization*: Uniform structure and semantics for consistent data interpretation.
+* *Interoperability*: Enables seamless data exchange across systems and partners.
+* *Reusability*: Supports reuse of established templates for common use cases.
+* *Validation*: Allows automated checks against the AAS metamodel for correctness.
+* *Extensibility*: Permits domain-specific additions while staying metamodel-compliant.
+
+The full specification is available at the link:https://industrialdigitaltwin.io/aas-specifications/index/home/index.html[AAS Specifications,window=_blank].
+
+=== Asset Administration Shell elements (overview)
+
+Submodel Templates are defined using elements specified in the AAS metamodel. The main element types include:
+
+* *Submodel*
+* *SubmodelElementCollection*
+* *Property, MultiLanguageProperty, File, Blob, Range*
+* *Entity, RelationshipElement*
+* *Operation, Event*
+* *ConceptDescription* (for semantic referencing via Semantic IDs)
+
+These elements allow modeling of both simple and complex asset information in a structured and machine-interpretable way.
+
+The detailed metamodel specification is available at the link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/overview.html[Overview Metamodel of the Asset Administration Shell,window=_blank] [11].
+
+image::aas-elements-overview.png[Asset Administration Shell elements overview]
+
+=== Built on standards
+
+The Asset Administration Shell (AAS) and its Submodel Template Specifications are built on well-established standards such as:
+
+* XML
+* JSON
+* RDF
+
+For these technologies corresponding schemas and link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/mappings/mappings.html[mapping rules,window=_blank] are defined.
+
+File Exchange for Asset Administration Shell and Submodel Templates is specified in link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01005/v3.1/index.html[IDTA-01005,window=_blank]. It is based on Open Packaging Conventions. For more information see link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01005/v3.1/annex/background.html#_selection_of_the_reference_format_for_the_asset_administration_shell_package_format[https://admin-shell-io.github.io/aas-specs-antora/IDTA-01005/v3.1/annex/background.html#_selection_of_the_reference_format_for_the_asset_administration_shell_package_format,window=_blank].
+
+Additionally, APIs are specified. One of the API profiles is dedicated to a link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01002/v3.1/http-rest-api/service-specifications-and-profiles.html[submodel template repository,window=_blank] (link:https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003[https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003,window=_blank]).
+
+In addition to serialization format mappings, validation plays a key role in ensuring that AAS artifacts conform to the specification. The AAS Test Engines project (link:https://github.com/admin-shell-io/aas-test-engines[GitHub - admin-shell-io/aas-test-engines: Official test tooling for the Asset Administration Shell,window=_blank]) provides a formal test and validation framework for Asset Administration Shell instances, including AASX files and Submodel Templates. These test engines check for syntactic and model‑level compliance with the AAS metamodel and can be integrated into development and CI/CD workflows to ensure ongoing specification conformance.
+
+== Semantic Aspect Meta Model (SAMM)
+
+The Semantic Aspect Meta Model (SAMM) specifies how to describe semantic information for a given asset.
+
+Aspect Models are semantic descriptions that adhere to SAMM.
+
+An Aspect Model can be used as a semantic description for the Submodel of an Asset Administration Shell. This is described in xref:samm2smt.adoc[SAMM2SMT].
+
+For existing Submodel Templates, especially if they are containing concept descriptions, it is also possible to derive an Aspect Model, see xref:smt2samm.adoc[SMT2SAMM].
+
+=== Goals and benefits
+
+The Semantic Aspect Meta Model (SAMM) empowers domain experts to formalize their domain knowledge.
+
+The Semantic Aspect Meta Model (SAMM) is built for scalability, encouraging the reuse of semantic information.
+
+To keep entry barriers low, Aspect Models are simpler to create, maintain, and use than, for example, ontologies based on the W3C Web Ontology Language (OWL).
+
+=== SAMM elements (overview)
+
+With the Semantic Aspect Meta Model (SAMM) you can formalize the following semantic information:
+
+* Data types
+* Physical units
+* Reusable Characteristics and Constraints – define them once, reuse them multiple times Example for reusability:
+** Assume you have a use case where multiple temperatures are provided, for example, a machine temperature and a fluid’s temperature.
+** Each of these temperatures is considered a Property of the corresponding physical asset(s) related to your use case.
+** Now, you do not want to define for each Property, again and again, what a temperature is or which physical units you use.
+** That is what Characteristics are for. – You would define a temperature Characteristic and then can reuse this for any temperature Property you have in your use case.
+* Example values
+* Descriptions
+* References
+
+Every element in an Aspect Model is uniquely identified by a URI. The following graphic depicts the elements used for Aspect Models according to the Semantic Aspect Meta Model (SAMM).
+
+image::elements-aspect-model-samm.png[Elements used for Aspect Models according to the Semantic Aspect Meta Model (SAMM)]
+
+For more information on the SAMM elements used for Aspect Models, refer to the specification itself: link:https://eclipse-esmf.github.io/samm-specification/snapshot/index.html[https://eclipse-esmf.github.io/samm-specification/snapshot/index.html,window=_blank].
+
+=== Built on standards
+
+The Semantic Aspect Meta Model (SAMM) is built on well-established standards such as:
+
+* RDF
+* XSD (for data types)
+* UNECE Recommendation 20 Unit catalog (for physical units) link:https://tfig.unece.org/instruments/recommendations-and-standards/unece-and-uncefact-recommendations/recommendation-no-20/[https://tfig.unece.org/instruments/recommendations-and-standards/unece-and-uncefact-recommendations/recommendation-no-20/,window=_blank]
+
+Validation is done via SHACL, a W3C standard and a schema language used for RDF.
+
+== Refer to further catalogues, e.g., ECLASS.
+
+Both AAS Submodel Templates and Aspect Models can refer to further vocabularies or catalogues, for example, ECLASS.
+
+In AAS Submodel Templates, use a global reference with the Semantic ID.
+
+In Aspect Models, use the link:https://eclipse-esmf.github.io/samm-specification/snapshot/modeling-guidelines.html#adding-external-references[samm:see,window=_blank] attribute to point to any URI (can be a URL or a URN). If the external reference uses another reference format, such as `ECLASS` which uses `IRDI`, then you would construct an artificial URN such as urn:irdi:[IRDI path] – that way you create an URN and make it explicit what kind of reference you are expecting (in this case:
+IRDI).
+
+While AAS Submodel Templates and Aspect Models use different mechanisms ('`semanticId`' vs. '`samms:see`') to point to external references, their purpose aligns: to ensure semantic interoperability using standardized vocabularies such as ECLASS. These mechanisms are complementary and support consistent data interpretation across tools and lifecycles.
+
+== Tool support for semantic modeling, file conversion, and software development
+
+With Aspect Models and Submodel Templates, raw data gets more context, such as numeric constraints, predefined valid values, physical units etc.
+
+For creating Aspect Models and Submodel Templates, that is, for semantic modeling, specific tools are available. Both are developed under the umbrella of the link:https://projects.eclipse.org/projects/dt[Eclipse Digital Twin Project,window=_blank].
+
+.Tools for semantic modeling
+|===
+| | *For Aspect Models* | *For Submodel Templates*
+
+| *Tool for semantic modeling*
+a|
+image::aspect-model-editor-icon.png[Aspect Model Editor Icon]
+
+Aspect Model Editor
+
+(ESMF Aspect Model Editor)
+a|
+image::aasx-package-explorer-icon.png[AASX Package Explorer Icon]
+
+AASX Package Explorer
+
+(Eclipse AASX Package Explorer)
+
+| *Corresponding Eclipse project*
+| link:https://projects.eclipse.org/projects/dt.esmf[Eclipse Semantic Modeling Framework (ESMF),window=_blank]
+| link:https://projects.eclipse.org/projects/dt.aaspe[Eclipse AASX Package Explorer and Server,window=_blank]
+
+| *Corresponding Eclipse top project*
+| link:https://projects.eclipse.org/projects/dt.esmf[Eclipse Semantic Modeling Framework (ESMF) \| projects.eclipse.org,window=_blank]
+| link:https://projects.eclipse.org/projects/dt[Eclipse Digital Twin \| projects.eclipse.org,window=_blank]
+|===
+
+Both the AASX Package Explorer and the Aspect Model Editor are evolving. As interoperability between Submodel Templates and Aspect Models increases, future tooling may support import/export functions, bridging semantic models across these formats more seamlessly.
+
+[[Eclipse-AASX-Package-Explorer]]
+== Eclipse AASX Package Explorer
+
+=== Capabilities
+
+The Eclipse AASX Package Explorer provides a user-friendly interface for working with Asset Administration Shells (AAS). It is widely used for creating, editing, and validating AASX files, especially during prototyping or testing phases. It also supports basic integration scenarios with semantic models such as SAMM-based Aspect Models.
+
+The tool is based on the AASX file format, which follows the Open Packaging Conventions (OPC). An AASX file serves as a container that bundles one or more Asset Administration Shells along with their Submodels, ConceptDescriptions, and any additional resources (e.g., PDFs, images, attachments). This structure allows a complete AAS to be exchanged as a single portable file.
+
+Main features:
+
+* View, create, and edit Asset Administration Shells (AAS)
+* Explore the structure of AASX files: open and explore the internal contents, such as Submodels, assets, and semantic definitions
+* Create, add or modify Submodels and Submodel Templates
+* Import and export AAS in various formats. For example:
+** Transform Submodel Templates to SAMM-compliant Aspect Models
+** Import SAMM-compliant Aspect Models
+* Directly consume asset data. This especially helps when testing your Asset Administration Shells.
+
+=== Limitations
+
+You cannot edit Aspect Models with the AASX Package Explorer. The tool is focused on managing AAS structures and instances, not on editing SAMM-based semantic models directly.
+
+=== Installation files
+
+Download and install the AASX Package Explorer from its Releases page on GitHub: link:https://github.com/eclipse-aaspe/package-explorer/releases[https://github.com/eclipse-aaspe/package-explorer/releases,window=_blank].
+
+=== User documentation
+
+Find more information about using the AASX Package Explorer on its Readme page on GitHub:
+
+link:https://github.com/eclipse-aaspe/package-explorer?tab=readme-ov-file[https://github.com/eclipse-aaspe/package-explorer?tab=readme-ov-file,window=_blank].
+
+image::aasx-package-explorer-interface.png[AASX Package Explorer Interface]
+
+== ESMF Aspect Model Editor
+
+The Semantic Aspect Meta Model (SAMM) specifies how to create Aspect Models,
+i.e., formalized semantic descriptions. See also link:https://eclipse-esmf.github.io/samm-specification/snapshot/index.html[Semantic Aspect Meta Model (SAMM)].
+
+=== Capabilities
+
+To help creating SAMM-compliant Aspect Models, the Eclipse Semantic Modeling Framework (ESMF) provides a visual editor for Aspect Models, the Aspect Model Editor. The concepts, modeling possibilities, and restrictions defined by SAMM are incorporated in the Aspect Model Editor in a convenient way. The Aspect Model Editor is Features.
+
+The Aspect Model Editor visualizes Aspect Models, which allows for better comprehension, especially of large Aspect Models.
+
+Main features:
+
+* Visually create, edit and store Aspect Models
+* Validate Aspect Models against the Semantic Aspect Meta Model
+* Manage Aspect Models: file-based, locally, version-controlled
+* Transform Aspect Models into further artifacts, for example, AASX files
+* Available for all major operating systems (Windows, MacOS, Linux)
+
+=== Limitations
+
+With the Aspect Model Editor, you cannot make any statements about the APIs, or the asset, or AAS-specific elements such as concept descriptions.
+
+The Aspect Model Editor is not meant to replace the AASX Package Explorer. It is an additional tool that allows to create and work with Aspect Models. That means:
+
+* You cannot edit Submodel Templates or Submodels within the Aspect Model Editor.
+* The Aspect Model Editor is not meant to directly consume asset data.
+
+=== Installation files
+
+Download and install the Aspect Model Editor from its Releases page on GitHub:
+
+link:https://github.com/eclipse-esmf/esmf-aspect-model-editor/releases[https://github.com/eclipse-esmf/esmf-aspect-model-editor/releases,window=_blank].
+
+Version used for this paper:
+
+link:https://github.com/eclipse-esmf/esmf-aspect-model-editor/releases/tag/v5.6.1[v5.6.1,window=_blank]
+
+=== User documentation
+
+For more information on the Aspect Model Editor, refer to the user guide:
+
+link:https://eclipse-esmf.github.io/ame-guide/introduction.html[https://eclipse-esmf.github.io/ame-guide/introduction.html,window=_blank].
+
+.An Aspect Model (Movement.ttl) displayed in the Aspect Model Editor (screenshot)
+image::aspect-model-editor-interface.png[Aspect Model Editor Interface.png]
+
+[[ESMF-SAMM-CLI]]
+== ESMF SAMM CLI
+
+The SAMM CLI is a command-line interface tool that can carry out several actions based on an Aspect Model.
+
+=== Capabilities
+
+The SAMM CLI can, for example, help with transforming an Aspect Model into a Submodel Template for an Asset Administration Shell.
+
+Main features:
+
+* Load and resolve Aspect Models
+* Validate Aspect Models
+* Import and export namespace packages for an Aspect Model
+* *Generate corresponding artifacts for an Aspect Model:*
+** HTML documentation
+** Diagrams in PNG or SVG format
+** *Asset Administration Shell (AAS) submodel template*
+** Java classes
+** OpenAPI specification for an Aspect Model
+** AsyncAPI specification for an Aspect Model
+** Example JSON payload data
+** JSON-LD representation
+** JSON schema
+** SQL script that sets up a table for data
+* *Translate Asset Administration Shell (AAS)* Submodel Templates to Aspect Models
+* Retrieve a list of submodel templates contained within the provided Asset Administration Shell (AAS) file
+
+=== Limitations
+
+The SAMM CLI does not come with a graphical user interface. It is a command-line tool that runs in a terminal window.
+
+However, note that frequently used functionalities are also included in graphical user interface of the Aspect Model Editor. That means, you can, for example, generate Submodel Templates with the Aspect Model Editor, too.
+
+=== Installation files
+
+Download and install the SAMM CLI from its Releases page on GitHub:
+
+link:https://github.com/eclipse-esmf/esmf-sdk/releases[https://github.com/eclipse-esmf/esmf-sdk/releases,window=_blank].
+
+=== User documentation
+
+Relevant commands from SAMM CLI for working with Asset Administration Shells:
+
+....
+aspect <model> to aas         # Generate AAS Submodel Templates from Aspect Model
+aas <aas file> to aspect      # Extract Aspect Models from existing AAS files
+aas <aas file> list           # Retrieve a list of submodel templates contained within the file
+aspect <aas file> validate  # validates an Aspect Model
+....
+
+For more information on the SAMM CLI, refer to the user guide:
+
+link:https://eclipse-esmf.github.io/esmf-developer-guide/tooling-guide/samm-cli.html[https://eclipse-esmf.github.io/esmf-developer-guide/tooling-guide/samm-cli.html,window=_blank].
+
+== ESMF software development kits (SDKs)
+
+The Eclipse Semantic Modeling Framework (ESMF) project also provides tools for software developers. These developer tools help with building software applications based on SAMM-compliant Aspect Models.
+
+* For more information, refer to the corresponding user guides: *Java* Software Development Kit (ESMF Java SDK): +
+ link:https://eclipse-esmf.github.io/esmf-developer-guide/tooling-guide/java-aspect-tooling.html[window=_blank] +
+ The ESMF Java SDK provides rich functionality for working with Aspect Models. The SDK provides Java APIs for all features mentioned inthe previous section (SAMM CLI). The Java SDK also provides a plug-in for the Apache Maven build system that allows to seamlessly integrate artifact generation into Java software build processes.
+* *Python* Software Development Kit (ESMF Python SDK): +
+link:https://eclipse-esmf.github.io/python-sdk-guide/index.html[window=_blank] +
+The ESMF Python SDK provides Python-native functionality for loading and resolving Aspect Models as well as wrapping validation and artifact generation functionality provided by SAMM CLI.
+* *JavaScript* Software Development Kit (ESMF JavaScript SDK): +
+link:https://eclipse-esmf.github.io/js-sdk-aml-guide/index.html[window=_blank]

@@ -1,0 +1,294 @@
+= ConceptDescriptions with AAS SAMM Extensions
+
+== Introduction
+
+The Asset Administration Shell allows to define so-called "link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/common.html#_has_extensions_attributes[Extensions,window=_blank]". 
+Extensions are meant to realize schema extensions that are not (yet) part of the standardized schema. 
+One such extension set may be defined to realize SAMM elements as AAS Concept Descriptions. 
+They are the basis for a link:https://github.com/admin-shell-io/aas-specs-samm[new data specification for semantics, window=_blank] (restrictive access) parallel to IEC61360 data specification (Part 3a).
+
+With this approach round-trip is supported.
+
+.AAS Metamodel: HasExtensions
+image::aas-metamodel-extensions.png[AAS Metamodel Extensions.png]
+
+For every element in the SAMM Metamodel a corresponding extension is defined in AAS. The coloring and naming of the different types of concept descriptions in the AASX Package Explorer is aligend with the link:https://eclipse-esmf.github.io/ame-guide/introduction.html[ESMF Aspect Model Editor,window=_blank]. A complete example can be found in link:https://github.com/eclipse-aaspe/package-explorer/tree/main/src/AasxCore.Samm2_2_0/documentation/examples[window=_blank].
+
+The mapping of the SAMM elements to the AAS SubmodelElements is identical to what is described in xref:samm2smt.adoc[SAMM2SMT].
+
+.Code example in AASX Package Explorer: SAMM extensions
+image::code-example-samm-extensions.png[Code Example in AASX Package Explorer: SAMM Extensions]
+
+== SAMM Extension
+
+For every SAMM Metamodel element its unique identifier shall be used as semanticId of the Extension.
+
+There are link:https:\eclipse-esmf.github.io\samm-specification\snapshot\modeling-guidelines.html#attributes-that-all-model-elements-have[attributes available to all SAMM elements,window=_blank].
+
+* samm:preferredName
+* samm:description
+* samm:see
+
+The value of the Extension is predefined and depends on this semanticId. For a samm:Property for example the value covers the unique identifier of the Characteristic as well as the preferredName of the samm:Property etc.
+
+.Code example: SAMM attributes preferredName, description and see
+[source,turtle,subs="attributes+,+quotes"]
+----
+:isMoving a samm:Property ;
+   samm:preferredName "is moving"@en ;
+   samm:description "Flag indicating whether the asset is currently moving"@en ;
+   samm:see <https://example.com/isMoving> ;
+   samm:characteristic samm-c:Boolean .
+----
+
+.Code example: SAMM attributes preferredName, description and see mapped to AAS Extension
+[source,xml,subs="attributes+,+quotes"]
+----
+<extension>
+    <semanticId>
+        <type>ExternalReference</type>
+        <keys>
+            <key>
+                <type>GlobalReference</type>
+                <value>##**urn:samm:org.eclipse.esmf.samm:meta-model:2.0.0#Property**##</value>
+            </key>
+        </keys>
+    </semanticId>
+    <name>##**samm-property**##</name>
+    <valueType>xs:string</valueType>
+    <value>{
+  "Characteristic": {
+    "Value": "urn:samm:org.eclipse.esmf.samm:characteristic:2.0.0#Boolean"
+  },
+  ##**"PreferredName**##": [
+    {
+      "Language": "en",
+      "Text": "is moving"
+    }
+  ],
+  "##**See**##": [
+    "https://example.com/isMoving"
+  ]
+  }</value>
+</extension>
+----
+
+.Code example: samm:Aspect
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix samm: <urn:samm:org.eclipse.esmf.samm:meta-model:2.0.0#> .
+@prefix samm-c: <urn:samm:org.eclipse.esmf.samm:characteristic:2.0.0#> .
+@prefix samm-e: <urn:samm:org.eclipse.esmf.samm:entity:2.0.0#> .
+@prefix unit: <urn:samm:org.eclipse.esmf.samm:unit:2.0.0#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <urn:samm:org.eclipse.examples:1.0.0#> .
+
+:Movement a samm:Aspect ;
+   samm:preferredName "movement"@en ;
+   samm:description "Aspect for movement information"@en ;
+   samm:properties ( :isMoving :position :speed :speedLimitWarning ) ;
+   samm:operations ( ) ;
+   samm:events ( ) .
+----
+
+.Code example: AAS SAMM Extension for a samm:Aspect
+[source,xml,subs="attributes+,+quotes"]
+----
+<extension>
+    <semanticId>
+        <type>ExternalReference</type>
+        <keys>
+            <key>
+                <type>GlobalReference</type>
+                <value>##**urn:samm:org.eclipse.esmf.samm:meta-model:2.0.0#Aspect**##</value>
+            </key>
+        </keys>
+    </semanticId>
+    <name>samm-aspect</name>
+    <valueType>xs:string</valueType>
+    <value>{
+  "##**Namespaces**##": {
+    "Items": [
+      {
+        "Prefix": "rdf:",
+        "Uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      },
+      {
+        "Prefix": "rdfs:",
+        "Uri": "http://www.w3.org/2000/01/rdf-schema#"
+      },
+      {
+        "Prefix": "xsd:",
+        "Uri": "http://www.w3.org/2001/XMLSchema#"
+      },
+      {
+        "Prefix": "samm:",
+        "Uri": "urn:samm:org.eclipse.esmf.samm:meta-model:2.0.0#"
+      },
+      {
+        "Prefix": "samm-c:",
+        "Uri": "urn:samm:org.eclipse.esmf.samm:characteristic:2.0.0#"
+      },
+      {
+        "Prefix": "samm-e:",
+        "Uri": "urn:samm:org.eclipse.esmf.samm:entity:2.0.0#"
+      },
+      {
+        "Prefix": "unit:",
+        "Uri": "urn:samm:org.eclipse.esmf.samm:unit:2.0.0#"
+      },
+      {
+        "Prefix": ":",
+        "Uri": "urn:samm:org.eclipse.examples:1.0.0#"
+      }
+    ]
+  },
+  "##**Comments**##": "",
+  "##**Properties**##": [
+    {
+      "Optional": false,
+      "Value": "urn:samm:org.eclipse.examples:1.0.0#isMoving"
+    },
+    {
+      "Optional": false,
+      "Value": "urn:samm:org.eclipse.examples:1.0.0#position"
+    },
+    {
+      "Optional": false,
+      "Value": "urn:samm:org.eclipse.examples:1.0.0#speed"
+    }
+  ],
+  "##**Events**##": [],
+  "##**Operations**##": [],
+  "##**PreferredName**##": [
+    {
+      "Language": "en",
+      "Text": "movement"
+    }
+  ]
+ }</value>
+</extension>
+----
+
+
+[cols="1,1,1,1,2"]
+|===
+|*No.* |*Obligation* |*SAMM (Aspect Model)* |*AAS (Submodel Template)* |*Notes*
+
+|S2E-0001 |MUST | |ConceptDescription/id = <element identifier, i.e. namespace and name of element> |Example: urn:samm:org.eclipse.examples:1.0.0#SpatialPosition
+|S2E-0002 |MUST | |Extension/semanticId of extensions of a ConceptDescription as GlobalReference with key value <identifier of metamodel element>
+a|Example: +
+
+[source,xml,subs="attributes+,+quotes"]
+----
+<semanticId>
+    <type>ExternalReference</type>
+    <keys>
+        <key>
+            <type>GlobalReference</type>
+            <value>##**urn:samm:org.eclipse.esmf.samm:meta-model:2.0.0#**##Property</value>
+        </key>
+    </keys>
+</semanticId>
+----
+
+|S2E-0003 |MUST | |Extension/name +
+
+conformant to table below |Example: samm-property, samm-sorted-set
+|S2E-0004 |MUST | |Extension/valueType has value xs:string |
+|S2E-0005 |MUST |samm:preferredName |Attribute "PreferredName" within predefined JSON for Extension/value
+a|Example: +
+
+[source,json,subs="attributes+,+quotes"]
+----
+"*#PreferredName#*": [
+  {
+    "Language": "en",
+    "Text": "is moving"
+  }
+]
+----
+
+|S2E-0006 |MUST |samm:description |ConceptDescription/description |This is the only exception of a SAMM attribute not contained within predefined JSON for Extension/value
+|S2A-0007 |MUST |samm:see |Attribute "See" within predefined JSON for Extension/value
+a|Example: +
+
+[source,json,subs="attributes+,+quotes"]
+----
+"*#See#*": [
+  "https://example.com/isMoving"
+]
+----
+
+|S2A-0008 |MUST |Other SAMM attributes of SAMM elements |Attribute "<name of SAMM attribute starting with Capital letter"" within predefined JSON for Extension/value |Example: +
+
+"DataType" +
+
+"Characteristic" +
+
+"Unit"
+|S2A-0009 |MUST |@prefix for namespaces |Attribute "Namespaces" within predefined JSON for Extension/value
+This attribute is part of the Extension representing the samm:Aspect
+a|Example: +
+
+[source,json,subs="attributes+,+quotes"]
+----
+"*#Namespaces#*": {
+  "Items": [
+    {
+      "Prefix": "rdf:",
+      "Uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    }
+  ]
+}
+----
+
+|S2A-0010 |MUST |Comments within imported file at the beginning of the file, typically containing copyright information etc. starting with # |Attribute "Comments" within predefined JSON for Extension/value
+This attribute is part of the Extension representing the samm:Aspect |
+|S2A-0011 |MUST |References with namespace prefix |Always use complete identifier and no namespace prefix for values within predefined JSON for Extension/value
+a|Examples: +
+
+[source,json,subs="attributes+,+quotes"]
+----
+"*#Characteristic#*": {
+  "Value": "urn:samm:org.eclipse.esmf.samm:characteristic:2.0.0#Boolean"
+}
+----
+
+[source,json,subs="attributes+,+quotes"]
+----
+"Properties": [
+  {
+    "Optional": false,
+    "Value": "urn:samm:org.eclipse.examples:1.0.0#isMoving"
+  }
+]
+----
+
+[source,json,subs="attributes+,+quotes"]
+----
+"Unit": {
+  "Value": "urn:samm:org.eclipse.esmf.samm:unit:2.0.0#kilometrePerHour"
+}
+----
+
+These identifiers are also used for jumping to the different SAMM Extensions
+|===
+
+[cols="1,1,2"]
+|===
+|SAMM Element |Extension/name |Notes
+
+|samm:<element name> |samm-<element name starting with small letter> |Example: +
+
+samm-property, +
+
+samm-aspect
+|samm-c:<element name> |samm-<element name starting with small letter, if CamelCase different parts are separated by "-"> |Examples: +
+
+samm-sorted-set +
+
+samm-trait
+|===

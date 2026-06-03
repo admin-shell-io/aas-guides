@@ -1,0 +1,134 @@
+[[roundtrip-capability]]
+= Round Trip Capability
+
+Round trip in general cannot be assumed to be supported with semantic driven creation of Submodel Templates. This is not specific for SAMM but holds also for other semantic descriptions like for example ECLASS.
+
+The approach with AAS SAMM Extensions does support round trip for the ConceptDescriptions because no information from the SAMM Aspect Models get lost when importing or exporting it.
+
+In the following two examples are given that show which problems arise when
+generating Aspect Models or AASX via round trip, especially when using IEC61360 ConceptDescriptions.
+
+== Example 1:
+
+Starting from this Submodel Template (SMT)
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodel>
+    <idShort>Nameplate</idShort>
+    <id>##**https://admin-shell.io/idta/SubmodelTemplate/DigitalBatteryPassport/DigitalNameplate/1/0**##</id>
+    <kind>Template</kind>
+    <semanticId>
+        <type>ExternalReference</type>
+        <keys>
+            <key>
+                <type>GlobalReference</type>
+                <value>##**https://admin-shell.io/idta/nameplate/3/0/Nameplate**##</value>
+            </key>
+        </keys>
+    </semanticId>
+</submodel>
+----
+
+the generated Aspect Model would look like this (with input parameter which namespace to use)
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix : <##**urn:samm:io.admin-shell.idta.digital_nameplate:3.0.0#**##> .
+
+:##**Nameplate**## a ##**samm:Aspect**## ;
+    samm:see <##**https://admin-shell.io/idta/nameplate/3/0/Nameplate**##> .
+----
+
+Starting a round-trip and generating a Submodel Template from this Aspect Model would lead to:
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodel>
+    <idShort>Nameplate</idShort>
+    <id>##**urn:samm:io.admin-shell.idta.digital_nameplate:3.0.0#Nameplate/submodel**##</id>
+    <kind>Template</kind>
+    <semanticId>
+        <type>ExternalReference</type>
+        <keys>
+            <key>
+                <type>GlobalReference</type>
+                <value>##**urn:samm:io.admin-shell.idta.digital_nameplate:3.0.0#Nameplate**##</value>
+            </key>
+        </keys>
+    </semanticId>
+    <supplementalSemanticIds>
+        <reference>
+          <type>ExternalReference</type>
+          <keys>
+            <key>
+              <type>GlobalReference</type>
+              <value>##**https://admin-shell.io/idta/nameplate/3/0/Nameplate**##</value>
+            </key>
+          </keys>
+        </reference>
+    </supplementalSemanticIds>
+</submodel>
+----
+
+So the generated SMT is not identical to the original SMT of the first step: semanticIds are not lost but semanticId and supplementalSemanticId differ. Additionally, the original Submodel/id MAY not be identical if derived from the urn of the Aspect Model.
+
+== Example 2:
+
+Starting from this Aspect Model
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix : <##**urn:samm:io.admin-shell.idta.digital_nameplate:3.0.0#**##> .
+
+:##**Nameplate**## a ##**samm:Aspect**## ;
+    samm:see <##**https://admin-shell.io/idta/nameplate/3/0/Nameplate> .**##
+----
+
+the generated AASX would look like this (with input parameter which namespace to use)
+
+Starting a round-trip and generating a Submodel Template from this Aspect Model would lead to:
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodel>
+    <idShort>Nameplate</idShort>
+    <id>##**urn:samm:io.admin-shell.idta.digital_nameplate:3.0.0#Nameplate/submodel**##</id>
+    <kind>Template</kind>
+    <semanticId>
+        <type>ExternalReference</type>
+        <keys>
+            <key>
+                <type>GlobalReference</type>
+                <value>##**urn:samm:io.admin-shell.idta.digital_nameplate:3.0.0#Nameplate**##</value>
+            </key>
+        </keys>
+    </semanticId>
+    <supplementalSemanticIds>
+        <reference>
+            <type>ExternalReference</type>
+            <keys>
+                <key>
+                    <type>GlobalReference</type>
+                    <value>##**https://admin-shell.io/idta/nameplate/3/0/Nameplate**##</value>
+                </key>
+            </keys>
+        </reference>
+    </supplementalSemanticIds>
+</submodel>
+----
+
+Starting a round-trip and generating an Aspect Model from this SMT would lead to – here Round-Trip is possible if the namespace is given as input parameter that is identical to the original Aspect Mode – however, there are corner cases that could lead to differences also in this case:
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix : <##**urn:samm:io.admin-shell.idta.digital_nameplate:3.0.0#**##> .
+
+:##**Nameplate**## a ##**samm:Aspect**## ;
+    samm:see <##**https://admin-shell.io/idta/nameplate/3/0/Nameplate> .**##
+----
+
+Other mappings that hinder roundtrip:
+
+*   samm:Property with scalar type rdf:langString because AAS only know MultiLanguageProperty but no Property with data type "rdf:langString".
+*   samm:Property with scalar data type samm:curie because AAS does not know this type.
+*   If in the original SAMM Aspect model samm-c:Collection or samm-C:SortedSet was used because AAS is only mapped to either samm-c:Set or samm-C:List.
+*   in SAMM only exampleValue supported but no default or initial values. It is not clear whether the samm:exampleValue was derived from Property/value or template qualifier SMT/DefaultValue etc.
+*   If predefined SAMM Characteristics are used example values etc. might differ.
+*   SAMM has one description field whereas in an AAS there can be descriptions in the SubmodelElement itself as well as in the ConceptDescription referenced in semanticId by this `SubmodelElement`.
+*   In a samm:Event only the observed data elements can be expressed, so all the other information on events in the AAS is lost. AAS Events on observed Submodels cannot be expressed in SAMM.
+*   DataSpecificationIec61360/shortName is not mapped to SAMM Property.
