@@ -1,0 +1,47 @@
+
+= How to leverage SAMM Aspect Models for Submodel Templates in the Asset Administration Shell
+
+== Imprint
+
+Joint publication of Industrial Digital Twin Association (IDTA) and Catena-X e.V.
+
+*Publisher* 
+
+Industrial Digital Twin Association +
+Lyoner Strasse 18 +
+60528 Frankfurt am Main +
+Germany +
+https://www.industrialdigitaltwin.org/
+
+Catena-X Automotive Network e.V. +
+c/o beyond Quartier Heidestrasse +
+Heidestraße 34, 10557 Berlin +
+https://www.catena-x.net/
+
+== Version history
+
+[cols="1,1,1"]
+|===
+h| Date h| Version h| Comment
+
+| June 2026 | V1.0 | First version. Result of joint expert group between Industrial Digital Twin Association (IDTA) and Catena-X e.V.
+|===
+
+
+== How to Get in Contact
+
+Contact: https://industrialdigitaltwin.org/en/contact[IDTA]
+
+Sources: https://github.com/admin-shell-io/aas-guides[GitHub]
+
+Feedback:
+
+* https://github.com/admin-shell-io/aas-specs-guides/issues/new/choose[new issues, bugs]
+
+== Editorial Notes
+
+This document is the result of a joint expert group between Industrial Digital Twin Association (IDTA) and link:https://www.catena-x.net/[Catena-X e.V.]
+
+include::./shared/versioning.adoc[]
+
+include::./shared/conformance.adoc[]

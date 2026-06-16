@@ -1,0 +1,3 @@
+= Foreword
+
+This document is the result of the work of the two associations Catena-X and IDTA in order to inform about using SAMM Aspect Models for Submodel Templates in Asset Administration Shells. The content was coordinated in the joint IDTA & Catena-X Guideline Expert Group "SAMM and AAS".

@@ -1,0 +1,40 @@
+////
+Copyright (c) 2026 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](
+https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+
+////
+
+* xref:index.adoc[Imprint]
+
+* xref:foreword.adoc[Foreword]
+
+* xref:introduction.adoc[Introduction]
+
+* xref:tool-support-auto-generation.adoc[Tool support for automatic generation of Aspect Models from AASX and vice versa]
+
+* xref:samm-aas-topics.adoc[General Topics SAMM and AAS]
+
+* xref:samm2smt.adoc[SAMM2SMT]
+
+* xref:smt2samm.adoc[SMT2SAMM]
+
+* xref:iec61360-concept-descriptions.adoc[ConceptDescriptions with IEC61360 Data Specification]
+
+* xref:aas-samm-concept-descriptions.adoc[ConceptDescriptions with AAS SAMM Extensions]
+
+* xref:roundtrip-capability.adoc[Roundtrip Capability]
+
+* xref:outlook.adoc[Summary and Outlook]
+
+* xref:bibliography.adoc[Bibliography]
+
+
+
+
+
+
+

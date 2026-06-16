@@ -1,0 +1,2275 @@
+= SMT2SAMM
+
+== Introduction
+
+When creating (or generating) an aspect model conformant to the SAMM specification with a given Submodel Template (SMT) as input the following requirements are taken into account:
+
+* The Value-Only Format of the Submodel conformant to the SMT (see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/mappings/mappings.html#value-only-serialization-in-json[https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/mappings/mappings.html#value-only-serialization-in-json,window=_blank]) shall be identical to the rules for mapping to JSON of SAMM (see link:https://eclipse-esmf.github.io/samm-specification/snapshot/payloads.html[https://eclipse-esmf.github.io/samm-specification/snapshot/payloads.html,window=_blank])
+* The generated aspect model could be used as semanticId of the Submodel (as described in xref:tool-support-auto-generation.adoc[Tool support for automatic generation of Aspect Models from AASX and vice versa]). Same for all the submodel elements within the Submodel.
+* The element IDs of the generated aspect model and its properties or entities could be added as supplementalSemanticId to the existing Submodel Template and its submodel elements.
+
+In general, only those attributes of Asset Administration Shell that are relevant for Submodel Templates are used for semantic definition in SAMM Aspect Models. Which attributes are relevant for Submodel Templates is defined in Format "Metadata" link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/mappings/mappings.html#_format_metadata_metadata_serialization[(Metadata-Serialization),window=_blank] in Part 1 (IDTA-01001) of the AAS Specifications.
+
+The rules in this chapter start with *A2S* (AAS generated to SAMM).
+
+== Generic
+
+[[Identifiable-id]]
+=== Identifiable/id
+
+See xref:samm-aas-topics.adoc[General Topics SAMM and AAS] for handling and mapping of identifiers in SMT and Aspect Models.
+
+=== Referable/idShort
+
+.Code example: AAS idShort
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>##**Document-Identifier**##</idShort>
+</property>
+----
+
+.Code example: AAS idShort mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:##**documentIdentifier**## a samm:Property ;
+… .
+
+:Document a samm:Entity ;
+   samm:properties (
+      [ samm:property :documentIdentifier; samm:payloadName "##**Document-Identifier**##" ]
+   ) .
+----
+
+.Code example: AAS Identifiable without idShort
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodel>
+    <id>##**https://admin-shell.io/idta/SubmodelTemplate/HandoverDocumentation/2/0**##</id>
+    <submodelElements>
+     …
+    </submodelElements>
+</submodel>
+----
+
+.Code example: AAS Identifiable without idShort mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:Aspect1 a samm:Aspect ;
+… .
+----
+
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0001 | MUST | Referable/link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/common.html#referable-attributes[idShort,window=_blank] | Element name + samm:payloadname +
+
+Depending on context the relevant element is either a samm:Property or a samm:Entity or a samm:Aspect +
+
+If idShort is a valid element name no samm:payloadname needs to be defined. If idShort is not a valid SAMM element name then the samm:payloadName shall be introduced and be identical to the idShort. +
+
+In case the idShort is not a valid SAMM element name the idShort shall be adapted accordingly, This consolidated idShort is abbreviated with *idShort-consolidated*. +
+
+The naming conventions for the characteristics and data types attached to the elements are also explained in following the rules in <<Naming-Conventions, Naming Conventions>>. +
+
+idShort values are not unique within a Submodel, only within its context. In SAMM the element names need to be unique within the namespace. So before adding a new property it needs to be checked whether a different property with the same name was already generated. If yes a suffix needs to be added, for example <idShort><Number> and a samm:payloadName needs to be defined in its parent that corresponds to <idShort> | Pendant: S2A-0002 +
+
+All SAMM element names are conformant to AAS idShort names but not vice versa +
+
+See Constraint AASd-002 in AAS Specification for restrictions on idShort: it may contain "-" and "_" as well as numbers. +
+Note: There is no way to define a payload name for an Aspect because the aspect name is not part of the payload. In this case the name in the aspect model might differ from the one in the SMT.
+| A2S-0002 | MUST | Identifiable without defined idShort | In this case a samm element name shall be created, for example *<SAMM metamodel element name the AAS element is mapped to><Number>* +
+
+We call this *idShort-consolidated* | idShort is optional for Identifiables but mandatory for Referables that are not identifiable +
+
+for list of Identifiables see enumeration link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/spec-metamodel/referencing.html#_logical_enumeration_aasidentifiables[AasIdentifiables,window=_blank] (AssetAdministrationShell, ConceptDescription, Identifiable, Submodel)
+|===
+
+[[Naming-Conventions]]
+==== Naming Conventions
+
+In SAMM Aspects, Entities, Events, Constraints and Characteristics start with a Capital Letter, properties, operations and units start with a small letter: 
+link:https://eclipse-esmf.github.io/samm-specification/snapshot/modeling-guidelines.html#naming-rules[SAMM Naming Rules,window=_blank].
+
+The naming of SAMM Model Elements follows the  link:https://en.wikipedia.org/wiki/Naming_convention_(programming)[Java naming conventions,window=_blank] for classes, properties and methods.
+
+
+In SAMM element names shall only have alphabetic characters.
+
+There is no length restriction for element names in the SAMM specification.
+
+In AAS Constraint AASd-002 defines that names may also contain "-" and "_" as well as numbers starting mandatory with a letter, and not ending with a hyphen. The length is restricted to 128 characters. See link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/common.html#referable-attributes[https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/common.html#referable-attributes,window=_blank]
+
+
+The following rules shall apply to the naming of generated property and Aspect Model names:
+
+[cols="1,2,1"]
+|===
+| *AAS* | *Convert to SAMM conformant name (<idShort for SAMM>)* | *Example*
+
+| SubmodelElement/idShort starts with capital letter | Convert to small letter | Temperature -> temperature
+| Referable/idShort contains "-" | Omit "-" and start with capital letter after (CamelCase) | my-example -> myExample +
+my-Example -> myExample
+| Referable/idShort contains "_" | Omit "_" and start with capital letter after (CamelCase) | my_Example -> myExample +
+my_example -> myExample
+| | If rules lead to same names within the name space make them unique by adding "Second", "Third" etc. | My-Example and my_Example -> myExample and myExampleSecond
+|===
+
+The following rules shall apply for the naming of created Characteristics (idShort-consolidated is the idShort consolidated conformant to the rules for the element names for SAMM properties listed in the table before):
+
+[cols="2,2,1"]
+|===
+| *AAS SubmodelElement Mapped to SAMM* | *Name of SAMM element* | *Comment*
+
+| samm-c:Characteristic or any other characteristic not equal to SingleEntity or Set, Collection, List, or SortedSet | <idShort-consolidated starting with capital letter>Characteristic |
+| samm-c:SingleEntity | <idShort-consolidated starting with capital letter>Entity +
+
+If the element is not part of a samm-c:Set or samm-c:Collection of samm-c:List or samm-c:SortedSet +
+
+<idShort-consolidated> +
+
+otherwise |
+| samm-c:Set or samm-c:Collection | <idShort-consolidated from its contained element starting with capital letter>Set a| 
+
+Note 1: the semantics of the collection is in plural whereas the semantics of the item within the collection is singular. +
+Example: +
+
+_SubmodelElementList_ +
+
+_idShort: Documents_ +
+
+_SubmodelElementCollection_ +
+
+_idShort: Document_ +
+
+_:documents a samm:Property_ +
+
+_samm:characteristic :DocumentSet_
+| samm-c:Collection or samm-c:List | <idShort-consolidated from its contained element starting with capital letter>List a| Note 1: the semantics of the collection is in plural whereas the semantics of the item within the collection is singular.
+|===
+
+=== Referable/description and Referable/displayName
+
+.Code example: AAS description and display name
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>DocumentIdentifier</idShort>
+    <displayName>
+        <langStringNameType>
+            <language>##**en**##</language>
+            <text>##*document identifier (ID)**##</text>
+        </langStringNameType>
+        <langStringNameType>
+            <language>**##de##**</language>
+            <text>**##Dokumentennummer##**</text>
+        </langStringNameType>
+    </displayName>
+    <description>
+        <langStringTextType>
+            <language>**##en##**</language>
+            <text>**##Identification number of the Document within a given domain, e.g. the providing organisation.##**</text>
+        </langStringTextType>
+        <langStringTextType>
+            <language>**##de##**</language>
+            <text>**##Alphanumerische Zeichenfolge, die ein Dokument eindeutig identifiziert.##**</text>
+        </langStringTextType>
+    </description>
+</property>
+----
+
+.Code example: AAS description and display name mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:documentIdentifier a samm:Property ;
+   samm:preferredName "##**Dokumentennummer**##"@##**de**## ;
+   samm:preferredName "##**document identifier**## (ID)"@##**en**## ;
+   samm:description "##**Alphanumeric character sequence uniquely identifying a document.**##"@##**en**## ;
+   samm:description "##**Alphanumerische Zeichenfolge, die ein Dokument eindeutig identifiziert.**##"@##**de**## .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0003 | MUST | Referable/link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/common.html#referable-attributes[displayName,window=_blank] and no Concept Description is existing and referenced via semanticId of the corresponding Submodel or SubmodelElement | samm:preferredName | Display name is optional in AAS +
+
+For language handling see description in xref:samm-aas-topics.adoc[General Topics SAMM and AAS]
+| A2S-0004 | INFO | Referable/link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/common.html#referable-attributes[displayName,window=_blank] and Referable/description and no Concept Description is existing and referenced via semanticId of the corresponding Submodel or SubmodelElement | _Ignored_ | SAMM properties are closer to ConceptDescription than to SubmodelElements
+| A2S-0005 | MUST | Identifiable/link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/common.html#identifiable-attributes[description,window=_blank] +
+
+and no Concept Description is existing and referenced via semanticId of the corresponding Submodel or SubmodelElement | samm:description +
+
+and converting Asciidoc syntax if used to Markdown syntax as allowed to be used in SAMM | Bidirectional S2A-0003 +
+
+Language tag shall be considered. +
+
+Order of languages within samm may differ from order in AAS. No specific ordering required, neither in AAS not in SAMM. +
+
+Note: the language tag is depending on the serialization in AAS, so for XML it may different from JSON or RDF.
+|===
+
+=== Submodel/kind
+
+Typically, an Aspect Model is derived from a submodel with kind=Template because it also contains qualifiers with type "Template" like cardinality etc. and submodel instances do not.
+
+However, for generating a SAMM Aspect Model for a Submodel the Submodel/kind attribute can be ignored.
+
+=== semanticId and semanticId and supplementalSemanticIds
+
+There are several elements in the AAS Metamodel that contain a value referring to a semantic definition:
+
+* Submodel
+
+* SubmodelElement
+
+* Qualifier
+
+* SpecificAssetId
+
+* Extension
+
+* Reference/referredSemanticId
+
+* Property/valueId
+
+* SubmodelElementList/semanticIdListElement
+
+For the mapping to a SAMM Aspect Model only Submodel/semanticId and Submodel/supplementalSemanticId and SubmodelElement/semanticId and SubmodelElement/supplementalSemanticId are considered.
+
+.Code example: AAS semanticId and supplementalSemanticIds
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodelElementCollection>
+    <idShort>Document</idShort>
+    <semanticId>
+        <type>ExternalReference</type>
+            <keys>
+                <key>
+                    <type>GlobalReference</type>
+                    <value>##**0173-1#02-ABI500#003**##<value>
+                </key>
+            </keys>
+    </semanticId>
+    <supplementalSemanticIds>
+        <reference>
+            <type>ExternalReference</type>
+            <keys>
+                <key>
+                    <type>GlobalReference</type>
+                    <value>##**https://api.eclass-cdp.com/0173-1-02-ABI500-003/0173-1-01-AHF579-003**##</value>
+                </key>
+            </keys>
+        </reference>
+    </supplementalSemanticIds>
+ …
+</submodelElementCollection>
+----
+
+.Code example: AAS semanticId and supplementalSemanticIds mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:DocumentEntity a samm:Entity ;
+   samm:properties ( … ) ;
+   samm:see <##**urn:irdi:0173-1%2302-ABI500%23003**##> ;
+   samm:see <##**https://api.eclass-cdp.com/0173-1-02-ABI500-003/0173-1-01-AHF579-003**##> .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0006 | MUST | _HasSemantics/semanticId_ | samm:see "<"<semanticId-consolidated>">" conformant to the rules in <<Consolidating-Reference, Consolidating Reference>> |
+| A2S-007 | MUST | _HasSemantics/supplementalSemanticId_ | samm:see <""<supplementalSemanticId-consolidated>">" conformant to the rules in <<Consolidating-Reference, Consolidating Reference>> |
+|===
+
+[[Consolidating-Reference]]
+==== Consolidating Reference
+
+The attributes semanticId and supplementalSemanticId are of type "Reference".
+
+SAMM does not support structured semantic IDs. In this case a string is used.
+
+In case the Reference has just one key (unstructured semanticId):
+
+* similar to the shortcut for link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.1.1/query-language.html#references[semanticIds,window=_blank] of the query language syntax the semanticId-value is the value of the first key (i.e. $sme/semanticId.keys[0].value).
+
+
+In case the Reference has more than one key (structured semanticId):
+
+* use the text link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/mappings/mappings.html#examples-reference-serialization[serialization,window=_blank] for semanticId-value and add prefix "urn:aas:reference:"
+
+
+==== Consolidating type of semantic or supplemental semantic IDs
+
+The datatype of see-attributes in SAMM is xsd:anyURI. The AAS allows any string for semanticId. A typical type for semanticId is an IRDI as used in IEC 63263 and ECLASS. Therefore mappings from string to xsd:anyURI are needed.
+
+[cols="2,2,1"]
+|===
+| *AAS* | *Convert* <semanticId-value> *to SAMM conformant see* (<semanticId-consolidated>) | *Example or Comment*
+
+| If semanticId or supplementalsemanticId is unstructured and can be identified as being an IRDI | add prefix "urn:irdi:" +
+
+Special characters shall be converted to UniCode | 0173-1#02-ABI500#003 +
+to +
+urn:irdi:0173-1%2302-ABI500%23003 +
+
+Note 1: encoding is needed because IRI does only allow a single #, i.e. 0173-1#02-ABI500%23003 would also be ok +
+
+Note 2: For ECLASS IRDIs there also is a defined link:https://eclass.eu/fileadmin/Redaktion/pdf-Dateien/Wiki/ECLASS-Technical-Specification-15-URI-Path-V1.0.2.pdf[URI-path conversion defined,window=_blank]. ECLASS IRDIs start with "0173-". Example: \https://cdp.com/0173-1-01-AAA123-001/0173-1-02-AAA345-001~1/0173-1-01-AAA789-001
+| If semanticId or supplementalsemanticId is structured | add prefix "urn:aas:reference:" and encode the semanticId-value (base64) | (GlobalReference)https://example.com/specification.html (FragmentReference)Hint +
+
+to +
+
+urn:aas:reference: KEdsb2JhbFJlZmVyZW5jZSlodHRwczovL2V4YW1wbGUuY29tL3NwZWNpZmljYXRpb24uaHRtbCAoRnJhZ21lbnRSZWZlcmVuY2UpSGludAo=
+| Any other type of semanticId or supplementalSemanticId is unstructured and not being of type xsd:anyURI | add prefix "urn:<semanticId or supplementalSemanticId>" +
+Special characters shall be converted to UniCode |
+| semanticId or supplementalSemanticId being of type xsd:anyURI | "<semanticId or supplementalSemanticId>" +
+Special characters shall be converted to UniCode | No conversion needed except for special characters
+|===
+
+=== administration
+
+.Code example: AAS administration
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodels>
+    <submodel>
+        <idShort>HandoverDocumentation</idShort>
+        <administration>
+            <version>##**2**##</version>
+            <revision>##**0**##</revision>
+            <templateId>##**https://admin-shell.io/idta-02004-2-0**##</templateId>
+        </administration>
+        <id>https://admin-shell.io/idta/SubmodelTemplate/HandoverDocumentation/2/0</id>
+        <kind>Template</kind>
+        <submodelElements>
+            …
+        </submodelElements>
+    </submodel>
+</submodels>
+----
+
+The highlighted values from the code example above get mapped to the Aspect Model as indicated below:
+
+.Code example: Possible Mapping of AAS administration to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix : <urn:samm:##**io.admin-shell.idta.HandoverDocumentation:2.0.0#**##> .
+
+:HandoverDocumentation a samm:Aspect ;
+   samm:properties ( ) ;
+   samm:operations ( ) ;
+   samm:events ( ) .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0008 | INFO | _Identifiable/administration/version and /revision_ | Add the following version to the urn: +
+
+<version>.<revision>.0 | SAMM uses a three-digit-version +
+
+It is recommended that the urn is manually specified during generation but this rule may give advice how to select a suitable namespace urn
+| | INFO | _Identifiable/administration/templateId_ | If the templateId starts with "https://admin-shell.io/" then the namespace uses "io.admin-shell.idta." | It is recommended that the urn is manually specified during generation but this rule may give advice how to select a suitable namespace urn
+| | MAY | _Identifiable/administration/templateId_ | Add as samm:see "<"<templateId-consolidated>">" conformant to rules for semanticId in <<Consolidating-Reference, Consolidating Reference>> |
+|===
+
+=== extensions
+
+AAS extensions are used if additional data elements are needed that are not (yet) part of the metamodel itself. They are not relevant for interoperability. Therefore, they can be ignored.
+
+=== qualifiers
+
+In <<Predefined-Template-Qualifiers, Predefined Template Qualifiers>> the mappings for the predefined template qualifiers are specified.
+
+There are no predefined instance or model qualifiers so far: for those no specified mapping can be provided.
+
+=== category
+
+The attribute "category" is deprecated and can be ignored.
+
+=== dataSpecification
+
+There is no general mapping for dataSpecification but for each single dataSpecification. So far only one data specification template is defined.
+
+==== dataSpecification IEC 61360
+
+IDTA- IDTA-01003-a Data Specification Template IEC 61360 is used to define concept descriptions for SubmodelElements with focus on SubmodelElement "Property" or "MultiLanguageProperty" or "Range". The mapping to concept descriptions using this data specification is described in xref:iec61360-concept-descriptions.adoc[ConceptDescriptions with IEC61360 Data Specification].
+
+[[Predefined-Template-Qualifiers]]
+== Predefined Template Qualifiers
+
+In link:https://industrialdigitaltwin.org/wp-content/uploads/2025/06/IDTA_How-to-write-a-SMT-v1.1.pdf[How to create a Submodel Template Specification,window=_blank] [1] several template qualifiers are defined:
+
+* Cardinality
+
+* EitherOr
+
+* InitialValue
+
+* DefaultValue
+
+* ExampleValue
+
+* AllowedRange
+
+* AllowedIdShort
+
+* RequiredLang
+
+* AccessMode
+
+In the following subsections the mapping of each of these template qualifiers to SAMM elements is specified.
+
+=== Qualifier "Cardinality"
+
+==== Value=One
+
+.Code example: AAS template Qualifier cardinality with value One
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>propWithCardinality</idShort>
+        <qualifiers>
+            ##**<qualifier>**##
+                <semanticId>
+                    <type>ExternalReference</type>
+                    <keys>
+                        <key>
+                            <type>GlobalReference</type>
+                            <value>##**https://admin-shell.io/SubmodelTemplates/Cardinality/1/0**##</value>
+                        </key>
+                    </keys>
+                </semanticId>
+                <kind>TemplateQualifier</kind>
+                <type>##**SMT/Cardinality**##</type>
+                <valueType>xs:string</valueType>
+                <value>##**One**##</value>
+            </qualifier>
+        </qualifiers>
+    <valueType>xs:string</valueType>
+</property>
+----
+
+.Code example: Mapping of AAS template Qualifier cardinality with value One to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+samm:properties ( :propWithCardinality ) ;
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-009 | MUST | _Qualifier SMT/Cardinality with value = One_ | samm:optional false is the default therefore this information can be ignored |
+|===
+
+==== Value=ZeroToOne
+
+.Code example: AAS template Qualifier cardinality with value ZeroToOne
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>propWithCardinality</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>##**https://admin-shell.io/SubmodelTemplates/Cardinality/1/0**##</value>
+                    </key>
+                </keys>
+            </semanticId>
+        <kind>TemplateQualifier</kind>
+        <type>##**SMT/Cardinality**##</type>
+        <valueType>xs:string</valueType>
+        <value>##**ZeroToOne**##</value>
+    </qualifier>
+    <valueType>xs:string</valueType>
+</property>
+----
+
+.Code example: Mapping of AAS template Qualifier cardinality with value ZeroToOne to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+samm:properties (
+  [ samm:property :propWithCardinality; ##**samm:optional true**## ]
+) .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0010 | MUST | _Qualifier SMT/Cardinality with value = ZeroToOne_ | its containing entity (either samm:Entity or samm:aspect): +
+
+samm:properties with a property samm:optional true |
+|===
+
+==== Value=ZeroToMany
+
+.Code example: AAS template Qualifier cardinality with value ZeroToMany not contained in a SubmodelElementList
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodelElements>
+    <property>
+        <idShort>propWithCardinality##**\{00\}**##</idShort>
+        <qualifiers>
+            ##**<qualifier>**##
+                <semanticId>
+                    <type>ExternalReference</type>
+                    <keys>
+                        <key>
+                            <type>GlobalReference</type>
+                            <value>##**https://admin-shell.io/SubmodelTemplates/Cardinality/1/0**##</value>
+                        </key>
+                    </keys>
+                </semanticId>
+                <kind>TemplateQualifier</kind>
+                <type>SMT/Cardinality</type>
+                <valueType>xs:string</valueType>
+                <value>##**ZeroToMany**##</value>
+            </qualifier>
+        </qualifiers>
+        <valueType>xs:string</valueType>
+    </property>
+</submodelElements>
+----
+
+.Code example: Mapping of AAS template Qualifier cardinality with value ZeroToMany not contained in a SubmodelElementList to SAMM with max 2 elements
+[source,turtle,subs="attributes+,+quotes"]
+----
+samm:properties (
+  [ samm:property :propWithCardinality##**01**##; ##**samm:optional true**## ]
+  [ samm:property :propWithCardinality##**02**##; ##**samm:optional true**## ]
+) .
+----
+
+.Code example: AAS SubmodelElementList with template Qualifier cardinality ZeroToMany for its elements
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodelElementList>
+    <idShort>markings</idShort>
+    …
+    <value>
+        <submodelElementCollection>
+        <idShort>marking</idShort>
+            <qualifiers>
+                ##**<qualifier>**##
+                <semanticId>
+                    <type>ExternalReference</type>
+                    <keys>
+                        <key>
+                            <type>GlobalReference</type>
+                            <value>##**https://admin-shell.io/SubmodelTemplates/Cardinality/1/0**##</value>
+                        </key>
+                   </keys>
+                </semanticId>
+                <kind>TemplateQualifier</kind>
+                <type>SMT/Cardinality</type>
+                <valueType>xs:string</valueType>
+                <value>##**ZeroToMany**##</value>
+            </qualifier>
+            …
+        <submodelElementCollection>
+    </value>
+</submodelElementList>
+----
+
+.Code example: AAS SubmodelElementList with template Qualifier cardinality OneToMany for its elements mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:markings a samm:Property ;
+   samm:characteristic  :Markings .
+
+:Markings a samm-c:Set ;
+   samm:elementCharacteristic :Marking .
+
+:Marking a samm:Entity ;
+… .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0011 | MUST | Qualifier SMT/Cardinality with value=ZeroToMany +
+
+For SubmodelElement within a SubmodelElementList | -- | 0..* is the default cardinality for element within a SAMM collection, set, list or sortedSet
+| A2S-0012 | MAY | Qualifier SMT/Cardinality with value=ZeroToMany +
+
+and there is no template qualifier SMT/AllowedIdShort +
+
+For SubmodelElement not contained in a SubmodelElementList | Add as many properties to the containing element (aspect or entity) samm:property with name following the idShort: <idShort without \{00\} > + numbering with two numbers starting from 01 (i.e. 01, 02, 03 etc.) +
+
+Make the first one mandatory but the others optional +
+
+Make maximum number an argument of a generator. Default: 100 | *Legacy*, should not be existing since V3.0
+| A2S-0013 | MAY | Qualifier SMT/Cardinality with value=ZeroToMany +
+
+And there is a template qualifier SMT/AllowedIdShort +
+
+For SubmodelElement not contained in a SubmodelElementList | Add as many properties to the containing element (aspect or entity) samm:property with name as defined by the qualifier SMT/AllowedIdShort +
+
+Make the first one mandatory but the others optional +
+
+Make maximum number an argument of a generator. Default: 100 | *Legacy*, should not be existing since V3.0
+|===
+
+==== Value=OneToMany
+
+.Code example: AAS template Qualifier cardinality with value OneToMany not contained in a SubmodelElementList (Legacy)
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodelElements>
+    <property>
+        <idShort>propWithCardinality##**\{00\}**##</idShort>
+        <qualifiers>
+            <qualifier>
+                <semanticId>
+                    <type>ExternalReference</type>
+                    <keys>
+                        <key>
+                            <type>GlobalReference</type>
+                            <value>##**https://admin-shell.io/SubmodelTemplates/Cardinality/1/0**##</value>
+                        </key>
+                    </keys>
+                </semanticId>
+                <kind>TemplateQualifier</kind>
+                <type>SMT/Cardinality</type>
+                <valueType>xs:string</valueType>
+                <value>##**OneToMany**##</value>
+            </qualifier>
+        </qualifiers>
+        <valueType>xs:string</valueType>
+    </property>
+</submodelElements>
+----
+
+For maximum number of objects: 2 the mapping to SAMM would look like this:
+
+.Code example: Mapping of AAS template Qualifier cardinality with value OneToMany not contained in a SubmodelElementList (Legacy) to SAMM with max 2 elements
+[source,turtle,subs="attributes+,+quotes"]
+----
+samm:properties (
+  propWithCardinality##**01**## ;
+  [ samm:property :propWithCardinality##**02**##; ##**samm:optional true**## ]
+) .
+----
+
+
+.Code example: AAS SubmodelElementList with template Qualifier cardinality OneToMany for its elements
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodelElementList>
+    <idShort>markings</idShort>
+    …
+    <value>
+        <submodelElementCollection>
+        <idShort>marking</idShort>
+            <qualifiers>
+                ##**<qualifier>**##
+                <semanticId>
+                    <type>ExternalReference</type>
+                    <keys>
+                        <key>
+                            <type>GlobalReference</type>
+                            <value>##**https://admin-shell.io/SubmodelTemplates/Cardinality/1/0**##</value>
+                        </key>
+                   </keys>
+                </semanticId>
+                <kind>TemplateQualifier</kind>
+                <type>SMT/Cardinality</type>
+                <valueType>xs:string</valueType>
+                <value>##**OneToMany**##</value>
+            </qualifier>
+            …
+        <submodelElementCollection>
+    </value>
+</submodelElementList>
+----
+
+.Code example: AAS SubmodelElementList with template Qualifier cardinality OneToMany for its elements mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:markings a samm:Property ;
+   samm:characteristic  :Markings .
+
+:Markings a samm-c:Set ;
+   samm:elementCharacteristic :MarkingTrait .
+
+
+:MarkingTrait a ##**samm-c:Trait**## ;
+      samm-c:baseCharacteristic :Marking;
+      samm-c:constraint [
+         a samm-c:RangeConstraint ;
+         samm-c:**##minValue "1"^^##**xsd:nonNegativeInteger ;
+      ] ;
+   ] .
+
+:Marking a samm:Entity ;
+… .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0014 | MUST | Qualifier SMT/Cardinality with value=OneToMany +
+
+and the Element is part of a SubmodelElementList | Add SAMM Trait with Range constraint with min = 1 to the containing property +
+
+The name of the Trait may be **<name for Characteristic if the cardinality would be 0..\*>Trait** +
+
+**<name for Characteristic if the cardinality would be 0..\*>** then is the samm-c:baseCharacteristic in the Trait |
+| A2S-0015 | MUST | Qualifier SMT/Cardinality with value=OneToMany +
+
+and there is no template qualifier SMT/AllowedIdShort +
+
+For SubmodelElement not contained in a SubmodelElementList | Add as many properties to the containing element (aspect or entity) samm:property with name following the idShort: <idShort without \{00\} > + numbering with two numbers starting from 01 (i.e. 01, 02, 03 etc.) +
+
+Make maximum number an argument of a generator. Default: 100 | *Legacy*, should not be existing since V3.0
+| A2S-0016 | MUST | Qualifier SMT/Cardinality with value=OneToMany +
+
+And there is a template qualifier SMT/AllowedIdShort +
+
+For SubmodelElement not contained in a SubmodelElementList | Add as many properties to the containing element (aspect or entity) samm:property with name as defined by the qualifier SMT/AllowedIdShort +
+
+Make maximum number an argument of a generator. Default: 100 | *Legacy*, should not be existing since V3.0
+| A2S-0017 | MUST | Qualifier SMT/Cardinality with value=OneToMany +
+
+and there is no template qualifier SMT/AllowedIdShort +
+
+For SubmodelElement not contained in a SubmodelElementList | Add as many properties to the containing element (aspect or entity) samm:property with name following the idShort: <idShort without \{00\} > + numbering with two numbers starting from 01 (i.e. 01, 02, 03 etc.) +
+
+Make maximum number an argument of a generator. Default: 100 | *Legacy*, should not be existing since V3.0
+| A2S-0018 | MUST | Qualifier SMT/Cardinality with value=OneToMany +
+
+and there is no template qualifier SMT/AllowedIdShort +
+
+For SubmodelElement not contained in a SubmodelElementList | Add as many properties to the containing element (aspect or entity) samm:property with name following the idShort: <idShort without \{00\} > + numbering with two numbers starting from 01 (i.e. 01, 02, 03 etc.) +
+
+Make maximum number an argument of a generator. Default: 100 | *Legacy*, should not be existing since V3.0
+|===
+
+=== Qualifier "EitherOr"
+
+.Code example: AAS template qualifier "SMT/EitherOr"
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>speedProperty1</idShort>
+    <qualifiers>
+        <qualifier>
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>##**https://admin-shell.io/SubmodelTemplates/EitherOr/1/0**##</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/EitherOr**##</type>
+            <valueType>xs:string</valueType>
+            <value>##**1**##</value>
+        </qualifier>
+    </qualifiers>
+    <valueType>##**xs:integer**##</valueType>
+</property>
+
+<property>
+    <idShort>speedProperty2</idShort>
+    <qualifiers>
+        <qualifier>
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>##**https://admin-shell.io/SubmodelTemplates/EitherOr/1/0**##</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/EitherOr**##</type>
+            <valueType>xs:string</valueType>
+            <value>##**1**##</value>
+        </qualifier>
+    </qualifiers>
+    <valueType>##**xs:string**##</valueType>
+</property>
+----
+
+.Code example: AAS template qualifier "SMT/EitherOr" mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:Context a samm:Aspect ;
+   samm:properties (
+      [ samm:property :speedProperty1; samm:optional true]
+      [ samm:property :speedProperty2; samm:optional true]
+   ) .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0019 | MAY | _Qualifier SMT/EitherOr of a SubmodelElement_ | As many optional SAMM properties that do have the same qualifier value | Note: The AAS qualifier "EitherOr" cannot be mapped to the SAMM Characteristic "Either". AAS requires that idShort of AAS SubmodelElements differ, so it is not possible to model a either-or if only the data type of two properties differs or the SubmodelElement type. In SAMM the two properties need to have the same name but can have different characteristics. +
+
+Note: there is no predefined SAMM constraint for either-or on property level
+|===
+
+=== Qualifier "InitialValue"
+
+.Code example: AAS template qualifier "InitialValue" for non-string
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>propWithInitialValue</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/InitialValue/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/InitialValue**##</type>
+            <valueType>xs:string</valueType>
+            <value>##**0**##</value>
+        </qualifier>
+    </qualifiers>
+    <valueType>##**xs:double**##</valueType>
+</property>
+----
+
+.Code example: AAS template qualifier "InitialValue" for non-string mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:propWithInitialValue a samm:Property ;
+   samm:characteristic  :PropWithInitialValueCharacteristic ;
+   samm:##**exampleValue**## "0"##**^^xsd:double**## .
+----
+
+.Code example: AAS template qualifier "InitialValue" for xs:string
+[source,xml,subs="attributes+,+quotes"]
+----
+<multiLanguageProperty>
+    <idShort>propWithInitialValue</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/DefaultValue/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/InitialValue**##</type>
+            <valueType>xs:string</valueType>
+            <value>
+                <langStringTextType>
+                    <language>de</language>
+                    <text>Hello</text>
+                </langStringTextType>
+             </value>
+        </qualifier>
+    </qualifiers>
+</property>
+----
+
+.Code example: AAS template qualifier "InitialValue" for MultiLanguageProperty mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:propWithInitialValue a samm:Property ;
+   samm:characteristic  :MultiLanguageTexts .
+.
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0020 | MAY | _Qualifier SMT/InitialValue of a Property_ +
+
+_and no SMT/ExampleValue and no SMT/DefaultValue provided_ | samm:exampleValue may be used +
+
+Additionally, type shall be added (Property/valueType, see xref:samm2smt.adoc#Scalar-data-types-in-SAMM[Scalar data types in SAMM]), not needed for xsd:string. | Could be used if there is no example value defined. +
+
+Note: since there may also be example and default values, initial values cannot be distinguished from them by SAMM +
+
+Attention: if there is also a template qualifier for ExampleValue and/or DefaultValue there might be identical.
+| | MAY | _Qualifier SMT/InitialValue of a MultiLanguageProperty_ | No example value since set |
+|===
+
+[[Qualifier-DefaultValue]]
+=== Qualifier "DefaultValue"
+
+.Code example: AAS template qualifier "DefaultValue" for non-string
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>propWithDefaultValue</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/DefaultValue/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/DefaultValue**##</type>
+            <valueType>xs:string</valueType>
+            <value>##**0**##</value>
+        </qualifier>
+    </qualifiers>
+    <valueType>##**xs:double**##</valueType>
+ </property>
+----
+
+.Code example: AAS template qualifier "DefaultValue" for non-string mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:propWithDefaultValue a samm:Property ;
+   samm:characteristic  :PropWithDefaultValueCharacteristic ;
+   samm:##**exampleValue**## "0"##**^^xsd:double**## .
+----
+
+.Code example: AAS template qualifier "DefaultValue" for xs:string
+[source,xml,subs="attributes+,+quotes"]
+----
+<multiLanguageProperty>
+    <idShort>propWithDefaultValue</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/DefaultValue/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/DefaultValue**##</type>
+            <valueType>xs:string</valueType>
+            <value>
+                <langStringTextType>
+                    <language>de</language>
+                    <text>Hello</text>
+                </langStringTextType>
+            </value>
+        </qualifier>
+    </qualifiers>
+</property>
+----
+
+.Code example: AAS template qualifier "DefaultValue" for MultiLanguageProperty mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:propWithInitialValue a samm:Property ;
+   samm:characteristic :MultiLanguageTexts .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0021 | MAY | _Qualifier SMT/DefaultValue of a Property_ +
+
+_and no SMT/ExampleValue provided_ | samm:exampleValue may be used +
+
+Additionally, type shall be added (Property/valueType, see xref:samm2smt.adoc#Scalar-data-types-in-SAMM[Scalar data types in SAMM]), default xsd:string | Note: since there may also be example values, default and example values cannot be distinguished by SAMM +
+
+Attention: if there is also a template qualifier for ExampleValue and/or InitialValue they might be identical.
+| A2S-0022 | SHALL | _Qualifier SMT/ExampleValue of a MultiLanguageProperty_ +
+
+Specifies an example value of the SubmodelElement instance, in order to allow the user to better understand the intention and possible values of a SubmodelElement instance. +
+
+Note: Multiple examples can be given by delimiting them by '\|' +
+
+In case of a translatable string (langString) the example value shall be an English example string. Alternative (to be decided): add suffix like @en to string to denote language. | No example value since set |
+|===
+
+=== Qualifier "ExampleValue"
+
+.Code example: AAS template qualifier "ExampleValue"
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>propWithExampleValue</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/ExampleValue/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/ExampleValue**##</type>
+            <valueType>xs:string</valueType>
+            <value>##**3.56| 4**##</value>
+        </qualifier>
+    </qualifiers>
+    <valueType>##**xs:double**##</valueType>
+</property>
+----
+
+.Code example: AAS template qualifier "ExampleValue" mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:propWithExampleValue a samm:Property ;
+   samm:characteristic  :PropWithExampleValueCharacteristic ;
+   samm:##**exampleValue**## "3.56"##**^^xsd:double**## .
+----
+
+.Code example: AAS template qualifier "ExampleValue" for MultiLanguageProperty
+[source,xml,subs="attributes+,+quotes"]
+----
+<multiLanguageProperty>
+    <idShort>propWithExampleValue</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/ExampleValue/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/ExampleValue**##</type>
+            <valueType>xs:string</valueType>
+            <value>##**"Hello"@en**##</value>
+        </qualifier>
+    </qualifiers>
+</property>
+----
+
+.Code example: AAS template qualifier "ExampleValue" for MultiLanguageProperty mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:propWithExampleValue a samm:Property ;
+   samm:characteristic :PropWithExampleValueCharacteristic .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0023 | MUST | _Qualifier SMT/ExampleValue of a Property_ +
+
+Specifies an example value of the SubmodelElement instance, in order to allow the user to better understand the intention and possible values of a SubmodelElement instance. +
+
+Note: Multiple examples can be given by delimiting them by '\|' | *samm:exampleValue* : select one of the example values, only one example supported +
+
+Additionally, type shall be added (Property/valueType) corresponding to the valueDataType of the AAS Property (not of the qualifier!). | Note: often also the Property/value attribute has a value in the SMT that may also be used as example value (see <<Property, Property>>)
+| A2S-0024 | MUST | _Qualifier SMT/ExampleValue of a MultiLanguageProperty_ +
+
+Specifies an example value of the SubmodelElement instance, in order to allow the user to better understand the intention and possible values of a SubmodelElement instance. +
+
+Note: Multiple examples can be given by delimiting them by '\|' +
+
+In case of a translatable string (langString) the example value shall be an English example string. Alternative (to be decided): add suffix like @en to string to denote language. | ignored | No example value supported since realized as set in SAMM
+|===
+
+[[Qualifier-AllowedRange]]
+=== Qualifier "AllowedRange"
+
+.Code example: AAS template qualifier "AllowedRange"
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>propWithAllowedRange</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/AllowedRange/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/AllowedRange**##</type>
+            <valueType>xs:string</valueType>
+            <value>##**[6,7]**##</value>
+        </qualifier>
+    </qualifiers>
+    <valueType>xs:nonNegativeInteger</valueType>
+</property>
+----
+
+.Code example: AAS template qualifier "AllowedRange" mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:propWithAllowedRange a samm:Property ;
+   samm:characteristic :PropWithAllowedRangeTrait .
+
+:PropWithAllowedRangeTrait a samm-c:Trait ;
+   samm-c:baseCharacteristic :PropWithAllowedRangeCharacteristic ;
+   samm-c:constraint :PropWithAllowedRangeConstraint .
+
+:PropWithAllowedRangeCharacteristic a samm:Characteristic ;
+   samm:dataType xsd:nonNegativeInteger .
+
+:PropWithAllowedRangeConstraint a samm-c:RangeConstraint ;
+   samm-c:minValue "6"^^xsd:nonNegativeInteger ;
+   samm-c:maxValue "7"^^xsd:nonNegativeInteger ;
+   samm-c:lowerBoundDefinition samm-c:AT_LEAST ;
+   samm-c:upperBoundDefinition samm-c:AT_MOST .
+----
+
+.Code example: AAS template qualifier "AllowedRange" with set of ranges and default value
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>propWithAllowedRange</idShort>
+    <qualifiers>
+        <qualifier>
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/AllowedRange/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/AllowedRange**##</type>
+            <valueType>xs:string</valueType>
+            <value>##**(2,6][9,10]**##</value>
+        </qualifier>
+    </qualifiers>
+    <valueType>xs:nonNegativeInteger</valueType>
+</property>
+----
+
+.Code example 2: AAS template qualifier "AllowedRange" with set of ranges and default value mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:propWithAllowedRange a samm:Property ;
+   samm:characteristic :PropWithAllowedRangeTrait .
+
+:PropWithAllowedRangeTrait a samm-c:Trait ;
+   samm-c:baseCharacteristic :PropWithAllowedRangeCharacteristic ;
+   samm-c:constraint :PropWithAllowedRangeConstraint .
+
+:PropWithAllowedRangeCharacteristic a samm:Characteristic ;
+   samm:dataType xsd:nonNegativeInteger .
+
+:PropWithAllowedRangeConstraint a samm-c:RegularExpressionConstraint .
+
+:Constraint1 a samm-c:RegularExpressionConstraint ;
+   samm:value "^[3-6]|9|10$" .
+----
+
+Qualifier SMT/AllowedRange specifies a set of allowed continuous numerical ranges.
+
+Note: Multiple ranges can be given by delimiting them by '|'.
+
+Note: A single range is defined by interval start and end, either including or excluding the given number.
+
+Note: Interval start and end are delimited by ','; '.' is the decimal point
+
+Note: '*' allows to enter the default value
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0025 | MUST | Qualifier SMT/AllowedRange of a Property containing only a single range and not '*' | samm:property with a Trait with samm-c:RangeConstraint |
+| A2S-0026 | MAY | Qualifier SMT/AllowedRange of a Property containing multiple ranges and not '*' | In some cases a regular expression might be possible to be defined +
+
+samm:property with a Trait with samm-c:RegularExpressionConstraint +
+
+If this is not possible then the qualifier is ignored. | A samm-c:RangeConstraint cannot be used because several RangeConstraints would define an 'and' and not an 'or '
+| A2S-0027 | MAY | Qualifier SMT/AllowedRange of a Property containing '*' | In some cases a regular expression might be possible to be defined +
+
+If this is not possible then the qualifier is ignored. +
+
+samm:property with a Trait with samm-c:RegularExpressionConstraint +
+
+The '*' must be substituted by the default values, i.e. a qualifier with SMT/DefaultValue must exist |
+|===
+
+=== Qualifier "AllowedIdShort"
+
+.Code example: AAS template qualifier "AllowedIdShort"
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>propWithAllowedIdShort</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/AllowedIdShort/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/AllowedIdShort**##</type>
+            <valueType>xs:string</valueType>
+            <value>##**Title[\d{2,3}]**##</value>
+        </qualifier>
+    </qualifiers>
+    <valueType>xs:string</valueType>
+</property>
+----
+
+SMT/AllowedIdShort allows that the payload name can be decided by a data provider using the SMT or by a SMT specification derived from this SMT.
+
+It may also give a recommendation how the idShort within a SML shall be created. The qualifier was introduced for AAS Metamodel V2.x that did not yet have a SML (SubmodelElementList).
+
+The idShort has direct impact on the Value-Only-serialization and thus for interoperability. We recommend not to use this template qualifier.
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0028 | INFO | _Qualifier SMT/AllowedIdShort_ +
+
+Specifies a regular expression validating the idShort of the created SubmodelElement instance. +
+
+Note: The format shall conform to POSIX extended regular expressions. | _ignored_ | It is not possible in SAMM to provide a regular expression for a payload name. +
+
+Elements within a samm-c:Collection do not have names
+|===
+
+[[Qualifier-AllowedValue]]
+=== Qualifier "AllowedValue"
+
+.Code example: AAS template qualifier "AllowedValue"
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>propWithAllowedIdShort</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/AllowedValue/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/AllowedValue**##</type>
+            <valueType>xs:string</valueType>
+            <value>(##**red|green|blue)##**</value>
+        </qualifier>
+    </qualifiers>
+    <valueType>xs:string</valueType>
+</property>
+----
+
+.Code example: AAS template qualifier "AllowedValue" mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:propWithAllowedValue a samm:Property ;
+   samm:characteristic :PropWithAllowedValueTrait .
+
+:PropWithAllowedValueTrait a samm-c:##**Trait**## ;
+   samm-c:baseCharacteristic :PropWithAllowedValueCharacteristic ;
+   samm-c:constraint :Constraint1 .
+
+:PropWithAllowedValueCharacteristic a samm:Characteristic ;
+   samm:dataType xsd:string .
+
+:Constraint1 a samm-c:##**RegularExpressionConstraint**## ;
+   samm:value "^(red|green|blue)$" .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0029 | MUST | _Qualifier SMT/AllowedValue_ with no specific features of POSIX being used +
+
+Specifies a regular expression validating the value of the created SubmodelElement instance in its string representation. +
+
+Note: the format shall conform to POSIX extended regular expressions. a| A Trait shall be introduced with a Constraint of type **samm-c:RegularExpressionConstraint** the value being identical to the value of the qualifier | 
+In SAMM XQuery 1.0 and XPath 2.0 Functions and Operators are used for regular expressions, in AAS the format shall conform to POSIX extended regular expressions. +
+
+There are differences between these formats but most regular expressions are supported by both. 
+Only if specific features are used of POSIX or vice versa.
+| A2S-0030 | INFO | _Qualifier SMT/AllowedValue_ with specific features of POSIX being used +
+
+Specifies a regular expression validating the value of the created SubmodelElement instance in its string representation. +
+
+Note: the format shall conform to POSIX extended regular expressions. | _no mapping possible_ |
+|===
+
+[[Qualifier-RequiredLang]]
+=== Qualifier "RequiredLang"
+
+.Code example: AAS template qualifier "RequiredLang"
+[source,xml,subs="attributes+,+quotes"]
+----
+<multiLanguageProperty>
+    <idShort>propWithRequiredLang</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/RequiredLang/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/RequiredLang**##</type>
+            <valueType>xs:string</valueType>
+            <value>"##**en**##"##**|**## "##**fr**##"</value>
+        </qualifier>
+    </qualifiers>
+    <value>
+        <langStringTextType>
+            <language>en</language>
+            <text>English Text.</text>
+        </langStringTextType>
+    </value>
+</multiLanguageProperty>
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0031 | INFO | Qualifier SMT/RequiredLang +
+
+Only for MultiLanguageProperties, see xref:samm-aas-topics.adoc#For-SubmodelElement-MultiLanguageProperty[For SubmodelElement "MultiLanguageProperty"] +
+
+If the SMT element is a multi language property (MLP), specifies the required languages, which shall be given. +
+
+Note: Multiple languages can be given by multiple Qualifiers. +
+
+Note: Multiple languages can be given by delimiting them by '\|' +
+
+Note: languages are specified either by ISO 639-1 or ISO 639-2 codes. | Characteristic +
+
+_samm-c:LanguageConstraint_ +
+
+and +
+
+_samm-c:LocaleConstraint_ +
+
+are foreseen for restricting the required language of a property of dataType rdf:langString +
+
+However, a MultiLanguageProperty is implemented as a JSON array, i.e. a samm-c:Set and this is why these Characteristics cannot be used. There are no predefined Characteristics allowing to define elements that shall be element of a set or have specific Characteristics. +
+
+So the qualifier SMT/RequiredLang is ignored. | It is also possible to have several qualifiers with SMT/RequiredLang, this shall be handled identical to a single qualifier SMT/RequiredLang with the different languages separated by "\|" +
+
+Note: Constraint AASd-021 in IDTA-01001-3-1: Every qualifiable shall only have one qualifier with the same Qualifier/valueType. +
+does not allow to have several qualifiers with the same type +
+|===
+
+=== Qualifier "AccessMode"
+
+.Code example: AAS template qualifier "AccessMode"
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>propWithAccessMode</idShort>
+    <qualifiers>
+        ##**<qualifier>**##
+            <semanticId>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/SubmodelTemplates/AccessModel/1/0</value>
+                    </key>
+                </keys>
+            </semanticId>
+            <kind>TemplateQualifier</kind>
+            <type>##**SMT/AccessMode**##</type>
+            <valueType>xs:string</valueType>
+            <value>##**Read/Only**##</value>
+        </qualifier>
+    </qualifiers>
+    <valueType>xs:nonNegativeInteger</valueType>
+</property>
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0032 | INFO | _Qualifier SMT/AccessMode_ +
+
+Specifies the user access mode for SubmodelElement instance. When a Submodel is received from another party, if set to Read/Only, then the user shall not change the value +
+
+Allowed: +
+Read/Write +
+Read/Only | No mapping, qualifiers SMT/AccessMode are ignored +
+
+This needs to be ensured by Access Control. | SAMM does not provide information whether a property is assumed to be changed by a data consumer or not +
+
+Note: Even if SMT/AccessMode is set to „Read/Write" it does not mean the data consumer is allowed to overwrite the value. This is controlled by Access Control. But for „Read/Only" by default nobody is write-access except oft he data owner.
+|===
+
+== AssetAdministrationShell
+
+AssetAdministrationShell shall be ignored. An AssetAdministrationShell has no semantics.
+
+Note: An Asset Administration Shell may reference more than one Submodel or the AASX package file may contain more than one Submodel. In this case it needs to be decided
+
+* whether an Aspect Model for all of these Submodels shall be generated
+
+* or whether it shall be specified for which of these Submodels an Aspect Model shall be generated
+
+The rules in this document are formulated for a single Submodel.
+
+[[Submodel]]
+== Submodel
+
+The Submodel element is the root element of a Submodel Template.
+
+.Code example: AAS Submodel
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodels>
+    <##**submodel**##>
+        <idShort>##**HandoverDocumentation**##</idShort>
+        <id>https://admin-shell.io/idta/SubmodelTemplate/HandoverDocumentation/2/0</id>
+        <kind>Template</kind>
+        <submodelElements>
+         …
+        </submodelElements>
+    </submodel>
+</submodels>
+----
+
+The highlighted values from the code example above get mapped to the Aspect Model as indicated below:
+
+.Code example: AAS Submodel mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix : <##**urn:samm:io.admin-shell.idta.example:1.0.0#**##> .
+
+##**:HandoverDocumentation**## a samm:Aspect ;
+   samm:properties ( ) ;
+   samm:operations ( ) ;
+   samm:events ( ) .
+----
+
+Mapping 1: SAMM Aspect element mapped to AAS
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0033 | MUST | | Aspect Model namespace +
+
+_Only by parameter, cannot be automatically generated_ | As a default a dummy namespace like +
+
+@prefix : <urn:samm:io.example.example:1.0.0#> . can be defined
+| A2S-0034 | MUST | idShort | Element name of Aspect +
+
+In case the idShort is not conformant to allowed names in SAMM the names shall be adapted accordingly, see <<Identifiable-id, Identifiable/id>> S2A-0009 | For Aspects there is no samm:payloadName because the name of the Aspect is not part of the Value-only payload. +
+
+So it is not critical if the SAMM Aspect Model name differs from the name in the Submodel. This might be the case if special characters are used in the idShort that are not allowed for SAMM element names.
+|===
+
+== SubmodelElements
+
+=== AnnotatedRelationshipElement
+
+A SubmodelElement AnnotatedRelationshipElement may contain "annotations", annotations may refer to any DataElement. This is why AnnotatedRelationshipElement is classified as a Container SubmodelElement. In case there are no annotations the predefined characteristic for RelationshipElement can be used directly (see xref:samm-aas-topics.adoc#For-SubmodelElement-RelationshipElement[For SubmodelElement "RelationshipElement]). A SubmodelElement "AnnotatedRelationshipElement" is handled similar to a SubmodelElementCollection, i.e. mapped to a samm:Entity. If there are annotations, then the annotation attribute shall be handled like the "value"-attribute of SubmodelElementCollection. The other attributes shall be handled as in the predefined characteristic for RelationshipElement (see <<RelationshipElement, RelationshipElement>>).
+
+.Code example: AAS AnnotatedRelationshipElement
+[source,xml,subs="attributes+,+quotes"]
+----
+<##**annotatedRelationshipElement**##>
+    <idShort>isMappedTo</idShort>
+    <first>
+        <type>ExternalReference</type>
+        <keys>
+            <key>
+                <type>GlobalReference</type>
+                <value>onto:Term1</value>
+            </key>
+        </keys>
+    </first>
+    <second>
+        <type>ExternalReference</type>
+        <keys>
+            <key>
+                <type>GlobalReference</type>
+                <value>onto:Term1value>
+            </key>
+        </keys>
+    </second>
+    ##**<annotations>**##
+        <property>
+            <idShort>##**confidentiality**##</idShort>
+             …
+        </property>
+    </annotations>
+</annotatedRelationshipElement>
+----
+
+.Code example: AAS AnnotatedRelationshipElement mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix shared: <urn:samm:io.admin-shell.idta.shared:3.1.0#> .
+
+:isMappedTo a samm:Property ;
+   samm:characteristic :IsMappedToAnnotatedRelationshipElementType .
+
+
+:IsMappedToAnnotatedRelationshipElementType a samm:Characteristic ;
+   samm:dataType :IsMappedTo .
+
+:IsMappedTo a samm:Entity ;
+  ##**samm:extends**## ##**shared:RelationshipElementEntity**## ;
+  samm:properties ( :confidentiality ) .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0035 | MUST | AnnotatedRelationshipElement | *samm:Property* with a characteristic named for example *<element name>AnnotatedRelationshipElementType* with *samm:dataType* name <element name with capital letter> +
+
+and a *samm:Entity* <element name with capital letter> that *extends* the predefined Characteristic *shared:RelationshipElementEntity*. All annotations defined are added as properties and defined depending on their SubmodelElement type. |
+|===
+
+=== BasicEventElement
+
+.Code example: AAS BasicEventElement
+[source,xml,subs="attributes+,+quotes"]
+----
+<##**basicEventElement**##>
+    <idShort>temperatureUpdated</idShort>
+    <##**observed**##>
+        <type>ModelReference</type>
+        <keys>
+            <key>
+                <type>Submodel</type>
+                <value>urn:another-example11:3679ef43</value>
+            </key>
+        <keys>
+            <key>
+                <type>Property</type>
+                <value>##**drillHeadTemperature**##</value>
+            </key>
+        </keys>
+    </observed>
+    <direction>output</direction>
+    <state>off</state>
+</basicEventElement>
+----
+
+.Code example: AAS BasicEventElement mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:temperatureUpdated a ##**samm:Event**## ;
+   samm:parameters ( :drillHeadTemperature ) .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0036 | MUST | BasicEventElement with observed data element | samm:Event with samm:parameters as declared in BasicEventElement/observed | For Format "Metadata" link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/mappings/mappings.html#_format_metadata_metadata_serialization[(Metadata-Serialization),window=_blank] in Part 1 (IDTA-01001) of the AAS Specifications only "observed" is relevant:so the mapping is complete. However, mandatory fields like directions etc. are lost in a samm:Event.
+
+
+| A2S-0037 | INFO | BasicEventElement with observed submodel | | Events on observed Submodels cannot be expressed in SAMM. Only samm:Property but not samm:Aspect can be used as samm:parameters in a samm:Event
+|===
+
+=== Blob
+
+.Code example: AAS Blob
+[source,xml,subs="attributes+,+quotes"]
+----
+##**<blob>**##
+    <idShort>previewFile</idShort>
+    <value>SGVsbG8sIFdvcmxkIQ==</value>
+    <contentType>application/pdf</contentType>
+</blob>
+----
+
+.Code example: AAS Blob mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:previewFile a samm:##**Property**## ;
+   samm:characteristic shared:tbd .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0006 | MUST | _File_ | samm:Property with a predefined characteristic BlobWithContentType (see xref:samm-aas-topics.adoc#Predefined-SAMM-Characteristics[Predefined SAMM Characteristics]) +
+or a corresponding Characteristic including samm:exampleValue for Blob/value and Blob/contentType (compare to File, see <<File, File>>) | Blob/value and Blob/contentType are ignored when using the predefined Characteristic BlobWithContentType
+|===
+
+=== Capability
+
+.Code example: AAS Capability
+[source,xml,subs="attributes+,+quotes"]
+----
+##**<capability>**##
+    <idShort>exampleCapability</idShort>
+<capability>
+----
+
+Note: the semanticId of a capability is typically an ontology, which enables reasoning on capabilities. For information and examples on how to apply the concept of capability and how to map it to one or more skills implementing the capability, please refer to link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/bibliography.html#bib27[Describing Capabilities of Industrie 4.0 Components [27\],window=_blank]. The mapping is done via a relationship element with the corresponding semantics. A skill is typically a property or an operation. In more complex cases, the mapping can also be a collection or a complete submodel.
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0006 | MAY | _Capability_ | samm:Property with dataType xsd:string and *samm:notInPayload* in its contain parent element | An AAS capability is not included in the Value-Only serialization and can therefore be omitted
+|===
+
+=== Entity
+
+A SubmodelElement Entity may contain "statements", statements may refer to any SubmodelElement. 
+This is why Entity is a Container SubmodelElement. 
+In case there are no statements the predefined characteristic for Entity can be used directly (see xref:samm-aas-topics.adoc#For-SubmodelElement-Entity[For SubmodelElement "Entity"]). 
+A SubmodelElement "Entity" is handled similar to a SubmodelElementCollection, i.e. mapped to a samm:Entity. If there are statements, 
+then the statement attribute shall be handled like the "value"-attribute of SubmodelElementCollection. 
+The other attributes shall be handled as in the predefined characteristic for Entity.
+
+.Code example: AAS Entity
+[source,xml,subs="attributes+,+quotes"]
+----
+##**<entity>**##
+    <idShort>part</idShort>
+    <##**statements**##>
+        <property>
+            <idShort>manufacturerId</idShort>
+            <valueType>xs:string</valueType>
+            <value>exampleIdxxx</value>
+        </property>
+    </statements>
+</entity>
+----
+
+.Code example: AAS Entity mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix shared: <urn:samm:io.admin-shell.idta.shared:3.1.0#> .
+
+:part a samm:Property ;
+   samm:characteristic :PartCharacteristic .
+
+
+:PartCharacteristic a samm:Characteristic ;
+   samm:dataType :Part .
+
+:Part a samm:Entity ;
+  ##**samm:extends**## ##**shared:AasEntityCharacteristic**## ;
+  samm:properties ( :statements ).
+
+##**:statements**## a samm:Property ;
+  samm:characteristic :PartStatements .
+
+:PartStatements a samm:Entity ;
+  samm:properties ( ##**:manufacturerId**## ) .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0038 | MUST | Entity a| samm:property with data type being a samm:Entity extending the predefined Characteristic AasEntityCharacteristic. 
+Exactly one property needs to be added with payload name "statements". 
+"statements" itself is a SAMM property with data type being a samm:Entity defining the elements as defined in AAS statements. 
+For every single element the rules as defined for the corresponding SubmodelElement shall be followed. |
+|===
+
+[[File]]
+=== File
+
+.Code example: AAS File
+[source,xml,subs="attributes+,+quotes"]
+----
+##**<file>**##
+    <idShort>previewFile</idShort>
+    <value>https://www.example.org</value>
+    <contentType>application/pdf</contentType>
+</file>
+----
+
+.Code example: AAS File mapped to SAMM using predefined Characteristic
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix shared: <urn:samm:io.admin-shell.idta.shared:3.1.0#> .
+
+:previewFile a samm:##**Property**## ;
+   samm:characteristic ##**shared:FileWithContentType**## .
+----
+
+.Code example: AAS File mapped to SAMM with proprietary Characteristic
+[source,turtle,subs="attributes+,+quotes"]
+----
+:previewFile a samm:##**Property**## ;
+   samm:characteristic ##**:FileWithContentType**## .
+
+:resourceValue a samm:Property ;
+   samm:characteristic samm-c:ResourcePath ;
+   samm:exampleValue "##**https://www.example.org**##"^^xsd:anyURI .
+
+:contentType a samm:Property ;
+   samm:characteristic samm-c:MimeType ;
+   samm:exampleValue "##**application/pdf**##" .
+
+:FileWithContentType a samm:Characteristic ;
+   samm:dataType :ResourceWithContentType .
+
+:ResourceWithContentType a samm:Entity ;
+   samm:properties ( [ samm:property :resourceValue; samm:payloadName "value" ] :contentType )
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0039 | MUST | _File_ | samm:Property with a predefined characteristic FileWithContentType (see xref:samm-aas-topics.adoc#Predefined-SAMM-Characteristics[Predefined SAMM Characteristics]) +
+
+or a corresponding Characteristic including samm:exampleValue for File/value and File/contentType | File/value and File/contentType are ignored when using the predefined Characteristic FileWithContentType
+|===
+
+=== MultiLanguageProperty
+
+.Code example: AAS MultiLanguageProperty
+[source,xml,subs="attributes+,+quotes"]
+----
+<multiLanguageProperty>
+    <idShort>Title</idShort>
+    <value>
+        <langStringTextType>
+            <language>en</language>
+            <text>Guideline</text>
+        </langStringTextType>
+    </value>
+</multiLanguageProperty>
+----
+
+.Code example: AAS MultiLanguageProperty mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix shared: <urn:samm:io.admin-shell.idta.shared:3.1.0#> .
+
+title samm:##**Property**## ;
+   samm:characteristic ##**shared:MultiLanguageTexts**## .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0040 | MUST | MultiLanguageProperty | samm:Property with a predefined characteristic :MultiLanguageTexts (see xref:samm-aas-topics.adoc#Predefined-SAMM-Characteristics[Predefined SAMM Characteristics]) | MultiLanguageProperty/value values are ignored when using the predefined Characteristic :MultiLanguageTexts that again uses the predefined SAMM Characteristic samm-c:MultiLanguageText
+|===
+
+=== Operation
+
+In the case of AAS operations the JSON payload as defined by the https/REST API are the basis for mapping, 
+see "/submodel/submodel-elements/{idShortPath}/invoke/$value" of AAS API operation "InvokeOperationSync" and "InvokeOperationAsync". 
+For Async "/submodel/submodel-elements/{idShortPath}/operation-result/{handleId}/$value" is used to get the result.
+
+In link:https://github.com/admin-shell-io/aas-specs-api/blob/main/Part2-API-Schemas/openapi.yaml[Operation Result for Value-Only Serialization] the result object is defined as follows:
+
+.Code example: AAS Operation Result Schema definition in https/REST JSON Value-Only Serialization (Extract)
+[source,json]
+----
+
+    OperationResultValueOnly: 
+      allOf:
+      - $ref: '#/components/schemas/BaseOperationResult'
+      - properties: 
+          inoutputArguments: 
+            $ref: "#/components/schemas/ValueOnly"
+          outputArguments: 
+            $ref: "#/components/schemas/ValueOnly"
+      type: object
+
+    BaseOperationResult:
+      allOf:
+        - $ref: "#/components/schemas/Result"
+        - properties:
+            executionState: 
+              $ref: "#/components/schemas/ExecutionState"
+            success:
+              type: boolean
+	  
+	Result: 
+      properties: 
+        messages: 
+          items: 
+            $ref: "#/components/schemas/Message"
+          type: array
+      type: object
+	
+    Message:
+      properties: 
+        code: 
+          type: string
+          maxLength: 32
+          minLength: 1
+        correlationId:
+          type: string
+          maxLength: 128
+          minLength: 1
+        messageType: 
+          enum: 
+            - Undefined
+            - Info
+            - Warning
+            - Error
+            - Exception
+          type: string
+        text: 
+          type: string
+        timestamp: 
+          type: string
+          pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
+      type: object	
+----  
+
+.Code example: AAS Operation
+[source,xml,subs="attributes+,+quotes"]
+----
+##**<operation>**##
+    <idShort>toggle</idShort>
+    ##**<inputVariables>**##
+        <operationVariable>
+            <value>
+                <property>
+                    <idShort>##**inArg**##</idShort>
+                </property>
+            </value>
+        </operationVariable>
+    </inputVariables>
+    ##**<outputVariables>**##
+        <operationVariable>
+            <value>
+                <property>
+                    <idShort>##**outArg**##</idShort>
+                </property>
+            </value>
+        </operationVariable>
+    </outputVariables>
+    ##**<inoutputVariables>**##
+        <operationVariable>
+            <value>
+                <property>
+                    <idShort>##**inoutArg**##</idShort>
+                </property>
+            </value>
+        </operationVariable>
+    </inoutputVariables>
+</operation>
+----
+
+.Code example: AAS Operation mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:ValueOnlyOperationExampleAspect a samm:Aspect ;
+   samm:preferredName "Value-Only Beispiel für Operationen"@de ;
+   samm:preferredName "Value-Only Example for Operations"@en ;
+   samm:description "Beispiel-Aspekt, der Charakteristiken für Submodel-Elemente vom Type 'Operation' testet."@de ;
+   samm:description "Example Aspect with characteristics for Value-Only serialization of Submodel Elements of type 'Operation'."@en ;
+   samm:properties ( ) ;
+   samm:operations ( ##:toggle## ) ;
+   samm:events ( ) .
+
+:toggle a samm:Operation ;
+   samm:input ( ##:inArg## ##:inoutArg## ) ;
+   samm:output :toggleResult .
+    
+:toggleResult a samm:Property ;
+  samm:characteristic :ToggleResultCharacteristic .
+   
+:ToggleResultCharacteristic a samm-c:SingleEntity ;
+  samm:dataType :ToggleResult .  
+ 
+:ToggleResult a samm:Entity ;
+  ##samm:extends shared:OperationResultValueOnly## ;
+  samm:properties ( 
+    [ ##samm:extends :inoutputArguments;##  samm:characteristic :ToggleInoutputArgumentsCharacteristic ] 
+	[ ##samm:extends :outputArguments;##  samm:characteristic :ToggleOutputArgumentsCharacteristic ]
+	) .
+
+:ToggleOutputArgumentsCharacteristic a samm-c:SingleEntity ;
+  samm:dataType :ToggleOutputArguments .
+  
+:ToggleInoutputArgumentsCharacteristic a samm-c:SingleEntity ;
+  samm:dataType :ToggleInoutputArguments .
+
+:ToggleOutputArguments a samm:Entity ;
+  samm:properties (
+  ##:outArg##
+  ) .
+
+:ToggleInoutputArguments a samm:Entity ;
+  samm:properties (
+      [ samm:property :resultInoutArg; ##samm:payloadName "inoutArg"## ] 
+  ) .
+  
+:inArg a samm:Property ;
+   samm:characteristic samm-c:Text .
+
+:inoutArg a samm:Property ;
+   samm:characteristic samm-c:Text .
+ 
+:resultInoutArg a samm:Property ;
+   samm:characteristic samm-c:Text .
+ 
+:outArg a samm:Property ;
+   samm:characteristic samm-c:Text .
+
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0041 | MUST | Operation a| samm:Operation 
+
+samm:output MUST have a Single Entity Characteristic.
+ 
+This Entity MUST extend the predefined abstract Entity "OperationResultValueOnly".  a|  
+| A2S-0042 | MUST | Operation/inputVariables | samm:input a| one argument per input variable
+| A2S-0043 | MUST | Operation/outputVariable  a|
+Property :outputArguments of samm:output Entity Characteristic, one SAMM property per variable 
+a|
+| A2S-0044 | MUST | Operation/inoutputVariables | samm:input  a| SAMM property in :inputArguments one argument per input variable
+| A2S-0045 | MUST | Operation/inoutputVariables | SAMM property :outputArguments of samm:output Entity Characteristic 
+
+To avoid conflict the property name MUST be different but the payload name MUST be identical to the idShort of the Operation/inoutputVariable.  
+a| one samm:Property per inoutput variable in the Entity.
+| A2S-0046 | MUST | Operation/*Variables/value | Mapping depending on the SubmodelElement type used a| 
+|===
+
+[Property]
+=== Property
+
+.Code example: AAS Property
+[source,xml,subs="attributes+,+quotes"]
+----
+<property>
+    <idShort>documentIdentifier</idShort>
+    <valueType>##**xs:string**##</valueType>
+    <value>XF90-884</value>
+</property>…
+----
+
+.Code example: AAS Property mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:documentIdentifier a samm:Property ;
+   samm:characteristic  :DocumentIdentifier ;
+   samm:exampleValue "XF90-884" .
+
+:DocumentIdentifier a samm:Characteristic ;
+   samm:dataType xsd:string .
+----
+
+.Code example: AAS string Property mapped to SAMM with predefined Characteristic
+[source,turtle,subs="attributes+,+quotes"]
+----
+:documentIdentifier a samm:Property ;
+   samm:characteristic samm-c:Text ;
+   samm:exampleValue "XF90-884" .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0047 | MAY | Property | for naming of the Characteristic *<nameOfSAMMProperty>Characteristic* may be used |
+| A2S-0048 | MUST | Property +
+
+not part of a SubmodelElementList (for example part of a Submodel or SubmodelElementCollection) | samm:Property with a scalar data type and a samm-c:Characteristic +
+
+In case of Property/valueType equal to xs:string also *samm-c:Text* can be used as Characteristic. | See xref:samm2smt.adoc#Scalar-data-types-in-SAMM[Scalar data types in SAMM] +
+
+Note: For Property as part of a SubmodelElementList see <<Range, Range>>
+| A2S-0049 | SHOULD | Property/value +
+
+If no template qualifier "ExampleValue" or "DefaultValue" or "InitialValue" defined | samm:exampleValue | see <<Predefined-Template-Qualifiers, Predefined Template Qualifiers>>
+| A2S-0050 | MUST | Property as part of a SubmodelElementList | The Characteristic of the SAMM property (if it would not be part of SubmodelElementList) is used as samm:elementCharacteristic of the containing samm-c:Set or samm-c:List | see <<SubmodelElementList, SubmodelElementList>>
+| A2S-0051 | MUST | Property with related ConceptDescription, i.e. ConceptDescription/id identical to Property/semanticId existing (see xref:samm-aas-topics.adoc[General Topics SAMM and AAS]) and ConceptDescription/unit or ConceptDescription/unitId value defined | The Characteristic for the samm:Property shall be a samm-c:Quantifiable. | It is not possible to further determine whether the value is a Measurement or Duration.
+| A2S-0052 | MUST | Property with related ConceptDescription, i.e. ConceptDescription/id identical to Property/semanticId existing (see xref:samm-aas-topics.adoc[General Topics SAMM and AAS]) and ConceptDescription/valueList defined | The Characteristic for the samm:Property shall be a samm-c:Enumeration | See xref:iec61360-concept-descriptions.adoc[ConceptDescriptions with IEC61360 Data Specification]
+|===
+
+[[Range]]
+=== Range
+
+.Code example: AAS Range
+[source,xml,subs="attributes+,+quotes"]
+----
+<range>
+    <idShort>temperatureRange</idShort>
+    <max>100</max>
+    <valueType>xs:float</valueType>
+</range>
+----
+
+.Code example: AAS Range mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:temperatureRange a samm:Property ;
+   samm:dataType ##**xsd:float**## ;
+   samm:characteristic  :RangeFloatTypeCharacteristic .
+
+:RangeFloatTypeCharacteristic a samm-c:singleEntity ;
+   samm:dataType :RangeFloatType .
+
+:rangeFloatMin a samm:Property ;
+   samm:extends shared:rangeMinAbstract ;
+   samm:dataType xsd:float .
+
+:rangeFloatMax a samm:Property ;
+   samm:extends shared:rangeMinAbstract ;
+   samm:dataType xsd:float .
+
+:RangeFloatType a samm:Entity ;
+   samm:extends shared:RangeTypeAbstract ;
+   samm:properties (
+      [ samm:property :rangeFloatMin; samm:optional true; samm:payloadName "##**min**##" ]
+      [ samm:property :rangeFloatMax; samm:optional true samm:payloadName "##**max**##" ]
+   ) .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0053 | MUST | _Property_ | samm:Property with a scalar data type and a samm-c:SingleEntity. The Entity shall have two properties defined with payloadName "min" and "max. +
+
+The datatype of the properties "min" and "max" is defined in Property/valueDataType. If Property/valueDataType is not defined then the dataType as derived from its ConceptDescription dataType may be used (see xref:iec61360-concept-descriptions.adoc[ConceptDescriptions with IEC61360 Data Specification]) +
+
+If both are not defined then the default xsd:float may be used but a corresponding information message should be generated. |
+|===
+
+=== ReferenceElement
+
+.Code example: AAS ReferenceElement
+[source,xml,subs="attributes+,+quotes"]
+----
+##**<referenceElement>**##
+    <value>
+        <type>ExternalReference</type>
+        <keys>
+            <key>
+                <type>GlobalReference</type>
+                <value>urn:some-company13:9bf154c1</value>
+            </key>
+        </keys>
+    </value>
+</referenceElement>
+----
+
+.Code example: AAS ReferenceElement mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix shared: <urn:samm:io.admin-shell.idta.shared:3.1.0#> .
+
+
+:myReference a samm:##**Property**## ;
+   samm:characteristic ##**shared:ReferenceType**## .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0054 | MUST | _ReferenceElement_ | samm:Property with a predefined characteristic ReferenceType (see xref:samm-aas-topics.adoc#For-SubmodelElement-Operation[For SubmodelElement "Operation"]) | ReferenceElement/value values are ignored when using the predefined Characteristic ReferenceType
+|===
+
+[[RelationshipElement]]
+=== RelationshipElement
+
+.Code example: AAS RelationshipElement
+[source,xml,subs="attributes+,+quotes"]
+----
+##**<relationshipElement>**##
+    <idShort>nRdRe</idShort>
+    <first>
+        <type>ExternalReference</type>
+        <keys>
+            <key>
+                <type>GlobalReference</type>
+                <value>urn:example:f390f801</value>
+            </key>
+        </keys>
+    </first>
+    <second>
+        <type>ExternalReference</type>
+        <keys>
+            <key>
+                <type>GlobalReference</type>
+                <value>urn:an-example05:b7bf2725</value>
+            </key>
+        </keys>
+    </second>
+</relationshipElement>
+----
+
+.Code example: AAS RelationshipElement mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix shared: <urn:samm:io.admin-shell.idta.shared:3.1.0#> .
+
+:nRdRe a samm:##**Property**## ;
+   samm:characteristic ##**shared:RelationshipElementType**## .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0055 | MUST | _RelationshipElement_ | samm:Property with a predefined characteristic RelationshipElementType (see xref:samm-aas-topics.adoc#For-SubmodelElement-RelationshipElement[For SubmodelElement "RelationshipElement]) | RelationshipElement/first and RelationshipElement/second values are ignored when using the predefined Characteristic ReferenceType
+|===
+
+=== SubmodelElementCollection
+
+Note: an AAS Collection corresponds to a SAMM entity, not to a SAMM collection although using the same terms.
+
+.Code example: AAS SubmodelElementCollection
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodelElementCollection>
+    <idShort>document</idShort>
+    <value>
+        …
+    </value>
+</submodelElementCollection>
+----
+
+.Code example: AAS SubmodelElementCollection mapped to SAMM
+[source,xml,subs="attributes+,+quotes"]
+----
+:document a samm:Property ;
+     samm:characteristic :DocumentCharacteristic .
+
+:DocumentCharacteristic a samm:SingleEntity ;
+   samm:dataType :Document .
+
+:Document a samm:Entity ;
+   samm:properties () ;
+   samm:description "A single handover document."@en ;
+   samm:see <0173-1%2302-ABI500%23003/0173-1%2301-AHF579%23003> ;
+   samm:see <https://api.eclass-cdp.com/0173-1-02-ABI500-003/0173-1-01-AHF579-003> .
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0056 | MUST | _SubmodelElementCollection_ | samm:Property with a *samm-c:SingleEntity Characteristic* +
+
+Naming recommendations: +
+
+The name of the characteristic may be *<nameOfSAMMProperty>Characteristic* with samm:dataType *<nameofSAMMProperty starting with capital letter>* |
+| A2S-0057 | MUST | _SubmodelElementCollection/value_ | samm:properties of the samm:Entity referenced in the Characteristic | Same as for Submodel mapped to samm:properties, see <<Submodel, Submodel>>
+|===
+
+[[SubmodelElementList]]
+=== SubmodelElementList
+
+.Code example: AAS SubmodelElementList
+[source,xml,subs="attributes+,+quotes"]
+----
+<submodelElementList>
+    <idShort>documents</idShort>
+    <semanticIdListElement>
+        <type>ExternalReference</type>
+        <keys>
+            <key>
+                <type>GlobalReference</type>
+                <value>##**https://admin-shell.io/vdi/2770/1/0/EntityForDocumentation**##</value>
+            </key>
+        </keys>
+    </semanticIdListElement>
+    <typeValueListElement>##**SubmodelElementCollection**##</typeValueListElement>
+    <value>
+        <submodelElementCollection>
+            <idShort>document</idShort>
+            ...
+        </submodelElementCollection>
+    </value>
+</submodelElementList>
+----
+
+.Code example: AAS SubmodelElementList mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+:documents a samm:Property ;
+   samm:preferredName "documents"@en ;
+   samm:preferredName "Dokumente"@de ;
+   samm:characteristic  :Documents .
+
+:Documents a ##**samm-c:List**## ;
+   samm:dataType :Document .
+
+:Document a samm:Entity ;
+   samm:properties ( ) ;
+   samm:see <##**https://admin-shell.io/vdi/2770/1/0/EntityForDocumentation**##> ;
+----
+
+[cols="1,1,1,2,1"]
+|===
+| *No.* | *Obligation* | *AAS (Submodel Template)* | *SAMM (Aspect Model)* | *Notes*
+
+| A2S-0058 | MUST | SubmodelElementList with orderRelevant=True (Default) | samm:Property with a List Characteristic (samm-c:List) +
+
+the name of the Characteristic may be composed like this: *<nameOfSAMMProperty starting with capital letter>* and the corresponding dataType *<idShort of element within SubmodelElementList starting with capital letter>* +
+
+If no idShort is defined for the element within the SubmodelElementList (it is optional) then the corresponding data type name may be *<nameOfSAMMProperty>Item* |
+| A2S-0059 | MUST | SubmodelElementList with orderRelevant=False | samm:Property with a Set Characteristic (samm-c:Set) +
+
+for the naming see _SubmodelElementList with orderRelevant=True_ |
+| A2S-0060 | MUST | SubmodelElementList/semanticIdListElement | samm:see of the referenced samm:dataType of the Collection. | Note 1: the semantics of the collection is in plural whereas the semantics of the item within the collection is singular. +
+
+Attention: see also <<Identifiable-id, Identifiable/id>>: do not map twice. The semanticId of the Entity must be identical to the value of SubmodelElementList/semanticIdListElement according to specification. +
+
+For the future also inheritance might be possible then the semanticId within elements of a set or list can be more one inheriting from the one defined in SubmodelElementList/semanticIdListElement
+|===
+
+== Environment
+
+Environment has no semanticId.
+
+Environment is not mapped.

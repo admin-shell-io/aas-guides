@@ -1,0 +1,13 @@
+[[roundtrip-capability]]
+= Summary and Outlook
+
+In this document the
+
+* mapping of SAMM Aspect Models to Asset Administration Shell Templates
+
+* as well as the mapping of  Asset Administration Shell Templates to SAMM Aspect Models
+
+is defined.
+
+In the next version also IDTA-01003-b will be considered, the mapping of measurement units between SAMM and Asset Administration Shell.
+

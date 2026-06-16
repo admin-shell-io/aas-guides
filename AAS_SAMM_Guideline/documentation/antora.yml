@@ -1,0 +1,9 @@
+name: 'AAS SAMM Guideline'
+title: 'How to leverage SAMM Aspect Models for Submodel Templates in the Asset Administration Shell'
+version: '1.0'
+display_version: 'in progress'
+prerelease: true
+start_page: ROOT:imprint.adoc
+nav:
+  - modules/ROOT/nav.adoc
+ 
