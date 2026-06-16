@@ -1,0 +1,29 @@
+= Bibliography
+
+[1] How to create a Submodel Template Specification. Guideline. V1.1, May 2025. Publisher: IDTA. link:https://industrialdigitaltwin.org/wp-content/uploads/2025/06/IDTA_How-to-write-a-SMT-v1.1.pdf[https://industrialdigitaltwin.org/wp-content/uploads/2025/06/IDTA_How-to-write-a-SMT-v1.1.pdf,window=_blank] +
+
+[2] IDTA-01001-3-1 Specification of the Asset Administration Shell. Part 1: Metamodel. Publisher: IDTA. link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/index.html[https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/index.html,window=_blank] +
+
+[3] Semantic Aspect Meta Model (SAMM). V2.2.0. link:https://eclipse-esmf.github.io/samm-specification/2.2.0/index.html[https://eclipse-esmf.github.io/samm-specification/2.2.0/index.html,window=_blank] +
+
+[4] Creating AAS submodel templates. Publisher: IDTA. link:https://industrialdigitaltwin.org/en/content-hub/create-a-submodel[https://industrialdigitaltwin.org/en/content-hub/create-a-submodel,window=_blank] +
+
+[5] Submodel Templates. Github repository. link:https://github.com/admin-shell-io/submodel-templates[https://github.com/admin-shell-io/submodel-templates,window=_blank] +
+
+[6] Aspect Models. Github repository. Publisher: IDTA. link:https://github.com/admin-shell-io/smt-semantic-models[https://github.com/admin-shell-io/smt-semantic-models,window=_blank] +
+
+[7] Aspect Models. Github repository. Tractus-X. link:https://github.com/eclipse-tractusx/sldt-semantic-models/tree/main[https://github.com/eclipse-tractusx/sldt-semantic-models/tree/main,window=_blank] +
+
+[8] Aspect Models. Github repository. Publisher: BatteryPass. link:https://github.com/batterypass/BatteryPassDataModel/tree/main/BatteryPass[https://github.com/batterypass/BatteryPassDataModel/tree/main/BatteryPass,window=_blank] +
+
+[9] IDTA-01003-a Specification of the Asset Administration Shell. Part 3a: Data Specification Template IEC 61360. Publisher: IDTA. link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01003-a/v3.1.1/index.html[https://industrialdigitaltwin.io/aas-specifications/IDTA-01003-a/v3.1.1/index.html,window=_blank] +
+
+[10] Specifications of the Asset Administration Shell. Publisher: IDTA. link:https://industrialdigitaltwin.io/aas-specifications/index/home/index.html[https://industrialdigitaltwin.io/aas-specifications/index/home/index.html,window=_blank] +
+
+[11] Overview Metamodel of the Asset Administration Shell link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/overview.html[https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/overview.html,window=_blank] +
+
+[12] Eclipse AASX Package Explorer. link:https://github.com/eclipse-aaspe/package-explorer[https://github.com/eclipse-aaspe/package-explorer,window=_blank] +
+
+[13] Eclipse ESMF Aspect Model Editor. link:https://github.com/eclipse-esmf/esmf-aspect-model-editor[https://github.com/eclipse-esmf/esmf-aspect-model-editor,window=_blank] +
+
+[14] Eclipse ESMF CLI. link:https://github.com/eclipse-esmf/esmf-sdk[https://github.com/eclipse-esmf/esmf-sdk,window=_blank]

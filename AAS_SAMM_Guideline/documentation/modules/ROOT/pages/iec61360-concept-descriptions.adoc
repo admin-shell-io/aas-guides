@@ -1,0 +1,480 @@
+= ConceptDescriptions with IEC61360 Data Specification
+
+== Introduction
+The Asset Administration Shell provides the means to also define concept descriptions and not only reference external concept definitions via semanticId.
+
+For concept descriptions there are two ways how to do it:
+
+*   One via the standardized data specification IEC61360 (IDTA-01003-a, as explained in this section)
+*   One via extensions (this is explained in xref:aas-samm-concept-descriptions.adoc[ConceptDescriptions with AAS SAMM Extensions])
+
+Often this is used to create some shadow copies of dictionary entries but it is also used to define concepts that are not yet defined in any dictionary, ontology of semantic model.
+
+Aspect Models can be referenced via semanticId as explained in xref:samm-aas-topics.adoc#Using-SAMM-element-identifiers-for-AAS-semantics[Using SAMM element identifiers for AAS semantics]. In this section is is described how shadow copies of the concepts defined in Aspect Models can be generated.
+
+The prefix for the rules defined start with "S2C".
+
+Note: IEC61360 and AAS attribute "levelType" is not used in SAMM
+
+[[ConceptDescriptions-for-SAMM-Properties]]
+== ConceptDescriptions for SAMM Properties
+In this section the general mapping of a samm:Property to an AAS ConceptDescription with data specification IEC61360 is specified.
+
+.Code example: a samm:Property definition
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix : <##**urn:samm:io.admin-shell.idta.example:1.0.0#**##> .
+
+:latitude a samm:Property ;
+   samm:preferredName "latitude"@en ;
+   samm:description "The latitude is a geographic coordinate."@en ;
+   samm:characteristic :Coordinate ;
+   samm:exampleValue "9.1781"^^xsd:decimal .
+----
+Mapping to an AAS ConceptDescription:
+
+.Code example: samm:Property mapped to AAS ConceptDescription
+[source,xml,subs="attributes+,+quotes"]
+----
+<conceptDescription>
+    <idShort>##**latitude**##</idShort>
+    <id>**##urn:samm:io.admin-shell.idta.example:1.0.0#latitude**##</id>
+    <embeddedDataSpecifications>
+        <embeddedDataSpecification>
+            <dataSpecification>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>##**https://admin-shell.io/DataSpecificationTemplates/DataSpecificationIec61360/3**##</value>
+                    </key>
+                </keys>
+            </dataSpecification>
+            <dataSpecificationContent>
+                <##**dataSpecificationIec61360**##>
+                    <##**preferredName**##>
+                        <langStringPreferredNameTypeIec61360>
+                            <language>en</language>
+                            <text>##**latitude**##</text>
+                        </langStringPreferredNameTypeIec61360>
+                    </preferredName>
+                    <dataType>##**REAL_COUNT**##</dataType>
+                    <definition>
+                        <langStringDefinitionTypeIec61360>
+                            <language>en</language>
+                            <text>##**The latitude is a geographic coordinate.**##</text>
+                        </langStringDefinitionTypeIec61360>
+                    </definition>
+                </dataSpecificationIec61360>
+            </dataSpecificationContent>
+        </embeddedDataSpecification>
+    </embeddedDataSpecifications>
+</conceptDescription>
+----
+
+
+[cols="1,1,1,1,1",options="header"]
+|===
+|*No.* |*Obligation* |*SAMM (Aspect Model)* |*AAS (Submodel Template)* |*Notes*
+
+|S2C-001 |MUST | |An embedded data specification with value `*_#https://admin-shell.io/DataSpecificationTemplates/DataSpecificationIec61360/3#_*` MUST be added |
+|S2C-002 |should |`*#:<nameOfSAMMProperty> a samm:Property ;#*` |`*_#ConceptDescription/idShort:#_*` <nameOfSAMMProperty> |It is also possible to use the payload name if existing (compare to S2A-0013) but the idShort of the ConceptDescription is not relevant for the Value-Only payload.
+|S2C-003 |MUST |`*#:<nameOfSAMMProperty> a samm:Property#*` +
+
+in namespace <namespace> |`*_#ConceptDescription/id:#_*` <namespace>#<nameOfSAMMProperty> |Compare to SA-0003
+|S2C-004 |MUST |samm:preferredName |`*_#DataSpecificationIec61360/preferredName#_*` |Compare to S2A-0004
+|S2C-005 |MUST |samm:description |`*_#DataSpecificationIec61360/definition#_*` |
+|S2C-006 |MUST |samm:dataType |Mapping of effective data type as defined in <<table-2, Table 2>> |
+|S2C-007 |-- |samm:exampleValue |-- |Example Values are not supported by the IEC61360 specification so there is no mapping for the samm:exampleValue.
+See xref:samm2smt.adoc#Property-samm:optional-and-samm:payloadName[Property samm:optional and samm:payloadName] how samm:exampleValues can be handled in the Submodel Template itself
+|===
+
+In the following link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01003-a/v3.1.1/specification.html#mapping-iec-61360-data-types-to-xsd-data-types[table,window=_blank]  the mapping of IEC 61360 data types to xsd data types is defined.
+
+
+[[table-2]]
+.Mapping of xsd data types to IEC61360 data types
+[cols="1,1,1",options="header"]
+|===
+| |*Data Type* |*IEC61360*
+
+|Core types |_xsd:string_ |STRING
+| |_xsd:boolean_ |BOOLEAN
+| |_xsd:decimal_ and samm:Property is a Measurement |RATIONAL_MEASURE
+| |_xsd:decimal_ and samm:Property is not a Measurement |RATIONAL
+| |xsd:integer and samm:Property is a Measurement |INTEGER_MEASURE
+| |xsd:integer and samm:Property is not a Measurement |INTEGER_COUNT
+| |-- |INTEGER_CURRENCY
+|IEEE floating-point numbers |xsd:double or xsd:float and samm:Property is a Measurement |REAL_MEASURE
+| |xsd:double or xsd:float and samm:Property is not a Measurement |REAL_COUNT
+| |-- |REAL_CURRENCY
+|Time and dates |_xsd:date_ |DATE
+| |_xsd:time_ |TIME
+| |_xsd:dateTime_ |TIMESTAMP
+|Recurring and partial dates |xsd:gYear |DATE
+| |_xsd:gMonth_ |DATE
+| |_xsd:gDay_ |DATE
+| |_:gYearMonth_ |DATE
+| |_xsd:gMonthDay_ |DATE
+| |_xsd:duration_ |TIME
+|Limited-range integer numbers |xsd:byte |_Like xsd:integer_
+| |_xsd:short_ |_Like xsd:integer_
+| |_xsd:int_ |_Like xsd:integer_
+| |_xsd:long_ |_Like xsd:integer_
+| |_xsd:unsignedByte_ |_Like xsd:integer_
+| |_xsd:unsignedShort_ |_Like xsd:integer_
+| |_xsd:unsignedInt_ |_Like xsd:integer_
+| |_xsd:unsignedLong_ |_Like xsd:integer_
+| |_xsd:positiveInteger_ |_Like xsd:integer_
+| |_xsd:nonNegativeInteger_ |_Like xsd:integer_
+| |_xsd:negativeInteger_ |_Like xsd:integer_
+| |_xsd:nonPositiveInteger_ |_Like xsd:integer_
+|Encoded binary data |_xsd:hexBinary_ |BLOB
+| |_xsd:base64Binary_ |BLOB
+|Miscellaneous types |_xsd:anyURI_ |IRI
+| |_rdf:langString_ |STRING_TRANSLATABLE
+|Other |_If samm:Property is mapped to a SubmodelElement File_ |FILE
+| |-- |HTML
+|===
+
+== ConceptDescriptions for measurable SAMM Properties
+
+.Code example: a measurable SAMM Property
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix unit: <urn:samm:org.eclipse.esmf.samm:unit:2.2.0#>.
+
+:temperature a samm:Property ;
+   samm:preferredName "temperature"@en ;
+   samm:characteristic :Temperature .
+
+:Temperature a samm-c:Measurement ;
+   samm:dataType xsd:float ;
+   samm-c:unit unit:degreeCelsius .
+
+unit:degreeCelsius a samm:Unit ;
+   samm:preferredName            "degree Celsius"@en ;
+   samm:commonCode               "CEL" ;
+   samm:conversionFactor         "1 × K" ;
+   samm:numericConversionFactor  "1.0"^^xsd:double ;
+   samm:quantityKind             unit:temperature ;
+   samm:referenceUnit            unit:kelvin ;
+   samm:symbol                   "°C" .
+----
+
+
+.Code example: a measurable samm:Property mapped to AAS ConceptDescription
+[source,xml,subs="attributes+,+quotes"]
+----
+<conceptDescription>
+    <idShort>temperature</idShort>
+    <id>urn:samm:io.admin-shell.idta.example:1.0.0#temperature</id>
+    <embeddedDataSpecifications>
+        <embeddedDataSpecification>
+            <dataSpecification>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/DataSpecificationTemplates/DataSpecificationIec61360/3</value>
+                    </key>
+                </keys>
+            </dataSpecification>
+            <dataSpecificationContent>
+                <dataSpecificationIec61360>
+                    <preferredName>
+                        <langStringPreferredNameTypeIec61360>
+                            <language>en</language>
+                            <text>temperature</text>
+                        </langStringPreferredNameTypeIec61360>
+                    </preferredName>
+                    <unit>##**CEL**##</unit>
+                    <##**unitId**##>
+                        <type>ModelReference</type>
+                        <keys>
+                            <key>
+                                <type>Submodel</type>
+                                <value>##**urn:samm:org.eclipse.esmf.samm:unit:2.2.0#degreeCelsius**##</value>
+                            </key>
+                        </keys>
+                    </unitId>
+                    <sourceOfDefinition>something_1bd907c8</sourceOfDefinition>
+                    <symbol>##**°C**##</symbol>
+                    <dataType>REAL_MEASURE</dataType>
+                    <definition>
+                        <langStringDefinitionTypeIec61360>
+                            <language>en</language>
+                            <text>degree celsius</text>
+                        </langStringDefinitionTypeIec61360>
+                    </definition>
+                </dataSpecificationIec61360>
+            </dataSpecificationContent>
+        </embeddedDataSpecification>
+    </embeddedDataSpecifications>
+</conceptDescription>
+----
+SAMM elements not mentioned are not mapped.
+
+[cols="1,1,1,1,1",options="header"]
+|===
+|*No.* |*Obligation* |*SAMM (Aspect Model)* |*AAS (Submodel Template)* |*Notes*
+|S2C-007 |MUST |samm-c:unit with value unit:<nameOfSAMMUnit> +
+
+with "unit:" is the predefined name space of the units |DataSpecificationIec61360/unitId = <namespace of unit>#<NameOfSAMMUnit> |The namespace for units is predefined in SAMM. It is `*#urn:samm:org.eclipse.esmf.samm:unit:<version>#*`
+|S2C-009 |MUST |samm:symbol |DataSpecificationIec61360/symbol = <value of samm:symbol> +
+
+and +
+
+DataSpecificationIec61360/unit = <value of samm:commonCode> |
+|===
+
+[[ConceptDescriptions-for-samm:Values]]
+== ConceptDescriptions for samm:Values
+
+.Code example: a samm:Value
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix : <##**urn:samm:io.admin-shell.idta.example:1.0.0#**##> .
+
+:##**GreenLight**## a samm:Value ;
+   samm:value "green" ;
+   samm:preferredName "Normal"@en ;
+   samm:description "Indicates that the speed of position change is within specification."@en ;
+   samm:see <https://en.wikipedia.org/wiki/Traffic_light> .
+----
+
+
+.Code example: a samm:Value mapped to AAS ConceptDescription
+[source,xml,subs="attributes+,+quotes"]
+----
+<conceptDescription>
+    <idShort>GreenLigth</idShort>
+    <id>##**urn:samm:io.admin-shell.idta.example:1.0.0#GreenLight**##</id>
+    <embeddedDataSpecifications>
+        <embeddedDataSpecification>
+            <dataSpecification>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>##**https://admin-shell.io/DataSpecificationTemplates/DataSpecificationIec61360/3**##</value>
+                    </key>
+                </keys>
+            </dataSpecification>
+            <dataSpecificationContent>
+                <##**dataSpecificationIec61360**##>
+                    <##**preferredName**##>
+                        <langStringPreferredNameTypeIec61360>
+                            <language>en</language>
+                            <text>##**GreenLight**##</text>
+                        </langStringPreferredNameTypeIec61360>
+                    </preferredName>
+                    <dataType>##**STRING**##</dataType>
+                    <definition>
+                        <langStringDefinitionTypeIec61360>
+                            <language>en</language>
+                            <text> Indicates that the speed of position change is within specification.</text>
+                        </langStringDefinitionTypeIec61360>
+                    </definition>
+                    <value>##**green**##</value>
+                </dataSpecificationIec61360>
+            </dataSpecificationContent>
+        </embeddedDataSpecification>
+    </embeddedDataSpecifications>
+    <isCaseOf>
+        <reference>
+            <type>ExternalReference</type>
+            <keys>
+                <key>
+                    <type>GlobalReference</type>
+                    <value>##**https://en.wikipedia.org/wiki/Traffic_light**##</value>
+                </key>
+            </keys>
+        </reference>
+    </isCaseOf>
+</conceptDescription>
+----
+[cols="1,1,1,1,1",options="header"]
+|===
+|*No.* |*Obligation* |*SAMM (Aspect Model)* |*AAS (Submodel Template)* |*Notes*
+
+|S2C-010 |should |`*#:<nameOfSAMMValue> a samm:Value ;#*` |`*_#ConceptDescription/idShort: <nameOfSAMMValue>#_*` |Compare to S2C-002
+|S2C-011 |MUST |`*#::<nameOfSAMMValue> a samm:Value#*`  +
+
+in namespace <namespace> |`*_#ConceptDescription/id: <namespace>#<nameOfSAMMValue>#_*` |Compare to SA-0003 and S2C-003
+|S2C-012 |MUST |samm:preferredName |`*_#DataSpecificationIec61360/preferredName#_*` |Compare to S2A-0004 and S2C-004
+|S2C-013 |MUST |samm:value of a samm-c:Value |`*_#DataSpecificationIec61360/value = <value of samm:Value>#_*` |
+|===
+
+== ConceptDescriptions for Enumerations with implicit values
+
+.Code example: samm-c:Enumeration with implicit values
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix : <##**urn:samm:io.admin-shell.idta.example:1.0.0#**##> .
+
+:status a samm:Property;
+   samm:preferredName "status"@en ;
+   samm:characteristic :Status .
+
+:Status a samm-c:##**Enumeration**## ;
+   samm:dataType xsd:string ;
+   samm-c:values ( ##**"Complete" "In Progress" "Created"**## ) .
+----
+
+
+.Code example: samm-c:Enumeration with implicit values mapped to AAS
+[source,xml,subs="attributes+,+quotes"]
+----
+<conceptDescription>
+    <idShort>status</idShort>
+    <administration/>
+    <id>urn:samm:io.admin-shell.idta.example:1.0.0#status</id>
+    <embeddedDataSpecifications>
+        <embeddedDataSpecification>
+            <dataSpecification>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/DataSpecificationTemplates/DataSpecificationIec61360/3</value>
+                    </key>
+                </keys>
+            </dataSpecification>
+            <dataSpecificationContent>
+                <##**dataSpecificationIec61360**##>
+                    <##**preferredName**##>
+                        <langStringPreferredNameTypeIec61360>
+                            <language>en</language>
+                            <text>##**status**##</text>
+                        </langStringPreferredNameTypeIec61360>
+                    </preferredName>
+                    <##**valueList**##>
+                        <valueReferencePairs>
+                            <valueReferencePair>
+                                <value>##**Complete**##</value>
+                            </valueReferencePair>
+                            <valueReferencePair>
+                                <value>##**In Progress**##</value>
+                            </valueReferencePair>
+                            <valueReferencePair>
+                                <value>##**Created**##</value>
+                            </valueReferencePair>
+                        </valueReferencePairs>
+                    </valueList>
+                </dataSpecificationIec61360>
+            </dataSpecificationContent>
+        </embeddedDataSpecification>
+    </embeddedDataSpecifications>
+</conceptDescription>
+----
+[cols="1,1,1,1,1",options="header"]
+|===
+|*No.* |*Obligation* |*SAMM (Aspect Model)* |*AAS (Submodel Template)* |*Notes*
+
+|S2C-014 |MUST |samm-c:Enumeration |DataSpecificationIec61360/valueList |
+|S2C-015 |MUST |samm-c:values within samm-c enumeration +
+
+with implicit values |per value in samm-c:values: +
+
+ValueReferencePair/value +
+
+# within a DataSpecificationIec61360/valueList |
+|===
+
+== ConceptDescriptions for Enumerations with explicit values
+
+.Code example: samm:Enumeration with explicit values
+[source,turtle,subs="attributes+,+quotes"]
+----
+:trafficLight a samm:Property;
+   samm:preferredName "traffic light"@en ;
+   samm:characteristic :TrafficLight.
+
+:TrafficLight a samm-c:##**Enumeration**## ;
+   samm:preferredName "Warning Level"@en ;
+   samm:description "Represents if speed of position change is within specification (green), within tolerance (yellow), or outside specification (red)."@en ;
+   samm:dataType xsd:string ;
+   samm-c:values (
+      ##**:GreenLight**##
+   ) .
+
+##**:GreenLight**## a samm:Value ;
+   samm:value "green" ;
+   samm:preferredName "Normal"@en ;
+   samm:description "Indicates that the speed of position change is within specification."@en ;
+   samm:see <https://en.wikipedia.org/wiki/Traffic_light> .
+----
+
+
+.Code example 4: samm-c:Enumeration with explicit values mapped to AAS ConceptDescription
+[source,xml,subs="attributes+,+quotes"]
+----
+
+<conceptDescription>
+    <idShort>TrafficLight</idShort>
+    <administration/>
+    <id>urn:samm:io.admin-shell.idta.example:1.0.0#trafficLight</id>
+    <embeddedDataSpecifications>
+        <embeddedDataSpecification>
+            <dataSpecification>
+                <type>ExternalReference</type>
+                <keys>
+                    <key>
+                        <type>GlobalReference</type>
+                        <value>https://admin-shell.io/DataSpecificationTemplates/DataSpecificationIec61360/3</value>
+                    </key>
+                </keys>
+            </dataSpecification>
+            <dataSpecificationContent>
+                <##**dataSpecificationIec61360**##>
+                    <##**preferredName**##>
+                        <langStringPreferredNameTypeIec61360>
+                            <language>en</language>
+                            <text>##**traffic light**##</text>
+                        </langStringPreferredNameTypeIec61360>
+                    </preferredName>
+                    <##**valueList**##>
+                        <valueReferencePairs>
+                            <valueReferencePair>
+                                <value>##**green**##</value>
+                                <##**valueId**##>
+                                    <type>ExternalReference</type>
+                                    <keys>
+                                        <key>
+                                            <type>GlobalReference</type>
+                                            <value>##**urn:samm:io.admin-shell.idta.example:1.0.0#GreenLight**##</value>
+                                        </key>
+                                    </keys>
+                                </valueId>
+                            </valueReferencePair>
+                        </valueReferencePairs>
+                    </valueList>
+                </dataSpecificationIec61360>
+            </dataSpecificationContent>
+        </embeddedDataSpecification>
+    </embeddedDataSpecifications>
+</conceptDescription>
+----
+For the mapping of the samm:Value GreenLight see <<ConceptDescriptions-for-samm:Values, ConceptDescriptions for samm:Values>>:
+
+[cols="1,1,1,1,1",options="header"]
+|===
+|*No.* |*Obligation* |*SAMM (Aspect Model)* |*AAS (Submodel Template)* |*Notes*
+
+|S2C-016 |MUST |samm-c:Enumeration |`*_#DataSpecificationIec61360/valueList#_*` |See S2C-014
+|S2C-017 |MUST |samm-c:values within samm-c enumeration +
+
+with explicit values |per value in samm-c:values: +
+
+`*_#ValueReferencePair/value : <samm:value of samm:Value>#_*` +
+
+within a DataSpecificationIec61360/valueList |Compare to S2C-015
+|S2C-018 |MUST |samm-c:values within samm-c enumeration +
+
+with explicit values |per value in samm-c:values: +
+
+`*_##ValueReferencePair/valueId : <namespace of samm:Value>#<element name of##_*` samm:Value> +
+
+within a DataSpecificationIec61360/valueList |In contrast to implicitly defined value lists there MUST be a valueId added to the value.
+|===

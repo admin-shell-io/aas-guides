@@ -1,0 +1,720 @@
+= General Topics SAMM and AAS
+
+[[mapping-of-identifiers]]
+== Mapping of identifiers
+
+=== Identifiers in SAMM
+
+In a SAMM Aspect Model, model elements are either identified by a URN that follows the 
+link:https://eclipse-esmf.github.io/samm-specification/snapshot/namespaces.html#aspect-model-element-identifiers-definition[Aspect Model Element Identifiers definition,window=_blank], 
+or they are anonymous elements that can not be referenced. 
+Only `*#samm:Characteristic#*` and `*#samm:Constraint#*` are allowed to be anonymous (when they are defined in the place they are used, 
+as the value of attributes `*#samm:characteristic#*` or `*#samm:constraint#*`, respectively). 
+The URNs for identified elements must follow the schema `*##urn:samm:<namespace-main-part>:<version>#<element-name>##*`, where:
+
+* `*#namespace-main-part#*` defines the hierarchical namespace part given in reverse domain name notation, e.g., `_io.admin-shell.idta.example_`,
+* `*#version#*` is given in the form X.Y.Z, e.g., _1.0.0_,
+* `*#element-name#*` is the name of the element (also called "local name" or simply "name"), e.g., _myProperty_.
+
+The part of an Aspect Model Element identifier before the # sign is also called the element’s _namespace_.
+
+For the following example the namespace for the samm:Property "isMoving" is urn:samm:io.admin-shell.idta.example:1.0.0# and for "manufacturerName" it is urn:samm:io.admin-shell.idta.nameplate:2.3.0#. The unique ID of the samm:Property manufacturerName is urn:samm:io.admin-shell.idta.nameplate:2.3.0#manufacturerName, for the samm:Aspect its unique ID is urn:samm:io.admin-shell.idta.example:1.0.0#Movement.
+
+.Code example: example unique IDs in SAMM with different namespaces
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix : <##**urn:samm:io.admin-shell.idta.example:1.0.0#**##> .
+@prefix nameplate: <##**urn:samm:io.admin-shell.idta.nameplate:2.3.0#**##> .
+
+:Movement a samm:Aspect ;
+   samm:properties ( :isMoving ##nameplate:##manufacturerName ) .
+----
+
+=== Identifiers in AAS
+
+In the Asset Administration Shell Specification there is the distinction between Identifiables and Referables.
+
+* `*#id#*`, for Identifiables a globally unique identifier is defined
+* `*#idShort#*`, for Referables a relative identifier in its context is defined, used as part of so-called `IdShortPath` to enable the unique referencing of an `Referable`
+
+The `*#idShort#*` is used within the link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#value-only-serialization-in-json[Value-Only serialization,window=_blank] of the AAS as the JSON property name.
+
+There are three elements that are `identifiable` in the specification:
+
+* AssetAdministrationShell
+* Submodel
+* ConceptDescription
+
+The link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html[IdShortPath serialization,window=_blank] is used in JSON. The grammar can be found in `IDTA-01001`. Example:
+
+_MySubmodelElementCollection.MySubmodelElementList[0][3].MyProperty_
+
+This path is unique within a Submodel with a unique identifier of its own. A JSON operation for getting a specific submodel element within a specified submodel would look like this:
+
+_GET /aas/submodels/\{submodelIdentifier\}/submodel-elements/\{idShortPath\}_
+
+Not every element in the metamodel is referable. But in the link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.1/query-language.html[Query Language,window=_blank] it is also possible to reference non-referable elements. They are called field identifier. Example how to reference the non-referable attribute `*#semanticId#*` of a Submodel:
+
+_$sm#semanticId $eq "SemanticID-Nameplate"_
+
+[[Using-SAMM-element-identifiers-for-AAS-semantics]]
+=== Using SAMM element identifiers for AAS semantics
+
+SAMM can be used as semantic definition for an AAS Submodel or SubmodelElement. This is denoted by referencing the SAMM element with its identifier via the attribute `*#semanticId#*`. For all AAS metamodel elements inheriting from the class HasSemantics a semantic ID MAY be attached to. Additionally, `*#supplementalSemanticIds#*` can be added.
+
+Please note: Not all Identifiables or Referables do have a semantic ID (example: ConceptDescription) and there are also elements in the metamodel that do have a semanticId but are neither an Identifiable nor a Referable (example: Qualifier).
+
+An AAS semanticId or supplementalSemanticId is of type `*#Reference#*` and can be either an `*#ExternalReference#*` or a `*#ModelReference#*`.
+
+The rules in this chapter start with *SA* (SAMM AAS).
+
+.Code example: Using SAMM element ID as semanticId in AAS
+[source,xml,subs="attributes+,+quotes"]
+----
+##**<semanticId>**##
+    <type>##**ExternalReference**##</type>
+    <keys>
+        <key>
+            <type>GlobalReference</type>
+            <value>##**urn:samm:io.admin-shell.idta.example:1.0.0#Movement**##</value>
+        </key>
+    </keys>
+</semanticId>
+----
+
+.Code example: Using SAMM element ID as supplementalSemanticId in AAS
+[source,xml,subs="attributes+,+quotes"]
+----
+<semanticId>
+    <type>ExternalReference</type>
+    <keys>
+        <key>
+            <type>GlobalReference</type>
+            <value>0173-1#02-ABI500#003<value>
+        </key>
+    </keys>
+</semanticId>
+##**<supplementalSemanticIds>**##
+    <reference>
+        <type>##**ExternalReference**##</type>
+            <keys>
+                <key>
+                    <type>GlobalReference</type>
+                    <value>##**urn:samm:io.admin-shell.idta.example:1.0.0#EntityForDocumentation**##</value>
+                </key>
+            </keys>
+        </reference>
+    </supplementalSemanticIds>
+</submodelElementCollection>
+----
+
+|===
+|*No.* |*Obligation* |*SAMM (Aspect Model)* |*AAS (Submodel Template)* |*Notes*
+
+|SA-0001 |MUST | |an ExternalReference is used for semanticId and supplementalSemanticId |
+|SA-0002 |MAY |`*#:<nameOfAspect> a samm:Aspect ;#*`  +
+in namespace <namespace> |Submodel/semanticId: <namespace>#<nameOfAspect> +
+or +
+Submodel/supplementalSemanticId: <namespace>#<nameOfAspect> |Note: it is unusual that a Submodel has supplemental Semantic IDs but no semanticId
+|SA-0003 |MAY |`*#:<nameOfSAMMProperty> a samm:Property#*` +
+in namespace <namespace> |SubmodelElement/semanticId: <namespace>#<nameOfSAMMProperty> +
+or +
+Submodel/supplementalSemanticId: <namespace>#< nameOf-SAMMProperty > |Note: it is unusual that a SubmodelElement has supplemental Semantic IDs but no semanticId
+|===
+
+For the example URN of the aspect model property with name "isMoving" `*##urn:samm:io.admin-shell.idta.example:1.0.0#isMoving##*`, the corresponding semantic ID of the corresponding Submodel Element of Type "`*#Property#*`" would therefore be `*#urn:samm:io.admin-shell.idta.example:1.0.0#isMoving#*`.
+
+[[Predefined-SAMM-Characteristics]]
+== Predefined SAMM Characteristics
+
+=== Introduction
+
+The Characteristic of a samm:Property is relevant for deciding which kind of SubmodelElement it can describe the semantics of.
+
+Note: these characteristics are defined in namespace with main-part
+
+"`*urn:samm:io.admin-shell.idta.shared*`".
+
+So, if newer versions are available those should be used. They are published here: *link:https://github.com/admin-shell-io/smt-semantic-models/blob/main/io.admin-shell.idta.shared[window=_blank]*
+
+The code snippets in the following are taken from this github repository. For complete examples and details see *link:https://github.com/admin-shell-io/smt-semantic-models/blob/main/io.admin-shell.idta.shared[window=_blank]*.
+All of them use the following namespaces:
+
+.Code example: SAMM `Characteristic` for a SubmodelElement `AnnotatedRelationshipElement`
+[source,turtle,subs="attributes+,+quotes"]
+----
+@prefix samm: <urn:samm:org.eclipse.esmf.samm:meta-model:2.1.0#> .
+@prefix samm-c: <urn:samm:org.eclipse.esmf.samm:characteristic:2.1.0#> .
+@prefix samm-e: <urn:samm:org.eclipse.esmf.samm:entity:2.1.0#> .
+@prefix unit: <urn:samm:org.eclipse.esmf.samm:unit:2.1.0#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <urn:samm:io.admin-shell.idta.shared:3.1.0#> .
+----
+
+Only non-abstract SubmodelElement classes are considered.
+
+=== For SubmodelElement "AnnotatedRelationshipElement"
+
+Compare to SubmodelElement "RelationshipElement" and SubmodelElement "Entity" with statements.
+
+.Code example: SAMM `Characteristic` for a SubmodelElement `AnnotatedRelationshipElement`
+[source,turtle,subs="attributes+,+quotes"]
+----
+:annotations a samm:AbstractProperty ;
+   samm:see <https://admin-shell.io/aas/3/1/Entity/statement> .
+
+##:AasAnnotatedRelationshipElementWithAnnotationsType## a samm:AbstractEntity ;
+   samm:extends shared:RelationshipElementEntity ;
+   samm:properties ( :annotations ) .
+----
+
+In case a SAMM property has the characteristic with a datatype extending "AasAnnotatedRelationshipElementWithAnnotationsType" in namespace "urn:samm:io.admin-shell.idta.shared:3.1.0#" 
+or with higher version then the corresponding element MUST be mapped to a SubmodelElement "AnnotatedRelationshipElement" (and vice versa).
+
+
+=== For SubmodelElement "BasicEventElement"
+
+.Code example: SAMM `Characteristic` for a SubmodelElement `BasicEventElement`
+[source,turtle,subs="attributes+,+quotes"]
+----
+
+##:BasicEventElementType## a samm:Characteristic ;
+   samm:dataType :BasicEventElementEntity .
+
+:BasicEventElementEntity a samm:Entity ;
+   samm:see <https://admin-shell.io/aas/3/1/BasicEventElementElement> ;
+   samm:description "A basic event element."@en ;
+   samm:properties ( :observed ) .
+
+:observed a samm:Property ;
+   samm:characteristic :ModelReferenceType .
+----
+
+In case a SAMM property has the characteristic with name "BasicEventElementType" in namespace "urn:samm:io.admin-shell.idta.shared:3.1.0#" or with higher version then the corresponding element MUST be mapped to a SubmodelElement "BasicEventElement" (and vice versa).
+
+=== For SubmodelElement "Blob"
+
+.Code example: SAMM `Characteristic` for a SubmodelElement `Blob`
+[source,turtle,subs="attributes+,+quotes"]
+----
+
+:BlobWithContentType a samm:Characteristic ;
+   samm:preferredName "Large Binary Object (BLOB) mit Content-Type"@de ;
+   samm:preferredName "Large Binary Object (BLOB) with content type"@en ;
+   samm:description "A Blob is a data element representing a file that is contained in the value attribute with its source code. The code syntax is characterized by its content type (MIME type)."@en ;
+   samm:see <https://admin-shell.io/aas/3/1/Blob> ;
+   samm:dataType :BlobWithContentTypeEntity .
+
+:blobValue a samm:Property ;
+   samm:preferredName "binary large object (BLOB)"@en ;
+   samm:description "The data of the BLOB (Binary Large Object)."@en ;
+   samm:characteristic ##:BlobType## ;
+   samm:see <https://admin-shell.io/aas/3/1/Blob/value> ;
+   samm:exampleValue "SGVsbG8sIFdvcmxkIQ=="^^xsd:base64Binary .
+
+##:BlobType## a samm:Characteristic ;
+   samm:see <https://admin-shell.io/aas/3/1/BlobType> ;
+   samm:dataType xsd:base64Binary .
+
+:BlobWithContentTypeEntity a samm:Entity ;
+   samm:preferredName "Large Binary Object (BLOB) mit Content-Type"@de ;
+   samm:preferredName "Large Binary Object (BLOB) with content type"@en ;
+   samm:description "A Blob is a data element representing a file that is contained in the value attribute with its source code. The code syntax is characterized by its content type (MIME type)."@en ;
+   samm:see <https://admin-shell.io/aas/3/1/Blob> ;
+   samm:properties ( [ samm:property :blobValue; samm:payloadName "value" ] :contentType ) .
+----
+
+If the query parameter SerializationModifier Extent is set to *_WithoutBLOBValue_* the value of the Blob is not returned (see IDTA-01002). This is why the blobValue is optional in this model.
+
+The other reasons for the value to be optional is that it can be used in a Submodel Template.
+
+In case a SAMM property has the characteristic with name "BlobWithContentType" in namespace "urn:samm:io.admin-shell.idta.shared:3.1.0#" or with higher version then the corresponding element MUST be mapped to a SubmodelElement "Blob" (and vice versa).
+
+[[For-SubmodelElement-Capability]]
+=== For SubmodelElement "Capability"
+
+SubmodelElement Capability is excluded from the link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/mappings/mappings.html#_overview_of_value_only_serialization_attributes[serialization scope,window=_blank], therefore there are no predefined Characteristics for them.
+
+=== For SubmodelElement "Entity"
+
+.Code example: SAMM `Characteristic` "AasEntityCharacteristic" for a SubmodelElement `Entity` without statements
+[source,turtle,subs="attributes+,+quotes"]
+----
+:valueOnly4Entity a samm:Property ;
+   samm:preferredName "Entity"@en ;
+   samm:description "Entity conformant to AAS."@en ;
+   samm:characteristic ##:AasEntityCharacteristic## .
+
+##:AasEntityCharacteristic## a samm-c:SingleEntity ;
+   samm:dataType :AasEntityType .
+
+:specificAssetIds a samm:Property ;
+   samm:preferredName "specific asset ID"@en ;
+   samm:see <https://admin-shell.io/aas/3/1/SpecificAssetId> ;
+   samm:characteristic :SpecificAssetIdSet .
+
+:SpecificAssetIdSet a samm-c:Set ;
+   samm:dataType :SpecificAssetId .
+
+:EntityType a samm-c:Enumeration ;
+   samm:dataType xsd:string ;
+   samm-c:values ( "SelfManagedEntity" "CoManagedEntity" ) .
+
+:globalAssetId a samm:Property ;
+   samm:preferredName "global asset ID"@en ;
+   samm:description "Globally unique identifier of an asset."@en ;
+   samm:see <https://admin-shell.io/aas/3/1/Entity/globalAssetId> ;
+   samm:characteristic samm-c:Text .
+
+:AasEntityType a samm:Entity ;
+   samm:see <https://admin-shell.io/aas/3/1/Entity> ;
+   samm:description "A predefined submodel element subtype of the Asset Administration Shell used to model entities without additional statements."@en ;
+   samm:properties ( 
+      [ samm:property :specificAssetIds; samm:optional true ]
+	  [ samm:property :globalAssetId; samm:optional true  ]
+	  [ samm:property :entityType ; samm:optional true  ]
+	   ) .
+
+:entityType a samm:Property ;
+   samm:preferredName "entity type"@en ;
+   samm:see <https://admin-shell.io/aas/3/1/Entity/entityType> ;
+   samm:characteristic :EntityType ;
+   samm:exampleValue "SelfManagedEntity" .
+
+----
+
+.Code example: SAMM Elements for a SubmodelElement `Entity` with statements
+[source,turtle,subs="attributes+,+quotes"]
+----
+##:statements## a samm:AbstractProperty ;
+   samm:see <https://admin-shell.io/aas/3/1/Entity/statement> .
+
+##:AasEntityWithStatementsType## a samm:AbstractEntity ;
+   samm:extends shared:AasEntityType ;
+   samm:properties ( :statements ) .
+
+:valueOnly4EntityWithStatements a samm:Property ;
+   samm:preferredName "Example Entity with statements"@en ;
+   samm:description "Example Entity conformant to AAS with statements."@en ;
+   samm:characteristic :valueOnly4EntityWithStatementsCharacteristic .
+   
+:valueOnly4EntityWithStatementsCharacteristic a samm:Characteristic ;
+   samm:dataType :ValueOnly4EntityWithStatements .
+   
+:ValueOnly4EntityWithStatements a samm:Entity ;
+   ##samm:extends :AasEntityWithStatementsType## ;
+   samm:properties ( 
+     [ samm:property :exampleStatements; samm:payloadName "statements" ]
+   ).
+
+:exampleStatements a samm:Property ;
+  ##samm:extends :statements## ;
+  samm:characteristic :ExampleStatementsCharacteristic .
+  
+:ExampleStatementsCharacteristic a samm:Characteristic ;
+  samm:dataType :ExampleStatements .
+  
+:ExampleStatements a samm:Entity ;
+  samm:properties ( :valueOnly4MultiLanguageProperty ) . 
+----
+
+In case a SAMM property has the characteristic with name "AasEntityCharacteristic" or has a Characteristic that extends the Entity "AasEntityWithStatementsType" in namespace "urn:samm:io.admin-shell.idta.shared:3.1.0#" or with higher version then the corresponding element MUST be mapped to a SubmodelElement "Entity" (and vice versa).
+
+"AasEntityCharacteristic" can only be used as data type of a samm:SingleEntity if no statements are added to the Entity. 
+If statements are added then only the definitions for specificAssetIds, globalAssetId and entityType can be reused.
+
+For Entity also specificAssetId need to be defined:
+
+.Code example: AAS `specificAssetIds` mapped to SAMM
+[source,turtle,subs="attributes+,+quotes"]
+----
+
+:externalSubjectId a samm:Property ;
+   samm:preferredName "external subject ID"@en ;
+   samm:description "The unique ID of the (external) subject the specific asset ID value belongs to or has meaning to."@en ;
+   samm:see <https://admin-shell.io/aas/3/1/SpecificAssetId/externalSubjectId> ;
+   samm:characteristic :ReferenceType .
+
+:specificAssetIdName a samm:Property ;
+   samm:preferredName "name"@en ;
+   samm:description "Name of the asset identifier."@en ;
+   samm:see <https://admin-shell.io/aas/3/1/SpecificAssetId/name> ;
+   samm:characteristic samm-c:Text ;
+   samm:exampleValue "SerialNumber" .
+
+:SpecificAssetId a samm:Entity ;
+   samm:preferredName "specific asset ID"@en ;
+   samm:description "A specific asset ID describes a generic supplementary identifying attribute of the asset. The specific asset ID is not necessarily globally unique."@en ;
+   samm:see <https://admin-shell.io/aas/3/1/SpecificAssetId> ;
+   samm:properties (
+      [ samm:property :externalSubjectId; samm:optional true ]
+      [ samm:property :specificAssetIdValue; samm:payloadName "value" ]
+      [ samm:property :specificAssetIdName; samm:payloadName "name" ]
+   ) .
+
+:specificAssetIdValue a samm:Property ;
+   samm:preferredName "value"@en ;
+   samm:description "The value of the specific asset identifier with the corresponding name."@en ;
+   samm:see <https://admin-shell.io/aas/3/1/SpecificAssetId/value> ;
+   samm:characteristic samm-c:Text .
+----
+
+EntityType also uses the ReferenceType characteristic as defined in xref:iec61360-concept-descriptions.adoc#ConceptDescriptions-for-SAMM-Properties[ConceptDescriptions for SAMM Properties].
+
+=== For SubmodelElement "File"
+
+.Code example: SAMM `Characteristic` for a SubmodelElement `File`
+[source,turtle,subs="attributes+,+quotes"]
+----
+
+:valueOnly4File a samm:Property ;
+   samm:preferredName "digital file"@en ;
+   samm:description "Digital copy of this document"@en ;
+   samm:characteristic ##:FileWithContentType## .
+
+:resourceValue a samm:Property ;
+   samm:description "Path and name of the file (with file extension).\n\nThe path can be absolute or relative."@en ;
+   samm:characteristic samm-c:ResourcePath ;
+   samm:exampleValue "https://example.com/SafetyInstructions.pdf"^^xsd:anyURI .
+
+:FileWithContentType a samm:Characteristic ;
+   samm:dataType :ResourceWithContentType .
+
+:ResourceWithContentType a samm:Entity ;
+   samm:preferredName "Datei mit Content Type"@de ;
+   samm:preferredName "file with content type"@en ;
+   samm:description "A file is a data element that represents an address to a file (a locator). The value is a URI that can represent an absolute or relative path."@en ;
+   samm:see <https://admin-shell.io/aas/3/1/File> ;
+   samm:properties ( [ samm:property :resourceValue; samm:payloadName "value" ] :contentType ) .
+----
+
+In case a SAMM property has the characteristic with name "FileWithContentType" in namespace "urn:samm:io.admin-shell.idta.shared:3.1.0#" or with higher version then the corresponding element MUST be mapped to a SubmodelElement "File" (and vice versa).
+
+Note: the payload names defined ensure that the Value-Only Format is identical for the aspect model and the generated AASX file.
+
+[[For-SubmodelElement-MultiLanguageProperty]]
+=== For SubmodelElement "MultiLanguageProperty"
+
+.Code example: SAMM `Characteristic` for a SubmodelElement `MultiLanguageProperty`
+[source,turtle,subs="attributes+,+quotes"]
+----
+:MultiLanguageTexts a samm-c:Set ;
+   samm:preferredName "multilanguage text set"@en ;
+   samm:description "A set of language-text items."@en ;
+   samm-c:elementCharacteristic samm-c:MultiLanguageText .
+----
+
+MultiLanguageText is a predefined Characteristic instance in SAMM with dataType rdf:langString.
+
+See also xref:samm2smt.adoc#Special-data-types:-langString[Special data types: langString] for handling of dataType rdf:langString.
+
+In case a SAMM property has the characteristic with name "MultiLanguageTexts" in namespace "urn:samm:io.admin-shell.idta.shared:3.1.0#" or with higher version then the corresponding element MUST be mapped to a SubmodelElement "MultiLanguageProperty" (and vice versa).
+
+[[For-SubmodelElement-Operation]]
+=== For SubmodelElement "Operation"
+
+SubmodelElement "Operation" is excluded from the link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/mappings/mappings.html#_overview_of_value_only_serialization_attributes[serialization scope,window=_blank].
+
+Note: There is an API operation "InvokeOperationSync-ValueOnly" and "InvokeOperationAsync-ValueOnly".
+They use a Value-Only serialization as output. For this result payload there are also predefined (abstract) Entities and Properties conformant to link:https://github.com/admin-shell-io/aas-specs-api/blob/main/Part2-API-Schemas/openapi.yaml[Operation Result for Value-Only Serialization].
+
+.Code example: SAMM `AbstractEntity` for the Result of an `Operation`
+[source,turtle,subs="attributes+,+quotes"]
+----
+##:OperationResultValueOnly## a samm:AbstractEntity ;
+   samm:extends :BaseOperationResult ;
+   samm:properties ( ##:inoutputArguments## ##:outputArguments## ) .
+ 
+:inoutputArguments a samm:AbstractProperty .
+
+:outputArguments a samm:AbstractProperty .
+ 
+:ToggleResult a samm:Entity ;
+  ##samm:extends :OperationResultValueOnly## ;
+  samm:properties ( 
+    [ ##samm:extends :inoutputArguments;##  samm:characteristic :ToggleInoutputArgumentsCharacteristic ] 
+	[ ##samm:extends :outputArguments;##  samm:characteristic :ToggleOutputArgumentsCharacteristic ]
+	) .
+	
+----
+
+[[For-SubmodelElement-Property]]
+=== For SubmodelElement "Property"
+
+For SubmodelElement "Property" no predefined Characteristic is necessary because the Value-Only payload is identical to a scalar SAMM Property with a xsd datatype.
+
+=== For SubmodelElement "Range"
+
+.Code example: SAMM `Characteristic` for a SubmodelElement `Range` with datatype `float`
+[source,turtle,subs="attributes+,+quotes"]
+----
+:rangeMinAbstract a samm:AbstractProperty ;
+   samm:preferredName "min"@de ;
+   samm:preferredName "min"@en ;
+   samm:description "Minimum value within range."@en .
+
+:rangeMaxAbstract a samm:AbstractProperty ;
+   samm:preferredName "max"@de ;
+   samm:preferredName "max"@en ;
+   samm:description "Maximum value within range."@en .
+
+:RangeTypeAbstract a samm:AbstractEntity ;
+   samm:preferredName "Wertebereich"@de ;
+   samm:preferredName "range"@en ;
+   samm:description "A range data element is a data element that defines a range with min and max.\n\n If the min value is missing, the value is assumed to be negative infinite.\n If the max value is missing, the value is assumed to be positive infinite."@en ;
+   samm:see <https://admin-shell.io/aas/3/1/Range> .
+
+:RangeFloatTypeCharacteristic a samm:Characteristic ;
+   samm:dataType :RangeFloatType .
+
+:rangeFloatMin a samm:Property ;
+   samm:extends shared:rangeMinAbstract ;
+   samm:characteristic [
+     a samm:Characteristic ;
+     samm:dataType xsd:float ;
+   ] .
+
+:rangeFloatMax a samm:Property ;
+   ##samm:extends shared:rangeMaxAbstract## ;
+   samm:characteristic [
+     a samm:Characteristic ;
+     samm:dataType xsd:float ;
+   ] .
+
+:RangeFloatType a samm:Entity ;
+   ##samm:extends shared:RangeTypeAbstract## ;
+   samm:properties (
+      [ samm:property ##:rangeFloatMin;## samm:optional true; samm:payloadName "min" ]
+      [ samm:property ##:rangeFloatMax;## samm:optional true; samm:payloadName "max" ]
+   ) .
+----
+
+In case a SAMM property has the characteristic extending RangeTypeAbstract in namespace "urn:samm:io.admin-shell.idta.shared:3.1.0#" or with higher version then the corresponding element MUST be mapped to a SubmodelElement "Range" (and vice versa).
+
+[[For-SubmodelElement-ReferenceElement-and-Reference]]
+=== For SubmodelElement "ReferenceElement" and Reference
+
+.Code example: SAMM `Characteristic` for a SubmodelElement `ReferenceElement`
+[source,turtle]
+----
+##:ReferenceType## a samm:Characteristic ;
+   samm:see <https://admin-shell.io/aas/3/1/Reference> ;
+   samm:dataType :ReferenceEntity .
+
+:ReferenceEntity a samm:Entity ;
+   samm:properties ( :keys :type ) .
+
+:keys a samm:Property ;
+   samm:characteristic :SetOfKeys .
+
+:type a samm:Property ;
+   samm:characteristic :KeyReferenceTypesEnum ;
+   samm:exampleValue "ExternalReference" .
+
+:KeyReferenceTypesEnum a samm-c:Enumeration ;
+   samm:dataType xsd:string ;
+   samm-c:values ( "ModelReference" "ExternalReference" ) .
+
+:SetOfKeys a samm-c:Set ;
+   samm:dataType :KeyEntity .
+
+:KeyEntity a samm:Entity ;
+   samm:properties ( 
+   :key 
+   [ samm:property :keyValue; samm:payloadName "value" ] 
+   ) .
+
+:key a samm:Property ;
+   samm:characteristic :ReferenceKeyEnum ;
+   samm:exampleValue "GlobalReference" .
+
+:keyValue a samm:Property ;
+   samm:characteristic samm-c:Text ;
+   samm:exampleValue "id1234" .
+
+:ReferenceKeyEnum a samm-c:Enumeration ;
+   samm:dataType xsd:string ;
+   samm-c:values (
+      "AnnotatedRelationshipElement"
+      "AssetAdministrationShell"
+      "BasicEventElement"
+      "Blob"
+      "Capability"
+      "ConceptDescription"
+      "DataElement"
+      "Entity"
+      "EventElement"
+      "File"
+      "FragmentReference"
+      "Identifiable"
+      "MultiLanguageProperty"
+      "Operation"
+      "Property"
+      "Range"
+      "Referable"
+      "ReferenceElement"
+      "RelationshipElement"
+      "Submodel"
+      "SubmodelElement"
+      "SubmodelElementCollection"
+      "SubmodelElementList"
+   ) .
+
+### Model Reference ###
+
+##:ModelReferenceType## a samm:Characteristic ;
+   samm:see <https://admin-shell.io/aas/3/1/Reference> ;
+   samm:dataType :ModelReferenceEntity .
+
+:ModelReferenceEntity a samm:Entity ;
+   samm:properties (
+      [ samm:property :modelReferenceKeys; samm:payloadName "keys" ]
+	  [ samm:property :modelReferenceType; samm:payloadName "type" ]
+   ) .
+
+:modelReferenceKeys a samm:Property ;
+   samm:characteristic :ModelReferenceSetOfKeys .
+
+:modelReferenceType a samm:Property ;
+   samm:characteristic :KeyModelReferenceTypesEnum ;
+   samm:exampleValue "ModelReference" .
+
+:KeyModelReferenceTypesEnum a samm-c:Enumeration ;
+   samm:dataType xsd:string ;
+   samm-c:values ( "ModelReference"  ) .
+
+:ModelReferenceSetOfKeys a samm-c:Set ;
+   samm:dataType :ModelReferenceKeyEntity .
+
+:ModelReferenceKeyEntity a samm:Entity ;
+   samm:properties (
+   [ samm:property :ModelReferenceKey; samm:payloadName "key" ]
+   [ samm:property :ModelReferenceKeyValue; samm:payloadName "value" ]
+   ) .
+
+:ModelReferenceKey a samm:Property ;
+   samm:characteristic :ModelReferenceKeyEnum ;
+   samm:exampleValue "Submodel" .
+
+:ModelReferenceKeyValue a samm:Property ;
+   samm:characteristic samm-c:Text ;
+   samm:exampleValue "id1234" .
+
+:ModelReferenceKeyEnum a samm-c:Enumeration ;
+   samm:dataType xsd:string ;
+   samm-c:values (
+      "AnnotatedRelationshipElement"
+      "AssetAdministrationShell"
+      "BasicEventElement"
+      "Blob"
+      "Capability"
+      "ConceptDescription"
+      "DataElement"
+      "Entity"
+      "EventElement"
+      "File"
+      "FragmentReference"
+      "GlobalReference"
+      "Identifiable"
+      "MultiLanguageProperty"
+      "Operation"
+      "Property"
+      "Range"
+      "Referable"
+      "ReferenceElement"
+      "RelationshipElement"
+      "Submodel"
+      "SubmodelElement"
+      "SubmodelElementCollection"
+      "SubmodelElementList"
+   ) .
+
+### External Reference ###
+
+##:ExternalReferenceType## a samm:Characteristic ;
+   samm:see <https://admin-shell.io/aas/3/1/Reference> ;
+   samm:dataType :ExternalReferenceEntity .
+
+:ExternalReferenceEntity a samm:Entity ;
+   samm:properties (
+      [ samm:property :KeysExternalReference; samm:payloadName "keys" ]
+	  [ samm:property :TypeExternalReference; samm:payloadName "type" ]
+   ) .
+
+:KeysExternalReference a samm:Property ;
+   samm:characteristic :ExternalReferenceSetOfKeys .
+
+:TypeExternalReference a samm:Property ;
+   samm:characteristic :KeyExternalReferenceTypesEnum ;
+   samm:exampleValue "ExternalReference" .
+
+:KeyExternalReferenceTypesEnum a samm-c:Enumeration ;
+   samm:dataType xsd:string ;
+   samm-c:values ( "ExternalReference"  ) .
+
+:ExternalReferenceSetOfKeys a samm-c:Set ;
+   samm:dataType :ExternalReferenceKeyEntity .
+
+:ExternalReferenceKeyEntity a samm:Entity ;
+   samm:properties (
+      [ samm:property :ExternalReferenceKey; samm:payloadName "key" ]
+      [ samm:property :ExternalReferenceKeyValue; samm:payloadName "value" ]
+   ) .
+
+:ExternalReferenceKey a samm:Property ;
+   samm:characteristic :ExternalReferenceKeyEnum ;
+   samm:exampleValue "GlobalReference" .
+
+:ExternalReferenceKeyValue a samm:Property ;
+   samm:characteristic samm-c:Text ;
+   samm:exampleValue "id1234" .
+
+:ExternalReferenceKeyEnum a samm-c:Enumeration ;
+   samm:dataType xsd:string ;
+   samm-c:values (
+      "FragmentReference"
+      "GlobalReference"
+   ) .
+----
+
+In case a SAMM property has the characteristic with name "ReferenceType" in namespace "urn:samm:io.admin-shell.idta.shared:3.1.0#" or with higher version then the corresponding element MUST be mapped to a SubmodelElement "ReferenceElement" (and vice versa).
+
+The characteristic is also used for all attributes in other SubmodelElements like for example Entity if the type of the attribute in AAS is "Reference".
+
+Note: the payload names defined ensure that the Value-Only Format is identical for the aspect model and the generated AASX file.
+
+[[For-SubmodelElement-RelationshipElement]]
+=== For SubmodelElement "RelationshipElement"
+
+.Code example: SAMM `Characteristic` for a SubmodelElement `RelationshipElement`
+[source,turtle,subs="attributes+,+quotes"]
+----
+##:RelationshipElementType## a samm:Characteristic ;
+   samm:dataType :RelationshipElementEntity .
+
+:RelationshipElementEntity a samm:Entity ;
+   samm:see <https://admin-shell.io/aas/3/1/RelationshipElement> ;
+   samm:description "A predefined submodel element subtype of the Asset Administration Shell used to model relationships."@en ;
+   samm:properties ( :first :second ) .
+
+:first a samm:Property ;
+     samm:characteristic :ReferenceType .
+
+:second a samm:Property ;
+     samm:characteristic :ReferenceType .
+----
+
+For definition of :ReferenceType see <<For-SubmodelElement-ReferenceElement-and-Reference, For SubmodelElement "ReferenceElement" and Reference>>.
+
+In case a SAMM property has the characteristic with name "RelationshipElementType" in namespace "urn:samm:io.admin-shell.idta.shared:3.1.0#" or with higher version then the corresponding element MUST be mapped to a SubmodelElement "RelationshipElement" (and vice versa).
+
+
+=== For SubmodelElement "SubmodelElementCollection"
+
+For SubmodelElement "SubmodelElementCollection" no predefined Characteristic is necessary because the Value-Only payload is identical to a scalar SAMM Entities.
+
+=== For SubmodelElement "SubmodelElementList"
+
+For SubmodelElement "SubmodelElementList" no predefined Characteristic is necessary because the Value-Only payload is identical to a scalar SAMM Collections.
