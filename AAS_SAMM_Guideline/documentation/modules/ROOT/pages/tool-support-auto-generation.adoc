@@ -54,7 +54,7 @@ You can now open the generated Aspect Model .ttl file in an editor of your choic
 
 Example command:
 
-`samm aas "C:\SubmodelTemplates\Movement\1\0\Movement.aasx" to aspect -o="C:\org.eclipse.examples\1.0.0\Movement.ttl"`.
+`samm aas "C:\SubmodelTemplates\Movement\1\0\Movement.aasx" to aspect`.
 
 
 == With the Eclipse AASX Package Explorer
