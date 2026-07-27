@@ -18,24 +18,15 @@ If not, please store it on your computer. Please link:https://eclipse-esmf.githu
 
 . Open the SAMM CLI.
 . Add the *samm aspect to aas* command.
-.. The values in the command depend on where you stored the Aspect Model on your computer and where you want the new file to be stored. Also, you can choose whether you need an AASX file (to open it in the Package Explorer) or an XML file.
+.. The values in the command depend on where you stored the Aspect Model on your computer and where you want the new file to be stored. 
+Also, you can choose whether you need an AASX file (to open it in the Package Explorer) or an XML file.
 .. For example: +
 `samm aspect "C:\org.eclipse.examples\1.0.0\Movement.ttl" to aas -f="aasx" -o="C:\Movement.aasx"` +
 `samm aspect "C:\org.eclipse.examples\1.0.0\Movement.ttl" to aas -f="xml" -o="C:\Movement.xml"`
 .. For more information, consult the link:https://eclipse-esmf.github.io/esmf-developer-guide/tooling-guide/samm-cli.html[SAMM CLI user documentation,window=_blank].
 . Hit the Enter key on your keyboard.
 
-=== How to proceed for generating an Aspect Model from an AASX
-
-. Open the SAMM CLI.
-. Add the *samm aspect to aas* command.
-.. The values in the command depend on where you stored the Aspect Model on your computer and where you want the new file to be stored. Also, you can choose whether you need an AASX file (to open it in the Package Explorer) or an XML file.
-.. For example: +
-`samm aas Movement.aasx to aspect`.
-.. For more information, consult the link:https://eclipse-esmf.github.io/esmf-developer-guide/tooling-guide/samm-cli.html[SAMM CLI user documentation,window=_blank].
-. Hit the Enter key on your keyboard.
-
-=== Result
+==== Result
 
 The SAMM CLI generates the corresponding AASX or XML file, and names and stores the file as you requested it in the command. You can now open the AASX file in the Package Explorer or the XML file in an editor of your choice.
 
@@ -44,6 +35,26 @@ The SAMM CLI generates the corresponding AASX or XML file, and names and stores 
 Example command:
 
 `samm aspect "C:\org.eclipse.examples\1.0.0\Movement.ttl" to aas`.
+
+=== How to proceed for generating an Aspect Model from an AASX
+
+. Open the SAMM CLI.
+. Add the *samm aas to aspect* command.
+.. The values in the command depend on where you stored the AASX file on your computer and where you want the new file to be stored.
+.. In an aasx file several Submodel Templates may be contained, this can als be handled via "--submodel-template" parameter and *list* command.
+.. For example: +
+`samm aas Movement.aasx to aspect`.
+.. For more information, consult the link:https://eclipse-esmf.github.io/esmf-developer-guide/tooling-guide/samm-cli.html[SAMM CLI user documentation,window=_blank].
+. Hit the Enter key on your keyboard.
+
+==== Result
+
+The SAMM CLI generates the corresponding Aspect Model .ttl file, and names and stores the file as you requested it in the command. 
+You can now open the generated Aspect Model .ttl file in an editor of your choice.
+
+Example command:
+
+`samm aas "C:\SubmodelTemplates\Movement\1\0\Movement.aasx" to aspect -o="C:\org.eclipse.examples\1.0.0\Movement.ttl"`.
 
 
 == With the Eclipse AASX Package Explorer
@@ -101,3 +112,7 @@ The Aspect Model Editor is available on your computer. If not, for more informat
 The Aspect Model Editor generates the corresponding AASX or XML file and asks you back how to name it and where to store it.
 
 You can then open the file in the Package Explorer (AASX file) or an editor of your choice (XML file).
+
+== With the ESMF Visual Studio Code extensions
+
+For information see link:https://marketplace.visualstudio.com/items?itemName=eclipse-esmf.semantic-models.[Visual Studio Marketplace: Semantic Models for VS Code].
