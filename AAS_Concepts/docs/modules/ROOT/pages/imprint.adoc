@@ -1,0 +1,26 @@
+:doctype: book
+:media: prepress
+
+= Concepts behing the Asset Administration Shell (AAS)
+
+== Imprint
+
+=== Copyright
+
+Industrial Digital Twin Association
+
+Lyoner Strasse 18
+
+60528 Frankfurt am Main
+
+Germany
+
+https://www.industrialdigitaltwin.org/
+
+=== Version history
+
+[cols="1,1,1"]
+|===
+| Date | Version/Revision | Changes made
+| August 2026 | 1.0 | First version with existing Annex of IDTA-01001 V3.2
+|===
