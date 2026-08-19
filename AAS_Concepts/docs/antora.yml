@@ -1,6 +1,7 @@
 name: AAS_Concepts
-title: 'Concepts behing the Asset Administration Shell (AAS)'
+title: 'Concepts AAS'
 version: '1.0 in progress'
+display_version: '1.0'
 start_page: ROOT:imprint.adoc
 nav:
   - modules/ROOT/nav.adoc
