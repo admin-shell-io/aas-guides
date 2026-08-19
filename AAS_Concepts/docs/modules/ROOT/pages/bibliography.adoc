@@ -213,22 +213,6 @@ Version 2.0, Oct. 2022,
 Industrial Digital Twin Association 
 See xref:bibliography.adoc#bib45[[45\]].
 
-////
-[#bib41]
-[41] OPC 30270: OPC UA for Asset Administration Shell (AAS). 2021-06-04. [Online]. Available: https://reference.opcfoundation.org/v104/I4AAS/v100/docs/
-////
-////
-[#bib41]
-[41] Joint Working Group of the link:https://opcfoundation.org/[OPC Foundation] and https://industrialdigitaltwin.org/[IDTA] link:https://profiles.opcfoundation.org/workinggroup/40[Industry 4.0 Asset Administration Shell - AAS (I4AAS)] 
-////
-////
-[#bib42]
-[42] OPC Unified Architecture Specification. Part 5 Information Model. [Online]. Available: https://opcfoundation.org/developer-tools/specifications-unified-architecture
-////
-////
-[#bib43]
-[43] OPC UA Information Models. [Online]. Available: https://opcfoundation.org/developer-tools/specifications-opc-ua-information-models
-////
 
 [#bib43]
 [43] IEC 63278-2 "Asset Administration Shell for industrial applications – Part 2: Metamodel".
@@ -244,7 +228,7 @@ Available: https://industrialdigitaltwin.org/en/content-hub/submodels
 
 [#bib46]
 [46] "AAS Specifications". 
-Accessed: 2025-03-24. [Online]. 
+Accessed: 2026-08-19. [Online]. 
 Available: https://industrialdigitaltwin.org/en/content-hub/aasspecifications
 
 [#bib47]
@@ -261,9 +245,6 @@ Guideline.
 Accessed: 2025-10-19. [Online]. 
 Available: https://industrialdigitaltwin.org/wp-content/uploads/2025/06/IDTA_How-to-write-a-SMT-v1.1.pdf
 
-December 2022. Industrial Digital Twin Association.
-Accessed: 2025-03-24. [Online]. 
-Available: https://industrialdigitaltwin.org/wp-content/uploads/2022/12/I40-IDTA-WS-Process-How-to-write-a-SMT-FINAL-.pdf
 
 
 [#bib49]

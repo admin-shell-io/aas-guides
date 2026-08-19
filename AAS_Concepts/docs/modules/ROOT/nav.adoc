@@ -10,10 +10,12 @@ SPDX-License-Identifier: CC-BY-4.0
 
 * xref:imprint.adoc[Imprint]
 
-* xref:general_intro.adoc[General]
+* xref:general_intro.adoc[Introduction]
 
 * xref:general.adoc[General Topics AAS]
 
 * xref:concepts-aas.adoc[Concepts AAS]
+
+* xref:usage-metamodel.adoc[Usage Metamodel]
 
 * xref:bibliography.adoc[Bibliography]
