@@ -1,5 +1,7 @@
-name: AAS Reading Guide
+name: AAS_Reading_Guide
+title: 'AAS Reading Guide'
 version: '1.0'
+display_version: '1.0'
 start_page: ROOT:index.adoc
 nav:
   - modules/ROOT/nav.adoc
