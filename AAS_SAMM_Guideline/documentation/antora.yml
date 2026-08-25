@@ -1,7 +1,7 @@
 name: AAS_SAMM_Guideline
 title: 'AAS SAMM Guideline'
 version: '1.0'
-display_version: 'in progress'
+display_version: '1.0'
 prerelease: true
 start_page: ROOT:imprint.adoc
 nav:
