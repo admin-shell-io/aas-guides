@@ -1,0 +1,7 @@
+name: HowTo_SMT
+title: 'How-To Create a Submodel Template Specification'
+version: '1.1 conversion in progress'
+display_version: '1.1'
+start_page: ROOT:imprint.adoc
+nav:
+  - modules/ROOT/nav.adoc
