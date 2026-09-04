@@ -14,6 +14,15 @@ June 2025
 
 == Version history
 
+[#note-pdf-version]
+[Note]
+====
+This html version was generated and adapted to asciidoc. 
+In case of conflicts the pdf version is the master.
+====
+
+
+
 [width="100%",cols="19%,15%,66%",options="header",]
 |===
 |*Date* |*Version* |*Changes made*
