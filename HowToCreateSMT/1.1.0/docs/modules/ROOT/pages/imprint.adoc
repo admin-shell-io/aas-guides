@@ -1,0 +1,50 @@
+////
+Copyright (c) 2023 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+////
+
+
+
+== Version history
+
+[#note-pdf-version]
+[Note]
+====
+    Note on Document Precedence:
+    This online documentation (HTML) was generated from source files adapted for AsciiDoc and Antora. 
+	In the event of any discrepancies or formatting conflicts between versions, the official PDF release shall prevail as the authoritative master document.
+====
+
+
+
+[width="100%",cols="19%,15%,66%",options="header",]
+|===
+|*Date* |*Version* |*Changes made*
+|2022-12-05 |1.0 a|
+* Release of the Guideline
+|2025-06-01 |1.1 a|
+* NEW: Additional workflows and rules for AsciiDoc
+* NEW: SMT Dropins
+* NEW: TemplateId and SemanticId
+* NEW: Marking arbitrary contents
+* Update to reflect V3.0 and V3.1 changes of the Specification of the AAS
+|2025-06-11 |1.1 a|
+* Release of the Guideline
+|===
+
+
+[#imprint]
+== Imprint
+
+*Publisher*
+
+Industrial Digital Twin Association +
+Lyoner Strasse 18 +
+60528 Frankfurt am Main +
+Germany +
+link:https://www.industrialdigitaltwin.org/[https://www.industrialdigitaltwin.org/]
+
+June 2025

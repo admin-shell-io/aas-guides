@@ -1,0 +1,15 @@
+////
+Copyright (c) 2023 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+////
+
+* xref:imprint.adoc[Imprint]
+* xref:index.adoc[Guideline]
+* xref:annex/table-formats.adoc[Annex A. Table Formats]
+* xref:annex/resources.adoc[Annex B. Resources]
+* xref:changelog.adoc[Annex C. Change Log]
+* xref:bibliography.adoc[Annex D. Bibliography]
+

@@ -1,0 +1,132 @@
+////
+Copyright (c) 2023 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+////
+
+[#resources]
+== Annex B. Resources
+
+The following resources are available to help develop SMT specifications.
+Resources with heading backslash refer to the IDTA Teams drive.
+
+.Resources used in the document
+[[table-resources-used-in-the-document]]
+[width="99%",cols="12%,88%",options="header",]
+|===
+|Resource |Description
+
+|[#res1]
+[R1] a|
+Process Description. Registration of Asset Administration Shell Submodel templates for Digital Twins. Industrial Digital Twin Association (IDTA). V1.0
+
+link:https://industrialdigitaltwin.org/en/wp-content/uploads/sites/2/2022/01/2021-12-01_IDTA_Process-Submodels_V1.0.pdf[https://industrialdigitaltwin.org/en/wp-content/uploads/sites/2/2022/01/2021-12-01_IDTA_Process-Submodels_V1.0.pdf]
+
+|[#res2]
+[R2] a|
+IDTA comments template
+
+\IDTA - WG2 - Submodels\Submodel-Development\00_Templates\03 IDTA Submodel Spec Comments Template.xlsx
+
+|[#res3]
+[R3] a|
+AASX Package Explorer
+
+link:https://github.com/eclipse-aaspe/aaspe/releases[https://github.com/eclipse-aaspe/aaspe/releases]
+
+Previous releases can be found here:
+
+link:https://github.com/admin-shell-io/aasx-package-explorer/releases[https://github.com/admin-shell-io/aasx-package-explorer/releases]
+
+|[#res4]
+[R4] a|
+IDTA GitHub Asset Administration Shell Identifiers
+
+link:https://github.com/admin-shell-io/id[https://github.com/admin-shell-io/id]
+
+|[#res5]
+[R5] a|
+Help file for <<res3,[R3\]>> to import/ export tables
+
+link:https://github.com/eclipse-aaspe/aaspe/tree/main/src/AasxPluginExportTable/help[https://github.com/eclipse-aaspe/aaspe/tree/main/src/AasxPluginExportTable/help]
+
+|[#res6]
+[R6] a|
+Predefined concepts for AASX Package Explorer
+
+link:https://github.com/eclipse-aaspe/aaspe/tree/main/src/AasxPredefinedConcepts[https://github.com/eclipse-aaspe/aaspe/tree/main/src/AasxPredefinedConcepts]
+
+|[#res7]
+[R7] a|
+PlantUML
+
+link:https://plantuml.io[https://plantuml.io]
+
+|[#res8]
+[R8] a|
+ISO/IEC 19505-2:2012, Information technology — Object Management Group Unified Modeling Language (OMG UML) — Part 2: Superstructure
+
+|[#res9]
+[R9] a|
+Semantic Aspect Meta Model (SAMM)
+
+link:https://eclipse-esmf.github.io/samm-specification/snapshot/index.html[https://eclipse-esmf.github.io/samm-specification/snapshot/index.html]
+
+link:https://projects.eclipse.org/projects/dt.esmf[https://projects.eclipse.org/projects/dt.esmf]
+
+|[#res10]
+[R10] a|
+Homepage: “AsciiDoc”.
+
+link:https://asciidoc.org/[https://asciidoc.org/]
+
+|[#res11]
+[R11] a|
+IDTA GitHub repository for Submodel templates.
+
+link:https://github.com/admin-shell-io/submodel-templates[https://github.com/admin-shell-io/submodel-templates]
+
+|[#res12]
+[R12] a|
+AsciiDoc tools:
+
+link:https://docs.asciidoctor.org/[https://docs.asciidoctor.org/]
+
+link:https://pandoc.org/[https://pandoc.org/]
+
+link:https://docs.asciidoctor.org/asciidoctor/latest/migrate/ms-word/[https://docs.asciidoctor.org/asciidoctor/latest/migrate/ms-word/]
+
+link:https://www.vertopal.com/en/convert/docx-to-asciidoc[https://www.vertopal.com/en/convert/docx-to-asciidoc]
+
+link:https://tableconvert.com/asciidoc-generator[https://tableconvert.com/asciidoc-generator]
+
+|[#res13]
+[R13] a|
+AsciiDoc templates, header & style files for SMT specifications.
+
+link:https://industrialdigitaltwin.sharepoint.com/:f:/r/sites/IDTA-SubmodelsPrivateTrack/Freigegebene%20Dokumente/Workstream%20%E2%80%9EProcess%E2%80%9C/02%20Best%20practice%20How%20to%20write%20a%20SMT/AsciiDoc_Template_files?csf=1&web=1&e=oPW0cy[https://industrialdigitaltwin.sharepoint.com/:f:/r/sites/IDTA-SubmodelsPrivateTrack/Freigegebene%20Dokumente/Workstream%20%E2%80%9EProcess%E2%80%9C/02%20Best%20practice%20How%20to%20write%20a%20SMT/AsciiDoc_Template_files?csf=1&web=1&e=oPW0cy]
+
+Convert Word to AsciiDoc:
+
+link:https://github.com/admin-shell-io/word2asciidoc[https://github.com/admin-shell-io/word2asciidoc]
+
+|[#res14]
+[R14] a|
+Command lines for docker containers for rendering AsciiDoc to HTML / PDF (using some of the files in <<res13,[R13\]>>):
+
+For HTML:
+
+[source,bash,linenums]
+----
+docker run -it -v .:/documents/ asciidoctor/docker-asciidoctor asciidoctor -r asciidoctor-diagram -a toc=left -a stylesheet=asciidoc-style-idta.css *.adoc
+----
+
+For PDF with line numbers:
+
+[source,bash,linenums]
+----
+docker run -it -v .:/documents/ asciidoctor/docker-asciidoctor asciidoctor-pdf -r asciidoctor-diagram -r ./extended.rb -a toc=macro -a pdf-theme=my-theme.yml -a env-pdf *.adoc
+----
+|===
