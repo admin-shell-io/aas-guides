@@ -1,5 +1,5 @@
 .*G U I D E L I N E*
-image::./media/image1.emf[./media/image1,width=794,height=1124]
+image::./media/image1.png[./media/image1,width=794,height=1124]
 
 How to create a Submodel template Specification V1.1
 
@@ -270,14 +270,14 @@ This document is an enabler for the IDTA specification series of Submodel templa
 The IEC working group IEC TC65 WG24 publishes the AAS as an international standard ++[++7++]++. link:#_Ref97283289[Figure 1] illustrates the AAS and Submodel template guiding the creation of Submodels. SubmodelElements and Submodel template elements may reference entries in concept repositories. The creators of Submodel template specification are designated as the Asset Administration Shell responsibles.
 
 .[#_Ref97283289 .anchor]####Figure 1 ­– Detailed overview of Asset Administration Shell and related roles ++[++7++]++
-image::./media/image2.emf[./media/image2,width=642,height=294]
+image::./media/image2.png[./media/image2,width=642,height=294]
 
 link:#_Ref97283411[Figure 2] illustrates two the Asset Administration Shell user applications, to use the interoperable Submodel information.
 
 From the viewpoint of the meta model ++[++6++]++, a Submodel template is a Submodel with kind = Template.
 
 .[#_Ref97283411 .anchor]####Figure 2 – Information exchange between AAS user applications ++[++7++]++
-image::./media/image3.emf[./media/image3,width=511,height=180]
+image::./media/image3.png[./media/image3,width=511,height=180]
 
 This document facilitates the creation of Submodel template for the Asset Administration Shell. These Submodel templates will allow the Asset Administration Shell responsibles to create and provide standardized models, which represent certain aspects of an asset. Specifically, this document describes how Submodel template specifications for Submodel templates shall be created in order to maintain a set of common features and structures. For this purpose, different workflows are described.
 
@@ -443,7 +443,7 @@ The document driven workflow is rather simple and can be executed with limited i
 Note: The use of this workflow is deprecated. It might be useful for very small SMT specifications or for initial proposition steps prior a formal SMT specification.
 
 .[#_Ref97299993 .anchor]####Figure 4 – Document driven workflow
-image::./media/image5.emf[./media/image5,width=642,height=322]
+image::./media/image5.png[./media/image5,width=642,height=322]
 
 The specification document is in the center of activities. The following working steps can be distinguished:
 
@@ -476,7 +476,7 @@ The model-based workflow is suitable for complex subject matters and working tea
 Note: The use of this workflow is deprecated. It was recommended standard for a period of time but is now replaced by the AsciiDoc workflows (see link:#workflow-with-github-based-asciidoc-working-draft-document[3.7], link:#model-based-workflow-with-single-source-asciidoc-working-draft-document[3.8]).
 
 .[#_Ref97300011 .anchor]####Figure 5 – Model based workflow
-image::./media/image6.emf[./media/image6,width=642,height=322]
+image::./media/image6.png[./media/image6,width=642,height=322]
 
 The SMT model is at the center of activities. The following working steps can be distinguished:
 
@@ -529,7 +529,7 @@ The semantic based workflow is especially suitable for complex subject matters w
 Note: This workflow can be combined with the AsciiDoc workflows (see link:#workflow-with-github-based-asciidoc-working-draft-document[3.7], link:#model-based-workflow-with-single-source-asciidoc-working-draft-document[3.8]).
 
 .[#_Ref99965905 .anchor]####Figure 6 – Semantic driven workflow
-image::./media/image7.emf[./media/image7,width=642,height=322]
+image::./media/image7.png[./media/image7,width=642,height=322]
 
 The semantic definition of the Submodel itself is in the center of activities. A semantic definition of a Submodel is typically a model itself, in short such a model is sometimes called a semantic model. The following working steps can be distinguished:
 
@@ -562,7 +562,7 @@ Note 1: This workflow is recommended, when multiple editors will edit the SMT sp
 Note 2: This document gives a brief overview on this workflow and makes relevant specifications. To gain full overview, further material, such as demonstration or video training, is recommended.
 
 .[#_Ref170994440 .anchor]####Figure 7 – Workflow with GitHub based AsciiDoc working draft document
-image::./media/image8.emf[./media/image8,width=642,height=322]
+image::./media/image8.png[./media/image8,width=642,height=322]
 
 The SMT model is at the center of activities. For the editing of the SMT specification WD, a GitHub repository with dedicated actions is used by all members of the SMT working team. This is already the case for the IDTA GitHub repository for Submodel templates ++[++R11++]++.
 
@@ -617,7 +617,7 @@ Note 1: This workflow is recommended, when efficient and future oriented mainten
 Note 2: This document gives a brief overview of this workflow and makes relevant specifications. To gain a full overview, further material, such as demonstration or video training, is available by IDTA.
 
 .[#_Ref170994474 .anchor]####Figure 8 – Workflow with single source AsciiDoc working draft document
-image::./media/image9.emf[./media/image9,width=642,height=322]
+image::./media/image9.png[./media/image9,width=642,height=322]
 
 The SMT model is at the center of activities. It contains two Submodels: one Submodel stands for the Submodel template and Submodel template elements. One Submodel stands for the human readable parts of the SMT specification, including also structure, images, figures, header and style files.
 
@@ -678,7 +678,7 @@ A SMT dropin is a logical model (compare SMT model, see Clause link:#artifacts-t
 Note: idShort names might be changed as well as shown in the example in link:#_Ref157716128[Figure 9].
 
 .[#_Ref157716128 .anchor]####Figure 9 – General approach for definition and use of SMT dropins
-image::./media/image10.emf[./media/image10,width=642,height=259]
+image::./media/image10.png[./media/image10,width=642,height=259]
 
 === Process
 
@@ -694,7 +694,7 @@ Definition of SMT dropins might occur in different organization schemes (dependi
 . For long-term maintenance, the SubmodelElements and ConceptDescriptions of a SMT dropin might be transferred to a repository and the SubmodelElements of the SMT dropin might be organized by some Submodel template(s) within the repository (see link:#_Ref157433235[Figure 10] (c)).
 
 .[#_Ref157433235 .anchor]####Figure 10 – Alternatives for organizing SMT dropins
-image::./media/image11.emf[./media/image11,width=642,height=352]
+image::./media/image11.png[./media/image11,width=642,height=352]
 
 === Handling of semanticIds
 
@@ -837,7 +837,7 @@ Note 2: The UML authoring tool should be able to export vector graphics in order
 Note 3: The shown example required about 10 min design time.
 
 .[#_Ref99966358 .anchor]####Figure 15 – Example UML generation by exporting XMI and manual layout in UML authoring tool
-image::./media/image17.emf[./media/image17,width=642,height=439]
+image::./media/image17.png[./media/image17,width=642,height=439]
 
 === UML via PlantUML export
 
@@ -890,7 +890,7 @@ The described table format is not self-explanatory. Each SMT document shall feat
 
 The SMT document shall feature a separate table for each AAS element, which is specified by the SMT and which hierarchically specifies child AAS elements (consequently named "AAS element with children"). Typically, but not exclusively, these are Submodels and SubmodelElementCollections (see section link:#meta-model-version[1.6]), but can be also Operations or Entities.
 
-image:./media/image22.emf[./media/image22,width=642,height=212]
+image:./media/image22.png[./media/image22,width=642,height=212]
 
 [#_Ref97479172 .anchor]####Figure 19 – Format of table heads
 
@@ -926,7 +926,7 @@ Note: This row format simplifies the manual editing of tables, such as described
 
 Note: It is strongly recommended to use exactly the rows and columns as described. The import tools of AASX Package Explorer rely on this.
 
-image:./media/image23.emf[./media/image23,width=642,height=376]
+image:./media/image23.png[./media/image23,width=642,height=376]
 
 [#_Ref97482210 .anchor]####Figure 20 – Format of table row items
 
