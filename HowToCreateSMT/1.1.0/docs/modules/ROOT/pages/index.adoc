@@ -169,7 +169,7 @@ For the structure of the content for the human-readable part of SMT, the SMT doc
 |xref:annex/table-formats.adoc#explanations-on-used-table-formats[Annex A – Explanations on used table formats] |To allow the understanding of the definitions without extensive referring to other documents, this most important information shall be given in every SMT.
 |xref:bibliography.adoc#bibliography[Annex B – Bibliography] |If possible, refer to more extensive material instead of re-describing.
 |xref:changelog.adoc#change-log[Annex C – Change log] |If not the initial version, outline changes from the last version to the current version on a per-item basis.
-|xref:imprint.adoc#imprint[Closing section (Imprint)] |Link to IDTA.
+|xref:imprint.adoc#imprint[Imprint] |Imprint IDTA.
 |===
 
 .Sample cover page of a SMT document
@@ -1068,7 +1068,7 @@ These Qualifiers are available as presets for the AASX Package Explorer xref:ann
 [width="100%",cols="30%,46%,24%",options="header",]
 |===
 a|
-Qualifier/type*footnote:[For \*, confer to the meta model description in xref:bibliography.adoc#bib6[[6\]]]
+Qualifier/type*footnote:[For *, confer to the meta model description in xref:bibliography.adoc#bib6[[6\]]]
 
 (grey = legacy)footnote:[In grey, legacy Qualifier names are indicated]
 a|
