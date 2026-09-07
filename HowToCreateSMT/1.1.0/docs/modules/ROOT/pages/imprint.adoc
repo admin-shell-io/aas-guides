@@ -13,9 +13,9 @@ SPDX-License-Identifier: CC-BY-4.0
 [#note-pdf-version]
 [Note]
 ====
-    Note on Document Precedence:
-    This online documentation (HTML) was generated from source files adapted for AsciiDoc and Antora. 
-	In the event of any discrepancies or formatting conflicts between versions, the official PDF release shall prevail as the authoritative master document.
+Note on Document Precedence:
+This online documentation (HTML) was generated from source files adapted for AsciiDoc and Antora. 
+In the event of any discrepancies or formatting conflicts between versions, the official PDF release shall prevail as the authoritative master document.
 ====
 
 
