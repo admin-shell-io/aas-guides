@@ -19,6 +19,9 @@ SPDX-License-Identifier: CC-BY-4.0
 ====
 
 
+Refer to link:https://industrialdigitaltwin.org[IDTA,window=_blank] for more information on the Asset Administration Shell.
+
+Details on the versions can be found in xref:changelog.adoc[Changelog].
 
 [width="100%",cols="19%,15%,66%",options="header",]
 |===
