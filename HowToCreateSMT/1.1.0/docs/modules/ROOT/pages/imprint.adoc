@@ -6,7 +6,11 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 SPDX-License-Identifier: CC-BY-4.0
 ////
 
+.*G U I D E L I N E*
 
+= How to create a Submodel template Specification V1.1
+
+June 2025
 
 == Version history
 
