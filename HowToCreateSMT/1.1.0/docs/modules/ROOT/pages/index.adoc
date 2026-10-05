@@ -6,11 +6,10 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 SPDX-License-Identifier: CC-BY-4.0
 ////
 
-.*G U I D E L I N E*
 
-= How to create a Submodel template Specification V1.1
 
-June 2025
+= How to create a Submodel template Specification 
+
 
 
 [#general]
@@ -156,20 +155,20 @@ For the structure of the content for the human-readable part of SMT, the SMT doc
 [width="100%",cols="37%,63%",options="header",]
 |===
 |*(Sub-) Section* |*Aim*
-|<<general>> |Provide general overview.
-|<<about-this-document,About this document>> |Provide very brief introduction to AAS and associated documents. Only referring to other documents. Typically taken unchanged from the template.
-|<<scope-of-the-submodel,Scope of the Submodel>> |Give precise but concise definition of the scope, clarifying industry segments, stakeholders, life cycle steps, associated assets and subject matter to be represented.
-|<<relevant-standards,Relevant standards>> |The use of existing standards is encouraged.
-|<<approach-of-the-submodel,Approach of the Submodel>> |Different subsections explaining background and approaches, which lead to the current design of the SMT. Often, a UML diagram of the SMT entities is given. Often, a preview of how the subject matter could be presented to the user, is given, e.g. a screenshot of a plugin for the AASX Package Explorer, or inside an authoring system.
-|<<assets,Assets>> |Shortly describes which assets are targeted by the SMT. In particular, it distinguishes between type assets and instance assets.
-|<<use-cases,Use cases>> |Provides a brief overview of use cases for the SMT, e.g. by providing a table with 2-4 use cases and brief explanations (e.g. 2 sentences).
-|<<data-providers-consumers,Data providers, consumers>> |Provides a short explanation of which roles/ organizations/ technical elements are providers and consumers of the Submodel data concerned in the SMT.
-|<<submodel-and-submodelelements,Submodel and SubmodelElements>> |Detailed description of the different entities by means of the defined table format.
+|General |Provide general overview.
+|About this document |Provide very brief introduction to AAS and associated documents. Only referring to other documents. Typically taken unchanged from the template.
+|Scope of the Submodel |Give precise but concise definition of the scope, clarifying industry segments, stakeholders, life cycle steps, associated assets and subject matter to be represented.
+|Relevant standards |The use of existing standards is encouraged.
+|Approach of the Submodel |Different subsections explaining background and approaches, which lead to the current design of the SMT. Often, a UML diagram of the SMT entities is given. Often, a preview of how the subject matter could be presented to the user, is given, e.g. a screenshot of a plugin for the AASX Package Explorer, or inside an authoring system.
+|Assets |Shortly describes which assets are targeted by the SMT. In particular, it distinguishes between type assets and instance assets.
+|Use cases |Provides a brief overview of use cases for the SMT, e.g. by providing a table with 2-4 use cases and brief explanations (e.g. 2 sentences).
+|Data providers, consumers |Provides a short explanation of which roles/ organizations/ technical elements are providers and consumers of the Submodel data concerned in the SMT.
+|Submodel and SubmodelElements |Detailed description of the different entities by means of the defined table format.
 |{Further normative} |Further sections with normative content.
-|xref:annex/table-formats.adoc#explanations-on-used-table-formats[Annex A – Explanations on used table formats] |To allow the understanding of the definitions without extensive referring to other documents, this most important information shall be given in every SMT.
-|xref:bibliography.adoc#bibliography[Annex B – Bibliography] |If possible, refer to more extensive material instead of re-describing.
-|xref:changelog.adoc#change-log[Annex C – Change log] |If not the initial version, outline changes from the last version to the current version on a per-item basis.
-|xref:imprint.adoc#imprint[Imprint] |Imprint IDTA.
+|Annex A – Explanations on used table formats |To allow the understanding of the definitions without extensive referring to other documents, this most important information shall be given in every SMT.
+|Annex B - Bibliography |If possible, refer to more extensive material instead of re-describing.
+|Annex C – Change log |If not the initial version, outline changes from the last version to the current version on a per-item basis.
+|Imprint |Imprint IDTA.
 |===
 
 .Sample cover page of a SMT document
@@ -216,7 +215,7 @@ For the "(6) Review" phase of the process xref:annex/resources.adoc#res1[[R1\]] 
 
 .Artifacts of a SMT Specification
 [[table-artifacts-of-a-smt-specification]]
-[width="95%",cols="26%,61%,13%",options="header",]
+[width="95%",cols="26%,59%,15%",options="header",]
 |===
 |Artifact |Description |Cardinality
 |SMT specification |Word processor document, representing the SMT specification at a whole |One
@@ -264,24 +263,26 @@ image::image5.png[image5,width=642,height=322]
 The specification document is in the center of activities.
 The following working steps can be distinguished:
 
-. Some member of the Submodel working team, e.g. the architect or the interested person xref:annex/resources.adoc#res1[[R1\]], create an initial version of the working draft (WD) of SMT specification document.
+
+
+(1) :: Some member of the Submodel working team, e.g. the architect or the interested person xref:annex/resources.adoc#res1[[R1\]], create an initial version of the working draft (WD) of SMT specification document.
 This is a word process document (DOC), following the template of the IDTA.
 +
 The template is filled out with all structural relevant text sections as described in <<structure-of-the-human-readable-part-of-smt>>.
 +
 The requisites of the process "(5) Designing a Submodel b)" xref:annex/resources.adoc#res1[[R1\]] are considered.
-. Frequent reviews within the working team are executed, using just the actual status of the working draft.
+(2) ::  Frequent reviews within the working team are executed, using just the actual status of the working draft.
 +
 If more extensive reviews of the working draft are required, e.g. together with another working group, then a line numbered PDF is recommended and commenting via the IDTA comments template xref:annex/resources.adoc#res2[[R2\]] is recommended.
-. If the discussions within the working team come to its conclusions and the "Designing a Submodel" phase xref:annex/resources.adoc#res1[[R1\]] is concluded, the SMT model, e.g. as AASX file, shall be created.
+(3) ::  If the discussions within the working team come to its conclusions and the "Designing a Submodel" phase xref:annex/resources.adoc#res1[[R1\]] is concluded, the SMT model, e.g. as AASX file, shall be created.
 +
 This can be done either by manually editing the SMT model, e.g. using the AASX Package Explorer xref:annex/resources.adoc#res3[[R3\]].
 +
 Or an (semi-) automatic import can be facilitated, e.g. by AASX Package Explorer, menu option "File / Import / Import Submodel from table".
-. For approaching the official review, "(6) Review" phase xref:annex/resources.adoc#res1[[R1\]] is initiated, by preparing the final version of the working draft (WD) and handing over to architect and IDTA office.
+(4) :: For approaching the official review, "(6) Review" phase xref:annex/resources.adoc#res1[[R1\]] is initiated, by preparing the final version of the working draft (WD) and handing over to architect and IDTA office.
 +
 These persons will follow on with the process, which will finally lead to a publication via IDTA GitHub and IDTA homepage.
-. Using the SMT model, the final SMT AASX file can be defined.
+(5) :: Using the SMT model, the final SMT AASX file can be defined.
 +
 Examples can be generated using the action "Submodel / Turn to kind instance" xref:annex/resources.adoc#res3[[R3\]].
 +
@@ -310,37 +311,37 @@ image::image6.png[image6,width=642,height=322]
 The SMT model is at the center of activities.
 The following working steps can be distinguished:
 
-. Some members of the Submodel working team, e.g. the architect or the interested person xref:annex/resources.adoc#res1[[R1\]], create an initial design approach and partitioning into multiple tables of SubmodelElements.
+(1) :: Some members of the Submodel working team, e.g. the architect or the interested person xref:annex/resources.adoc#res1[[R1\]], create an initial design approach and partitioning into multiple tables of SubmodelElements.
 +
 It is also recommended to formulate the scope of the Submodel, e.g. during the kickoff the work team.
 +
 Table formats can be DOC or XLSfootnote:[Particularily, the Microsoft .docx and .xlsx formats can be used directly.], multiple tables can be parsed in a single document.
 These tables can also be easily reviewed by an external person, as well.
-. Early in time, these tables are imported into the SMT model.
+(2) ::  Early in time, these tables are imported into the SMT model.
 The AASX Package Explorer xref:annex/resources.adoc#res3[[R3\]] provides such functions under "File / Import / Import from table", see xref:annex/resources.adoc#res5[[R5\]].
 +
 By the same mechanism, tables can be exported back via "File / Export / Export to tables" to form a SMT design roundtrip.
-. Early reviews with the group can be executed directly by working on the SMT model.
+(3) ::  Early reviews with the group can be executed directly by working on the SMT model.
 +
 The SMT model can be easily turned into example AASX by using the action "Submodel / Turn to kind instance" xref:annex/resources.adoc#res3[[R3\]] to test-drive the filling in with exemplary data.
 +
 Or, by defining Qualifiers as in <<qualifiers-supporting-the-generic-forms-functionality>> and using "File / Export / Export Submodel as options for generic forms" xref:annex/resources.adoc#res3[[R3\]], a Generic form preset can be generated, which could be handed to multiple people to test-drive the SMT.
 +
 Or, by using "File / Export / Export Submodel as snippet for PredefinedConcepts" xref:annex/resources.adoc#res3[[R3\]], source code for predefined concepts could be generated to be used for programmatic test exports of exemplary Submodel contents.
-. Using the SMT model as a turntable, imports/ exports can also be done with respect to the working draft (WD) of SMT specification document.
+(4) ::  Using the SMT model as a turntable, imports/ exports can also be done with respect to the working draft (WD) of SMT specification document.
 +
 Also, the scope and further definitions might be integrated already into the document.
 +
 The required tables can be directly exported xref:annex/resources.adoc#res3[[R3\]].
 +
 Additionally, UML can be generated by "File / Export / Export Submodel as UML" xref:annex/resources.adoc#res3[[R3\]] (see section <<uml-generation>>).
-. Using the SMT specification working draft (WD), together with the SMT model, reviews with the SMT working team, users and domain experts can be facilitated.
+(5) ::  Using the SMT specification working draft (WD), together with the SMT model, reviews with the SMT working team, users and domain experts can be facilitated.
 +
 If more extensive reviews of the working draft are required, e.g. together with another working group, then a line numbered PDF is recommended and commenting via the IDTA comments template xref:annex/resources.adoc#res2[[R2\]] is recommended.
-. For approaching the official review, "(6) Review" phase xref:annex/resources.adoc#res1[[R1\]] is initiated, by preparing the final version of the working draft (WD) and handing over to architect and IDTA office.
+(6) ::  For approaching the official review, "(6) Review" phase xref:annex/resources.adoc#res1[[R1\]] is initiated, by preparing the final version of the working draft (WD) and handing over to architect and IDTA office.
 +
 Architect and IDTA office will follow on with the process, which will finally lead to a publication via IDTA GitHub and IDTA homepage.
-. Using the SMT model, the final SMT AASX file can be defined.
+(7) ::  Using the SMT model, the final SMT AASX file can be defined.
 +
 At least one Example AAS shall be generated, e.g. by using the action "Submodel / Turn to kind instance" xref:annex/resources.adoc#res3[[R3\]].
 +
@@ -371,7 +372,7 @@ The semantic definition of the Submodel itself is in the center of activities.
 A semantic definition of a Submodel is typically a model itself, in short such a model is sometimes called a semantic model.
 The following working steps can be distinguished:
 
-. There are two ways to execute step (1):
+(1) :: There are two ways to execute step (1):
 .. There is already an *existing open semantic definition* available for the Submodel under consideration in some standardized way, for example an application class in a dictionary like ECLASS or IEC CDD, or an existing W3C ontology or an existing semantic model of CATENA-X etc.
 In this context a semantic definition can only be directly used if this semantic definition has a globally unique identifier.
 Otherwise, if for example an IEC or ISO standard or an OPC UA companion specification exists but not with unique identifiers for the model then Step (b) needs to be followed.
@@ -384,19 +385,25 @@ In a later stage external standardization of this Submodel template specific sem
 ====
 Note: This approach also might start with Excel or UML diagrams or any other supporting material before doing the first semantic definition of the Submodel, similar to what is described in chapter <<model-based-workflow>>.
 ====
-. Frequent reviews are executed with the domain experts and stakeholders.
-. As soon as the semantic definition has a mature state, an AASX file is created.
+(2) :: Frequent reviews are executed with the domain experts and stakeholders.
+(3) :: As soon as the semantic definition has a mature state, an AASX file is created.
 In the basic approach this is done manually.
 In an advanced approach a corresponding importer or generator is available that creates the AASX.
++
+[Example]
+====
 Example: for ECLASS there is an importer available in the AASX Package Explorer that creates a corresponding Submodel.
+====
++
 Semi-automatic approaches might also be supported.
-. Internal reviews ensure that the created AASX file is correct.
-. Then a corresponding textual specification of the Submodel template needs to be created.
+
+(4) :: Internal reviews ensure that the created AASX file is correct.
+(5) :: Then a corresponding textual specification of the Submodel template needs to be created.
 Again, this is either done manually, or this is generated (semi-)automatically.
-. Again, internal reviews ensure that the created SMT Specification WD document meets the requirements.
-. After the SMT Specification WD document is available, an official review can be started.
-. If the SMT Specification can be released after the findings of the review are incorporated, the release is prepared containing the identified deliveries as specified (see section <<artifacts-to-be-delivered>>).
-. If no existing open semantic definition for the Submodel under consideration is available (see step (1) b) then also the artifacts used to describe the semantic model in a machine-readable way – if available - shall be added to the release for future maintenance and reuse.
+(6) :: Again, internal reviews ensure that the created SMT Specification WD document meets the requirements.
+(7) :: After the SMT Specification WD document is available, an official review can be started.
+(8) :: If the SMT Specification can be released after the findings of the review are incorporated, the release is prepared containing the identified deliveries as specified (see section <<artifacts-to-be-delivered>>).
+(9) :: If no existing open semantic definition for the Submodel under consideration is available (see step (1) b) then also the artifacts used to describe the semantic model in a machine-readable way – if available - shall be added to the release for future maintenance and reuse.
 
 [#workflow-with-github-based-asciidoc-working-draft-document]
 === Workflow with GitHub based AsciiDoc working draft document
@@ -406,7 +413,7 @@ This workflow is an update of the model-based workflow (see section <<model-base
 Similar extensions to the document driven or semantic driven workflow can be made.
 They are not documented separately.
 
-It is recognized that "AsciiDoc is a xref:annex/resources.adoc#res10[[R10\]] suitable plain text markup language for writing technical content".
+It is recognized that "AsciiDoc is a  [suitable] plain text markup language for writing technical content" xref:annex/resources.adoc#res10[[R10\]].
 With the use of AsciiDoc combined with GitHub functionality, an open, decentralized and traceable maintenance of the SMT specification becomes possible.
 
 [#note-gh-workflow-audience]
@@ -432,15 +439,17 @@ This is already the case for the IDTA GitHub repository for Submodel templates x
 
 The workflow can start with some optional working steps:
 
-. Some initial knowledge and modelling can be gathered and established by e.g. the architect or the interested person xref:annex/resources.adoc#res1[[R1\]] to create a start-up situation (optional).
-. Well-formatted tables in DOC or XLS can be parsed into the SMT model (optional).
+(1) :: Some initial knowledge and modelling can be gathered and established by e.g. the architect or the interested person xref:annex/resources.adoc#res1[[R1\]] to create a start-up situation (optional).
+(2) :: Well-formatted tables in DOC or XLS can be parsed into the SMT model (optional).
 The AASX Package Explorer xref:annex/resources.adoc#res3[[R3\]] provides such functions under "File / Import / Import from table", see xref:annex/resources.adoc#res5[[R5\]].
-+
+
 After, the work of the SMT working team is centered around the SMT model and the working draft in AsciiDoc:
-. Early reviews on the SMT structure and definitions of SubmodelElements and ConceptDescriptions are performed directly on the SMT model as part of the SMT working team meetings (see section <<model-based-workflow>>).
-. Distributed editing of the SMT specification WD is done by accessing the individual related files on the GitHub repository.
+
+(3) :: Early reviews on the SMT structure and definitions of SubmodelElements and ConceptDescriptions are performed directly on the SMT model as part of the SMT working team meetings (see section <<model-based-workflow>>).
+(4) :: Distributed editing of the SMT specification WD is done by accessing the individual related files on the GitHub repository.
 +
 These files comprise:
+
 ** One or multiple AsciiDoc formatted WD text files.
 These contain e.g. the individual text bodies, chapters, paragraphs or hand-crafted tables in AsciiDoc markup language.
 By defining includes, the specification can be broken into parts, e.g. maintained by individual editors.
@@ -451,21 +460,23 @@ Many AsciiDoc tools also allow to include PlantUML files xref:annex/resources.ad
 ** Header files and style files.
 In order to bring individual parts together, use extensions, declare global options and more, header files can be used.
 For SMT specifications, suitable header files and style files shall be used xref:annex/resources.adoc#res13[[R13\]].
-. Using the SMT model as a turntable, a large fraction of the SMT specification can be exported directly to AsciiDoc files via the AASX Package Explorer xref:annex/resources.adoc#res3[[R3\]].
+(5) :: Using the SMT model as a turntable, a large fraction of the SMT specification can be exported directly to AsciiDoc files via the AASX Package Explorer xref:annex/resources.adoc#res3[[R3\]].
 +
 The required tables can be exported by "File / Export / Export to tables" xref:annex/resources.adoc#res3[[R3\]].
 +
 Additionally, UML can be generated to PlantUML by "File / Export / Export Submodel as UML" xref:annex/resources.adoc#res3[[R3\]] (see section <<uml-generation>>).
-. Using pre-defined GitHub actions, the AsciiDoc files can be rendered to HTML and PDF files.
-+
+(6) :: Using pre-defined GitHub actions, the AsciiDoc files can be rendered to HTML and PDF files.
+
+
 The following steps are the same as in the model-based workflow (see section <<model-based-workflow>>).
-. Using the SMT specification HTML and PDF renderings, together with the SMT model, reviews with the SMT working team, users and domain experts can be facilitated.
+
+(7) :: Using the SMT specification HTML and PDF renderings, together with the SMT model, reviews with the SMT working team, users and domain experts can be facilitated.
 +
 If more extensive reviews of the working draft are required, e.g. together with another working group, then a line numbered PDF is recommended and commenting via the IDTA comments template xref:annex/resources.adoc#res2[[R2\]] is recommended.
-. For approaching the official review, "(6) Review" phase xref:annex/resources.adoc#res1[[R1\]] is initiated, by preparing the final version of the working draft (WD) and handing over to architect and IDTA office.
+(8) :: For approaching the official review, "(6) Review" phase xref:annex/resources.adoc#res1[[R1\]] is initiated, by preparing the final version of the working draft (WD) and handing over to architect and IDTA office.
 +
 Architect and IDTA office will follow on with the process, which will finally lead to a publication via IDTA GitHub and IDTA homepage.
-. Using the SMT model, the final SMT AASX file can be defined.
+(9) :: Using the SMT model, the final SMT AASX file can be defined.
 +
 At least one Example AAS shall be generated, e.g. by using the action "Submodel / Turn to kind instance" xref:annex/resources.adoc#res3[[R3\]].
 +
@@ -505,17 +516,19 @@ One Submodel stands for the human readable parts of the SMT specification, inclu
 
 The workflow can start with some optional working steps (same as described in section <<model-based-workflow>> and section <<workflow-with-github-based-asciidoc-working-draft-document>>):
 
-. Some initial knowledge and modelling can be gathered and established by e.g. the architect or the interested person xref:annex/resources.adoc#res1[[R1\]] to create a start-up situation (optional).
-. Well-formatted tables in DOC or XLS can be parsed into the SMT model (optional).
+(1) ::  Some initial knowledge and modelling can be gathered and established by e.g. the architect or the interested person xref:annex/resources.adoc#res1[[R1\]] to create a start-up situation (optional).
+(2) ::  Well-formatted tables in DOC or XLS can be parsed into the SMT model (optional).
 The AASX Package Explorer xref:annex/resources.adoc#res3[[R3\]] provides such functions under "File / Import / Import from table", see xref:annex/resources.adoc#res5[[R5\]].
-+
+
+
 After, all subsequent editing/ update steps occur only in the SMT model:
-. By using the AASX Package Explorer xref:annex/resources.adoc#res3[[R3\]] or similar tooling, the architect and SMT working team members edit/ update/ review the SMT model.
+
+(3) ::  By using the AASX Package Explorer xref:annex/resources.adoc#res3[[R3\]] or similar tooling, the architect and SMT working team members edit/ update/ review the SMT model.
 When using AASX Package Explorer xref:annex/resources.adoc#res3[[R3\]], this step is monolithic and no concurrent use of the associated AASX file is possible.
 +
 The editing of the human-readable part is also facilitated by the AASX Package Explorer.
 By using specific semanticIds and Extensions (see section <<semanticids-and-extensions-for-the-generation-of-asciidoc-markup-language>>), the following features are accomplished:
-+
+
 ** *Blobs for markup of chapters and sections* of the SMT specification document.
 By using dedicated semanticIds for different levels of headings, suitable markup is automatically generated (indexing possible).
 The hierarchy level and idShorts of the Blob elements can be used to structure the document visually in the AASX model.
@@ -536,21 +549,22 @@ By creating a ReferenceElement to a structure of SubmodelElements and assigning 
 Via Extensions, the style and level of depth for UML can be controlled and classes could be suppressed, in order to always present the intended content to the reader.
 +
 The linear sequence of the above elements in the Submodel for the SMT specification specifies also the sequence of generation/ including the generated markup.
-. Early reviews on the SMT structure and definitions of SubmodelElements and ConceptDescriptions of the template and of the human-readable parts are performed directly on the SMT model as part of the SMT working team meetings (see section <<model-based-workflow>>).
-. AASX Package Explorer xref:annex/resources.adoc#res3[[R3\]] is able to bundle all required files for the rendering of AsciiDoc HTML and PDF together.
+
+(4) ::  Early reviews on the SMT structure and definitions of SubmodelElements and ConceptDescriptions of the template and of the human-readable parts are performed directly on the SMT model as part of the SMT working team meetings (see section <<model-based-workflow>>).
+(1) ::  AASX Package Explorer xref:annex/resources.adoc#res3[[R3\]] is able to bundle all required files for the rendering of AsciiDoc HTML and PDF together.
 By calling "File / Export / Export / Export Submodel as AsciiDoc SMT spec ..", a temporary working directory will be created, all required files (markup, tables, UML, images, headers and styles, ..) will be generated/ copied into this working directory and the files will be zipped in order to provide one coherent snapshot, which can be provided easily to the users (architect, SMT working team, domain exports, publication).
 +
 Optionally, the application is able to execute a configurable script allowing to run docker containers/ actions, which render the exported files to HTML/ PDF.
 This allows producing and viewing HTML/ PDF contents of the actual SMT specification very quickly.
 +
 The following steps are the same as in the other model-based workflow(s) (see section <<model-based-workflow>> and <<workflow-with-github-based-asciidoc-working-draft-document>>).
-. Using the SMT specification HTML and PDF renderings, together with the SMT model, reviews with the SMT working team, users and domain experts can be facilitated.
+(1) ::  Using the SMT specification HTML and PDF renderings, together with the SMT model, reviews with the SMT working team, users and domain experts can be facilitated.
 +
 If more extensive reviews of the working draft are required, e.g. together with another working group, then a line numbered PDF is recommended and commenting via the IDTA comments template xref:annex/resources.adoc#res2[[R2\]] is recommended.
 . For approaching the official review, "(6) Review" phase xref:annex/resources.adoc#res1[[R1\]] is initiated, by preparing the final version of the working draft (WD) and handing over to architect and IDTA office.
 +
 Architect and IDTA office will follow on with the process, which will finally lead to a publication via IDTA GitHub and IDTA homepage.
-. Using the SMT model, the final SMT AASX file can be defined.
+(1) ::  Using the SMT model, the final SMT AASX file can be defined.
 +
 At least one example AAS shall be generated, e.g. by using the action "Submodel / Turn to kind instance" xref:annex/resources.adoc#res3[[R3\]].
 +
@@ -770,7 +784,7 @@ For this purpose, within such specification, the following provisions are set:
 . AAS elements providing children (such as SubmodelElementCollection, Operation and more) shall be represented by UML class elements, with the AAS element type or its abbreviation according to xref:bibliography.adoc#bib6[[6\]] set as stereotype.
 . Such children (of complex elements such as SubmodelElementCollection, Operation and more) shall be represented as attributes within the respective UML class.
 . Such attributes shall be marked as public ('+') and shall feature the AAS element type or data type or its abbreviation according to xref:bibliography.adoc#bib6[[6\]].
-. If the cardinality (multiplicity) of such an attribute is other than '[1]', one of the following cardinality notions shall be used: [0..1], [0..\*], [1..\*].
+. If the cardinality (multiplicity) of such an attribute is other than '[1]', one of the following cardinality notions shall be used: +[0..1]+, +[0..*]+, +[1..*]+.
 . If such attribute represents an AAS element providing children (such as SubmodelElementCollection, Operation and more), and this AAS element is represented by the respective class diagram as well, then an aggregation association (filled diamond arrow) shall be expressed, with the name of the AAS element given by the association and its cardinality at the 'part' end of the association.
 
 [#uml-via-xmi-export]
@@ -905,7 +919,7 @@ For the different rows, the following provisions are given by <<table-format-of-
 |*ID* |*Label* |*Provision*
 |A |idShort: a|
 This cell shall contain the idShort of the AAS element with children.
-Could be an idShort with enumeration template such as "__000__" or "__00__" (see section <<enumeration-template-for-speaking-idshort-designations>>).
+Could be an idShort with enumeration template such as "+__000__+ or "+__00__+" (see section <<enumeration-template-for-speaking-idshort-designations>>).
 If the AAS element is used multiple times as child of a parent AAS element, then a list of comma separated idShorts can be given.
 
 Must not contain further information, such as "Note: the above idShort shall always be as stated."
@@ -968,7 +982,7 @@ Abbreviation according xref:bibliography.adoc#bib6[[6\]] is allowed.
 The information shall be surrounded by '[ ]'.
 
 In the second line, the idShort of the AAS element shall be given.
-Could be an idShort with enumeration template such as "__000__" or "__00__" (see section <<enumeration-template-for-speaking-idshort-designations>>).
+Could be an idShort with enumeration template such as "+__000__+" or "+__00__+" (see section <<enumeration-template-for-speaking-idshort-designations>>).
 |2 a|
 semanticId = [idType]value +
 Description@en
@@ -999,7 +1013,7 @@ If the AAS element is a MultiLanguageProperty, '[langString]' shall be given in 
 
 In the next line, one or more example values can be given.
 String values might end with an '@' and ISO 639 language code in lowercase.
-|4 |card. |In the first line, the cardinality of the AAS element shall be given. This can be [1], [0..1], [0..\*], [1..\*].
+|4 |card. |In the first line, the cardinality of the AAS element shall be given. This can be +[1]+, +[0..1]+, +[0..*]+, +[1..*]+.
 |===
 
 After the table header, before the first row items, two table rows shall be given featuring the respective labels defined in <<table-format-of-table-row-items>>, as illustrated by <<image-format-of-table-row-items>>.
@@ -1048,7 +1062,7 @@ To express the particular purpose of the structure, attributes shall specify:
 * Either-Or
 * Example & Default & Initial Values (Here: Value used for Example Value)
 * allowed ranges of properties (e.g. temperature in range -60° to +200° Celsius)
-* regular expressions for naming (e.g. Document__00__) and for allowed values of properties
+* regular expressions for naming (e.g. +Document__00__+) and for allowed values of properties
 * required languages for multi-language properties
 * user access mode (read-write or read-only)
 
@@ -1169,16 +1183,18 @@ Note 3: Interval start and end are delimited by ','; '.' is the decimal point
 
 Note 4: '*' allows to enter the default value
 ====
+
 a|
 Examples:
 
-[0,10]
+ [0,10]
 
-(0.0,9.9]
+ (0.0,9.9]
 
-*\|[1,6]
+ *\|[1,6]
 
-[2,3]\|[6,7]
+ [2,3]\|[6,7]
+
 |SMT/AllowedIdShort a|
 `\https://admin-shell.io/SubmodelTemplates/AllowedIdShort/1/0`
 
@@ -1249,7 +1265,7 @@ These Qualifiers are available as presets for the AASX Package Explorer.
 
 .Qualifiers supporting the generic forms functionality
 [[table-qualifiers-supporting-the-generic-forms-functionality]]
-[width="100%",cols="16%,42%,42%",options="header",]
+[width="100%",cols="18%,42%,40%",options="header",]
 |===
 |Qualifier.name* a|
 Qualifier.semanticId*
@@ -1292,13 +1308,13 @@ For this, a template string can be given in the idShort of the SMT element (see 
 Note 2: Multiplicity is legacy, use of SMT/Cardinality is recommended.
 ====
 a|
-One
+ One
 
-ZeroToOne
+ ZeroToOne
 
-ZeroToMany
+ ZeroToMany
 
-OneToMany
+ OneToMany
 |EditIdShort a|
 `\https://admin-shell.io/SubmodelTemplates/EditIdShort/1/0`
 
@@ -1312,9 +1328,9 @@ Note 1: For simple applications, a value of "False" is recommended.
 Note 2: If the designed form allows to create multiple collections, "True" could be an option for the collection.
 ====
 a|
-True
+ True
 
-False
+ False
 |EditDescription a|
 `\https://admin-shell.io/SubmodelTemplates/EditDescription/1/0`
 
@@ -1328,14 +1344,15 @@ Note 1: For simple applications, a value of "False" is recommended.
 Note 2: If the designed form allows to create multiple collections, "True" could be an option fo the collection.
 ====
 a|
-True
+ True
 
-False
+ False
 |FormChoices a|
 `\https://admin-shell.io/SubmodelTemplates/FormChoices/1/0`
 
 Allows multiple choices of value; list of values separated by semicolon ';'.
-|Apples; Pies; Peanuts
+a| 
+ Apples; Pies; Peanuts
 |===
 
 [#enumeration-template-for-speaking-idshort-designations]
@@ -1343,10 +1360,13 @@ Allows multiple choices of value; list of values separated by semicolon ';'.
 
 The idShort of each SubmodelElement shall be unique in its namespace, e.g. the containing collection.
 At the same time, many users want the idShort to be a speaking name.
-In order to facilitate the automatic generation of speaking names, an addition such as "__000__" or "__00__" might be included in the idShort of an SMT element, which cardinality is other than "One".
+In order to facilitate the automatic generation of speaking names, an addition such as "+__000__+" or "+__00__+" might be included in the idShort of an SMT element, which cardinality is other than "One".
 The number of zeros will correspond to the number of digits of a continuous numerical index for idShort.
 
+[Example]
+====
 Example: If a Submodel might describe multiple records, and a single record is described by multiple properties collected in a SubmodelElementCollection (SMC) with parent as Submodel, the application will be as described in <<image-exemplary-template-idshort-attribute-for-record>>.
+====
 
 .Exemplary template idShort attribute for "Record"
 [[image-exemplary-template-idshort-attribute-for-record]]
@@ -1410,7 +1430,7 @@ The following types of SubmodelElements with semanticIds are meaningful to the g
 *Description*
 |*Examples*
 |Submodel a|
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/1/0`
+`\http://admin-shell.io/aasx-package-explorer/**functions/asciidoc**/1/0`
 
 Identifies the Submodel for generating AsciiDoc for the human-readable part of the SMT specification.
 
@@ -1418,11 +1438,11 @@ The idShort of the Blob should point out, that AsciiDoc is generated and which S
 |[idShort] +
 AsciiDoc_DigiNameplate_2_0
 |Blob a|
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/heading1/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**heading1**/1/0`
 
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/heading2/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**heading2**/1/0`
 
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/heading3/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**heading3**/1/0`
 
 Defines a heading in the AsciiDoc.
 The three possible levels, given by three semanticIds, relate to chapters, sections and sub-sections of the document.
@@ -1442,7 +1462,7 @@ About this document
 [contentType] +
 text/markdown
 |Blob a|
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/textblock/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**textblock**/1/0`
 
 Defines one or multiple generic text blocks in the AsciiDoc.
 
@@ -1455,8 +1475,11 @@ The contentType of the element shall be set to "text/markdown"
 a|
 List
 
+[source,asciidoc,linenums]
+----
 * A
 * B
+----
 
 Table
 
@@ -1474,14 +1497,14 @@ Paragraph_Standards
 [contentType] +
 text/markdown
 |Blob a|
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/coverpage/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**coverpage**/1/0`
 
 Defines the starting point of the generation, describing important face matter of the document.
 
 For constraints of idShort, contentType see above.
 |see complete example xref:annex/resources.adoc#res13[[R13\]]
 |File a|
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/imagefile/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**imagefile**/1/0`
 
 File element linking to a (supplemental) file and embedding link into the generated AsciiDoc markup.
 
@@ -1499,7 +1522,7 @@ a|
 [contentType] +
 image/png
 |Blob a|
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/imagefile/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**imagefile**/1/0`
 
 Binary or text content, which shall be written as specific file to the generated files in the temporary working directory.
 The contentType shall be given.
@@ -1522,7 +1545,7 @@ iVBORw0KGgoAAAANSUhEU…
 [contentType] +
 image/png
 |ReferenceElement a|
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/generate-uml/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**generate-uml**/1/0`
 
 Identifies a structure of SubmodelElements which shall be generated as UML class diagram in PlantUML language.
 
@@ -1530,18 +1553,18 @@ Via the Extension (see below), details of the generation process can be specifie
 
 The idShort is used to generate a dedicated PlantUML (.puml)-file for the input; the idShort shall be unique in the temporary working directory.
 a|
-[Submodel] [.underline]#\www.example.com/ids/sm/1225_9020_5022_1974#
+[Submodel] www.example.com/ids/sm/1225_9020_5022_1974
 
 [SubmodelElementList] +
 Markings
 |ReferenceElement a|
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/generate-tables/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**generate-tables**/1/0`
 
 Identifies a structure of SubmodelElements which shall be generated as table in the generated markdown.
 
 Via the Extension (see below), details of the generation process can be specified.
 a|
-[Submodel] [.underline]#\www.example.com/ids/sm/1225_9020_5022_1974#
+[Submodel] www.example.com/ids/sm/1225_9020_5022_1974
 
 [SubmodelElementList] +
 Markings
@@ -1561,13 +1584,13 @@ a|
 *Description*
 |*Examples*
 a|
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/target-model/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**target-model**/1/0`
 
 References from the AsciiDoc Submodel to the respective SMT model, which holds the template definition.
 |[SubModel] +
-\www.example.com/ids/sm/1225_9020_5022_1974
+www.example.com/ids/sm/1225_9020_5022_1974
 a|
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/section-scope/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**section-scope**/1/0`
 
 Identifies the text block(s), which hold the scope statement of the SMT specification.
 
@@ -1576,7 +1599,7 @@ One or multiple SubmodelElements might by tagged with this semanticId.
 The heading shall not be tagged.
 |n/a
 a|
-`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/section-standards/1/0`
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**section-standards**/1/0`
 
 Identifies the text block(s), which hold the declaration of relevant standards to the SMT specification.
 
