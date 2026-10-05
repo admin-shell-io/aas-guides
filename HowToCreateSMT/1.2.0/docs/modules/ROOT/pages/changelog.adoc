@@ -9,6 +9,14 @@ SPDX-License-Identifier: CC-BY-4.0
 [#change-log]
 == Annex C. Change log
 
+=== Version 1.2
+
+Major changes compared to version 1.1 of this document:
+
+* Updated Annex on Tables on Submodels and SubmodelElements, new table for enumerations
+
+=== Version 1.1
+
 Major changes compared to version 1.0 of this document:
 
 * Artifacts to be delivered (see <<artifacts-to-be-delivered>>)
