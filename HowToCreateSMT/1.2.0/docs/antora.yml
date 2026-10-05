@@ -1,7 +1,7 @@
 name: HowTo_SMT
 title: 'How-To Create a SMT'
-version: '1.1'
-display_version: '1.1'
+version: '1.2'
+display_version: '1.2 working'
 start_page: ROOT:index.adoc
 nav:
   - modules/ROOT/nav.adoc

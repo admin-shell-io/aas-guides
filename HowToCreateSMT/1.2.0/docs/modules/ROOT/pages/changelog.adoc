@@ -1,0 +1,20 @@
+////
+Copyright (c) 2023 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+////
+
+[#change-log]
+== Annex C. Change log
+
+Major changes compared to version 1.0 of this document:
+
+* Artifacts to be delivered (see <<artifacts-to-be-delivered>>)
+* Added two workflows for AsciiDoc (see section <<workflows>>)
+* Definition of SMT Dropins (see section <<smt-dropins>>)
+* Adapted table formats to AsciiDoc (see section <<table-format-for-submodels-and-submodelelements>>)
+* Clarify templateId and semanticId (see section <<templateid-and-semanticid-of-smt>>)
+* Marking arbitrary content in SubmodelElement data (see <<marking-arbitrary-content-in-submodelelement-data>>)
+* SemanticIds and Extensions for the generation of AsciiDoc markup language (see <<semanticids-and-extensions-for-the-generation-of-asciidoc-markup-language>>)
