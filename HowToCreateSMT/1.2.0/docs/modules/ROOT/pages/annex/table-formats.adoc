@@ -22,137 +22,44 @@ The tables used in this document try to outline information as concisely as poss
 They do not convey all information on Submodels and SubmodelElements.
 For this purpose, the definitive definitions are given by a separate file in form of an AASX file of the SMT and its elements.
 
-[#rules-for-submodels-and-submodelelement-tables]
-=== Rules for Submodels and SubmodelElement Tables
-
-To ensure clarity, consistency, and brevity across all specifications, the following standardized rules apply to all tables describing *Submodels*, *SubmodelElements (SMEs)*, and *ConceptDescriptions*.
-
-In examples of text fields that allow Multi-Language Strings, the text values are appended with an '@' character followed by the ISO 639-1 language code (e.g., `Definition@en`, `Description@de`).
-
-==== Submodel and Container SubmodelElement Description Schema
-
-Each Submodel and container SubmodelElement is specified using a table matching the following layout:
-
-[[table-submodel-container-schema]]
-.Submodel and Container SubmodelElement Description Schema
-[cols="30%,70%",options="header"]
-|===
-|Attribute / Field |Description
-
-|*idShort*
-|The unique, case-sensitive identifier of the element within its name space.
-
-|*Class*
-|The kind of element (e.g., Submodel, SubmodelElementCollection, SubmodelElementList).
-
-|*Semantic ID(s)*
-|The semantic identifiers (for details see xref:index.adoc#semantic-ids[semanticId(s)]).
-
-|*Parent*
-|The idShort of the parent element the described element is a direct child of (used to establish structural hierarchy).
-
-|*Explanation*
-|A high-level textual explanation of the element's purpose and usage.
-
-|*Element details*
-|Specific metadata of an element like "orderRelevant" of a SubmodelElementList.
-|===
-
-==== SubmodelElement Description Schema
-
-To keep tables compact, multiple attributes are often stacked vertically within a single table cell. The following conventions apply:
-
-* *[SME type]*: The Metamodel type of the SubmodelElement is abbreviated according to the *"Abbreviations of Metamodel"* defined in *IDTA-01001* (e.g., `Prop` for Property, `SML` for SubmodelElementList, `SMC` for SubmodelElementCollection).
-* *idShort*: The idShort of the described Element.
-* *semantic id(s)*: Displayed in up to three distinct paragraphs within the cell (if populated):
-  1. The value of the primary *semanticId*.
-  2. The value(s) of *supplementalSemanticIds* (preceded by a "SupplementalSemanticId(s):" header).
-  3. The value(s) of the *isCaseOf* IDs, as defined in the referenced ConceptDescription (preceded by an "isCaseOf:" header).
-* *Definition@en Description@en*: The English definition of the ConceptDescription describing the semantics of the element (semanticId) if available, followed by the English description of the described element if available.
-* *[valueType]*: Specified only for elements containing a value type attribute (specifically Property and Range types).
-* *example*: Example values for atomic, i.e. non-container SubmodelElements are retrieved from the qualifier with the semantic ID `https://admin-shell.io/SubmodelTemplates/ExampleValue/1/0`, if present.
-* *(unit)*: Included only for physical or measurement properties where the referenced ConceptDescription defines a physical unit (via `DataSpecificationIec61360/unit`).
-* *card. (Cardinality)*: The column header *card.* is an abbreviation for cardinality. It reflects the value of the qualifier with the semantic ID `https://admin-shell.io/SubmodelTemplates/Cardinality/1/0`. Common cardinalities are abbreviated as follows:
-** `1..*` (OneToMany)
-** `0..*` (ZeroToMany)
-** `1` (One)
-** `0..1` (ZeroToOne)
-
-==== Enumeration Description Schema
-
-For ConceptDescriptions using the `DataSpecificationIec61360` definition that contain a restricted list of allowed values (`valueList`), the enumerations are specified using the following table format:
-
-[[table-enumeration-schema]]
-.Enumeration Description Schema
-[cols="30%,70%",options="header"]
-|===
-|Column | Description
-
-| Value |The literal value string as defined in the Enumeration ConceptDescription's `valueList/value`.
-| ValueId |The global, unique identifier for the value (`valueList/valueId`), if defined.
-| Description |The definition of the Value ConceptDescription referenced by the `valueId`.
-|===
-
 [#tables-on-submodels-and-submodelelements]
 === Tables on Submodels and SubmodelElements
 
-For clarity and brevity, a set of rules is used for the tables describing Submodels and SubmodelElements.
+For clarity and brevity, a set of rules is used for the tables for describing Submodels and SubmodelElements.
 
-[width="100%", id="Table_SML_contentSpecificationIds", cols="15%,55%,15%,15%"]
+* The tables follow in principle the same conventions as in xref:bibliography.adoc#bib5[[5\]].
+* The table heads abbreviate 'cardinality' with 'card'.
+* The tables often place two information elements in different rows of the same table cell.
+In this case, the first information is marked out by sharp brackets [] form the second information.
+A special case are the semanticIds, which are marked out by the format: (type)(localfootnote:["Attribute "local" was removed in V3.0RC01 xref:bibliography.adoc#bib6[[6\]]"])[idType]value.
+* The types of SubmodelElements are abbreviated (among others):
+
+.Abbreviations of SubmodelElements
+[[table-abbreviations-of-submodelelements]]
+[width="83%",cols="41%,59%",options="header",]
 |===
-s|{set:cellbgcolor:#0029cc} [white]#idShort:#
-3+s|{set:cellbgcolor:#eeeeee}
-
-s|{set:cellbgcolor:#0029cc} [white]#Class:#
-3+|{set:cellbgcolor:#eeeeee}
-
-s|{set:cellbgcolor:#0029cc} [white]#semantic IDs:#
-3+|{set:cellbgcolor:#eeeeee} 
-
-s|{set:cellbgcolor:#0029cc} [white]#Parent:#
-3+|{set:cellbgcolor:#eeeeee}
-
-s|{set:cellbgcolor:#0029cc} [white]#Explanation:#
-3+|{set:cellbgcolor:#eeeeee}
-
-s|{set:cellbgcolor:#0029cc} [white]#Element details:#
-3+|{set:cellbgcolor:#eeeeee}
-
-|{set:cellbgcolor:#0029cc} [white]#[SME type]# 
-[white]#idShort#
-| [white]#semantic IDs# +
- [white]#Definition@en#  [white]#Description@en#
-| [white]#[valueType]# +
-[white]#example#
-| [white]#card.#
-
-
-
-
-
+|SME type |SubmodelElement type
+|Blob |Blob
+|Cap |Capability
+|Ent |Entity
+|Evt |Event
+|File |File
+|MLP |MultiLanguageProperty
+|Opr |Operation
+|Prop |Property
+|Range |Range
+|Ref |ReferenceElement
+|Rel |RelationshipElement
+|RelA |AnnotatedRelationshipElement
+|SMC |SubmodelElementCollection
+|SML |SubmodelElementList
 |===
 
-* The table heads abbreviate 'cardinality' with '*card.*'. 
-It is the value of the qualifier with semanticId `https://admin-shell.io/SubmodelTemplates/Cardinality/1/0` with OneToMany abbreviated as `+1..*+`, ZeroToMany as `+0..*+`, One as `1`, and ZeroToOne as `+0..1+`.
-* The tables often place two or three information elements in different rows of the same table cell. For example: `[valueType]`, `example`, and `(unit)`.
-* Semantic id(s) are displayed in three paragraphs (if not empty): 
-  1. The value of the *semanticId*.
-  2. The value of the global reference of the *supplementalSemanticIds* with a corresponding header.
-  3. The value of the global reference of the *isCaseOf* IDs as defined for the element in the referenced ConceptDescription with a corresponding header.
-* The types of SubmodelElements (*[SME type]*) are abbreviated as defined in "Abbreviations of Metamodel" in IDTA-01001, for example `Prop` for Property or `SML` for SubmodelElementList.
-* The *Parent:* information shows the element that the described element is part of.
-* Multi-language strings are represented by the text value, followed by an '@' character and the ISO 639-1 language code (e.g., `example@EN`).
-* The *[valueType]* is only given for SubmodelElements with a valueType attribute, i.e., Properties and Range.
-* The *(unit)* is only given for measurement Properties, i.e., properties with a ConceptDescription that defines a unit (`DataSpecificationIec61360/unit`).
-* "*example*" values are taken for atomic SubmodelElements from the qualifier with semanticId `https://admin-shell.io/SubmodelTemplates/ExampleValue/1/0` if existing.
-
-There are also tables for enumerations generated for `valueList` of ConceptDescriptions using `DataSpecificationIec61360`:
-
-[cols="30%,30%,40%",options="header"]
-|===
-|[white]#Value# |[white]#ValueId# |[white]#Description#
-|===
-
-* *Value* is the `valueList/value` as defined in the ConceptDescription using `DataSpecificationIec61360`.
-* *ValueId* is the `valueList/valueId` as defined in the ConceptDescription using `DataSpecificationIec61360`, if available.
-* *Description* is the definition as defined in the ConceptDescription using `DataSpecificationIec61360` with the ID defined in `valueList/valueId`.
+* If an idShort ends with '\__00__', this indicates a suffix of the respective length (here: 2) of decimal digits, in order to make the idShort unique.
+A different idShort might be chosen, as long as it is unique in the parent’s context.
+* The Keys of semanticId in the main section feature only idType and value, such as: [IRI]\https://admin-shell.io/vdi/2770/1/0/DocumentId/Id, as described in the serialization of the AAS meta model.
+The attributes "type" and "local" (typically "ConceptDescription" and "(local)" or "GlobalReference" and (no-local)") need to be set accordingly; see xref:bibliography.adoc#bib6[[6\]].
+* If a table does not contain a column with "parent" heading, all represented attributes share the same parent.
+This parent is denoted in the head of the table.
+* Multi-language strings are represented by the text value, followed by '@'-character and the ISO 639 language code: example@EN.
+* The [valueType] is only given for Properties.
