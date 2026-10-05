@@ -1516,6 +1516,8 @@ Suitable files are binary files, such as images, but also e.g. large markup file
 Encoding will be preserved.
 
 Via the Extension (see below), it can be controlled, if a reference/ link is written to the generated AsciiDoc markup.
+
+Can be referenced in blob with semanticId `\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/textblock/1/0` via  +<<idShort of File>>+.
 a|
 /aasx/idta-smt-badge.png
 
@@ -1534,6 +1536,9 @@ Via the Extension (see below), it can be controlled, if a reference/ link is wri
 ====
 Note: .svg-format is recommended for vector content and .png-format is recommended for bitmap images.
 ====
+
+Can be referenced in blob with semanticId `\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/textblock/1/0` via +<<idShort of File>>+.
+
 a|
 ABC
 
@@ -1552,6 +1557,9 @@ Identifies a structure of SubmodelElements which shall be generated as UML class
 Via the Extension (see below), details of the generation process can be specified.
 
 The idShort is used to generate a dedicated PlantUML (.puml)-file for the input; the idShort shall be unique in the temporary working directory.
+
+Can be referenced in blob with semanticId `\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/textblock/1/0` via +<<idShort of ReferenceElement>>+.
+
 a|
 [Submodel] www.example.com/ids/sm/1225_9020_5022_1974
 
@@ -1563,11 +1571,33 @@ Markings
 Identifies a structure of SubmodelElements which shall be generated as table in the generated markdown.
 
 Via the Extension (see below), details of the generation process can be specified.
+
+Can be referenced in blob with semanticId `\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/textblock/1/0` via +<<idShort of ReferenceElement>+.
+
 a|
 [Submodel] www.example.com/ids/sm/1225_9020_5022_1974
 
 [SubmodelElementList] +
 Markings
+
+|ReferenceElement a|
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**generate-enum-table**/1/0`
+
+Identifies the definition of an enumeration defined via a valueList in a ConceptDescription. 
+
+Can be referenced in blob with semanticId `\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/textblock/1/0` via +<<idShort of ReferenceElement>+.
+a|
+
+[idShort] Table_Granularity
+
+[ConceptDescription] `\https://admin-shell.io/idta/cds/granularity/1`
+in text referenced via +<<Table_Granularity>>+
+
+
+
+
+
+
 |===
 
 [#further-semanticids-for-identification-of-model-contents]
