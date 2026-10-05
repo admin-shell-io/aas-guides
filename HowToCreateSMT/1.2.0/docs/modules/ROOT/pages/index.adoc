@@ -219,6 +219,15 @@ For the "(6) Review" phase of the process xref:annex/resources.adoc#res1[[R1\]] 
 |===
 |Artifact |Description |Cardinality
 |SMT specification |Word processor document, representing the SMT specification at a whole |One
+|SMT specification asciidoc AASX file a|An AASX for the SMT model with an additional Submodel for the asciidoc documentation 
+(for details see xref:index.adoc#workflow-with-github-based-asciidoc-working-draft-document[]) 
+
+[Note]
+====
+This file will not be published but only is for internal generation of documentation.
+====
+
+|One
 |SMT model a|
 Logical model with Submodel of kind = Template and respective ConceptDescriptions representing the template definition of the SMT.
 
