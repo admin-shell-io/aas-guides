@@ -13,8 +13,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 Major changes compared to version 1.1 of this document:
 
-* Updated: Chapter on semantic ID for asciidoc generation, added: **generate-enum-table** (see xref:index.adoc#semanticids-for-the-generation-of-asciidoc-markup-language[])
-* Updated: Artifacts to be delivered, added: asciidoc file now mandatory (see xref:index.adoc#artifacts-to-be-delivered[])
+* Updated: Chapter on semantic ID for asciidoc generation, added: **generate-enum-table** (see xref:index.adoc#semanticids-for-the-generation-of-asciidoc-markup-language[SemanticId for asciidoc generation])
+* Updated: Artifacts to be delivered, added: asciidoc file now mandatory (see xref:index.adoc#artifacts-to-be-delivered[Artifacts to be delivered])
 
 
 === Version 1.1
