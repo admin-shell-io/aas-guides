@@ -155,16 +155,16 @@ For the structure of the content for the human-readable part of SMT, the SMT doc
 [width="100%",cols="37%,63%",options="header",]
 |===
 |*(Sub-) Section* |*Aim*
-|General |Provide general overview.
-|About this document |Provide very brief introduction to AAS and associated documents. Only referring to other documents. Typically taken unchanged from the template.
-|Scope of the Submodel |Give precise but concise definition of the scope, clarifying industry segments, stakeholders, life cycle steps, associated assets and subject matter to be represented.
-|Relevant standards |The use of existing standards is encouraged.
-|Approach of the Submodel |Different subsections explaining background and approaches, which lead to the current design of the SMT. Often, a UML diagram of the SMT entities is given. Often, a preview of how the subject matter could be presented to the user, is given, e.g. a screenshot of a plugin for the AASX Package Explorer, or inside an authoring system.
-|Assets |Shortly describes which assets are targeted by the SMT. In particular, it distinguishes between type assets and instance assets.
-|Use cases |Provides a brief overview of use cases for the SMT, e.g. by providing a table with 2-4 use cases and brief explanations (e.g. 2 sentences).
-|Data providers, consumers |Provides a short explanation of which roles/ organizations/ technical elements are providers and consumers of the Submodel data concerned in the SMT.
-|Submodel and SubmodelElements |Detailed description of the different entities by means of the defined table format.
-|{Further normative} |Further sections with normative content.
+|1 General |Provide general overview.
+|1.1 About this document |Provide very brief introduction to AAS and associated documents. Only referring to other documents. Typically taken unchanged from the template.
+|1.2 Scope of the Submodel |Give precise but concise definition of the scope, clarifying industry segments, stakeholders, life cycle steps, associated assets and subject matter to be represented.
+|1.3 Relevant standards |The use of existing standards is encouraged.
+|2 Approach of the Submodel |Different subsections explaining background and approaches, which lead to the current design of the SMT. Often, a UML diagram of the SMT entities is given. Often, a preview of how the subject matter could be presented to the user, is given, e.g. a screenshot of a plugin for the AASX Package Explorer, or inside an authoring system.
+|2.1 Assets |Shortly describes which assets are targeted by the SMT. In particular, it distinguishes between type assets and instance assets.
+|2.2 Use cases |Provides a brief overview of use cases for the SMT, e.g. by providing a table with 2-4 use cases and brief explanations (e.g. 2 sentences).
+|2.3 Data providers, consumers |Provides a short explanation of which roles/ organizations/ technical elements are providers and consumers of the Submodel data concerned in the SMT.
+|3 Submodel and SubmodelElements |Detailed description of the different entities by means of the defined table format.
+|4 {Further normative} |Further sections with normative content.
 |Annex A – Explanations on used table formats |To allow the understanding of the definitions without extensive referring to other documents, this most important information shall be given in every SMT.
 |Annex B - Bibliography |If possible, refer to more extensive material instead of re-describing.
 |Annex C – Change log |If not the initial version, outline changes from the last version to the current version on a per-item basis.
