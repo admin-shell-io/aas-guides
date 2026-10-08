@@ -1,0 +1,12 @@
+== General
+
+=== About this document
+
+This documents collects diverse topics and concepts releated to the specifications of the Asset Administration Shell.
+
+The chapters correspond to different annex parts of IDTA-01001 V3.2 that were removed in V3.3
+
+====
+Note: Not all information is up-to-date, sometimes still older terminology is used.
+It gives a good overview of the different steps and concepts that lead to the current specifications of the AAS.
+====

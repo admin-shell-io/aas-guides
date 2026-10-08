@@ -1,0 +1,65 @@
+////
+Copyright (c) 2023 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+////
+
+[#explanations-on-used-table-formats]
+== Annex A. Explanations on used table formats
+
+[#note-annex-a-inclusion-policy]
+[Note]
+====
+Note: This annex shall be included in each SMT document (see section <<general-5>>) and is included here for illustration.
+====
+
+[#general-10]
+=== General
+
+The tables used in this document try to outline information as concisely as possible.
+They do not convey all information on Submodels and SubmodelElements.
+For this purpose, the definitive definitions are given by a separate file in form of an AASX file of the SMT and its elements.
+
+[#tables-on-submodels-and-submodelelements]
+=== Tables on Submodels and SubmodelElements
+
+For clarity and brevity, a set of rules is used for the tables for describing Submodels and SubmodelElements.
+
+* The tables follow in principle the same conventions as in xref:bibliography.adoc#bib5[[5\]].
+* The table heads abbreviate 'cardinality' with 'card'.
+* The tables often place two information elements in different rows of the same table cell.
+In this case, the first information is marked out by sharp brackets [] form the second information.
+A special case are the semanticIds, which are marked out by the format: (type)(localfootnote:["Attribute "local" was removed in V3.0RC01 xref:bibliography.adoc#bib6[[6\]]"])[idType]value.
+* The types of SubmodelElements are abbreviated (among others):
+
+.Abbreviations of SubmodelElements
+[[table-abbreviations-of-submodelelements]]
+[width="83%",cols="41%,59%",options="header",]
+|===
+|SME type |SubmodelElement type
+|Blob |Blob
+|Cap |Capability
+|Ent |Entity
+|Evt |Event
+|File |File
+|MLP |MultiLanguageProperty
+|Opr |Operation
+|Prop |Property
+|Range |Range
+|Ref |ReferenceElement
+|Rel |RelationshipElement
+|RelA |AnnotatedRelationshipElement
+|SMC |SubmodelElementCollection
+|SML |SubmodelElementList
+|===
+
+* If an idShort ends with '\__00__', this indicates a suffix of the respective length (here: 2) of decimal digits, in order to make the idShort unique.
+A different idShort might be chosen, as long as it is unique in the parent’s context.
+* The Keys of semanticId in the main section feature only idType and value, such as: [IRI]\https://admin-shell.io/vdi/2770/1/0/DocumentId/Id, as described in the serialization of the AAS meta model.
+The attributes "type" and "local" (typically "ConceptDescription" and "(local)" or "GlobalReference" and (no-local)") need to be set accordingly; see xref:bibliography.adoc#bib6[[6\]].
+* If a table does not contain a column with "parent" heading, all represented attributes share the same parent.
+This parent is denoted in the head of the table.
+* Multi-language strings are represented by the text value, followed by '@'-character and the ISO 639 language code: example@EN.
+* The [valueType] is only given for Properties.
