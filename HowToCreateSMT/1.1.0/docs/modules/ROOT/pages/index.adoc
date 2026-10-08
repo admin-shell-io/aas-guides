@@ -12,10 +12,10 @@ SPDX-License-Identifier: CC-BY-4.0
 
 
 
-[#general]
+[#general, reftext="General"]
 == General
 
-[#overview]
+[#overview, reftext="Overview"]
 === Overview
 
 This document is an enabler for the IDTA specification series of Submodel template specifications.
@@ -54,7 +54,7 @@ The latter can be described in the form of a Submodel template specification.
 Note: With the advent of AsciiDoc and Submodel template repositories, human-readable and machine-readable information will be joined together to a unified body of knowledge.
 ====
 
-[#scope-of-this-document]
+[#scope-of-this-document, reftext="Scope of this document"]
 === Scope of this document
 
 The scope of this document is to provide a uniform human readable and machine-readable way of a Submodel template.
@@ -64,7 +64,7 @@ Different human stakeholders shall be able to understand information and service
 
 Not scope of this document is the IDTA process for registering Submodel template; this is described by xref:annex/resources.adoc#res1[[R1\]].
 
-[#stakeholders]
+[#stakeholders, reftext="Stakeholders"]
 === Stakeholders
 
 Stakeholders for reading and applying this document are, among others:
@@ -74,7 +74,7 @@ Stakeholders for reading and applying this document are, among others:
 * subject matter experts and users required to 'fill out' Submodels
 * architects of the Asset Administration Shell and working groups
 
-[#abbreviations]
+[#abbreviations, reftext="Abbreviations"]
 === Abbreviations
 
 The following abbreviations are used in this document:
@@ -198,7 +198,7 @@ This means, if there is no version there is no revision either.
 * If required, a third digit (e.g. IDTA 4711-1-1-4) might be introduced to differentiate publication of bug fixes.
 This digit is not reflected in version/ revision of administrative information.
 
-[#workflows]
+[#workflows, reftext="Workflows"]
 == Workflows
 
 [#general-2]
@@ -208,7 +208,7 @@ In this section, multiple possible workflows are described.
 Any workflow might be executed by an architect, however, reviews within the SMT team and with possible domain experts are considered essential.
 The workflow and the achieved results shall comply with the IDTA Process Description xref:annex/resources.adoc#res1[[R1\]].
 
-[#artifacts-to-be-delivered]
+[#artifacts-to-be-delivered, reftext="Artifacts to be delivered"]
 === Artifacts to be delivered
 
 For the "(6) Review" phase of the process xref:annex/resources.adoc#res1[[R1\]] and for publication by IDTA, the following artifacts are mandatory/ optional (see <<table-artifacts-of-a-smt-specification>>).
@@ -573,7 +573,7 @@ This preset might be used in turn to easily generate more example AASX files.
 +
 All generated files shall be handed over to the architect and the IDTA office, as well.
 
-[#smt-dropins]
+[#smt-dropins, reftext="SMT dropins"]
 == SMT dropins
 
 [#definition]
@@ -885,7 +885,7 @@ The architect and IDTA office will also check if the Submodel and its generic fo
 [[image-plugin-folder-for-generic-forms]]
 image::image21.png[image21,width=642,height=349]
 
-[#table-format-for-submodels-and-submodelelements]
+[#table-format-for-submodels-and-submodelelements, reftext="Table format for Submodels and SubmodelElements"]
 == Table format for Submodels and SubmodelElements
 
 [#general-5]
@@ -1018,7 +1018,7 @@ String values might end with an '@' and ISO 639 language code in lowercase.
 
 After the table header, before the first row items, two table rows shall be given featuring the respective labels defined in <<table-format-of-table-row-items>>, as illustrated by <<image-format-of-table-row-items>>.
 
-[#templateid-and-semanticid-of-smt]
+[#templateid-and-semanticid-of-smt, reftext="TemplateId and semanticId of SMT"]
 == TemplateId and semanticId of SMT
 
 [#general-6]
@@ -1380,7 +1380,7 @@ The idShort of such listed elements was forbidden. +
 In version 3.1 of the meta model, the use of idShort in such cases is allowed again.
 ====
 
-[#marking-arbitrary-content-in-submodelelement-data]
+[#marking-arbitrary-content-in-submodelelement-data, reftext="Marking arbitrary content in SubmodelElement data"]
 === Marking arbitrary content in SubmodelElement data
 
 In certain cases, data of SubmodelElements is to be filled out by the user, which goes beyond strict specifications.
@@ -1402,7 +1402,7 @@ The idShort, description and semanticId of a SubmodelElement might be chosen arb
 No further details given by the SMT specification, however Reference set in order to comply with constraints.
 |===
 
-[#semanticids-and-extensions-for-the-generation-of-asciidoc-markup-language]
+[#semanticids-and-extensions-for-the-generation-of-asciidoc-markup-language, reftext="SemanticIds and Extensions for the generation of AsciiDoc markup language"]
 === SemanticIds and Extensions for the generation of AsciiDoc markup language
 
 [#general-8]
