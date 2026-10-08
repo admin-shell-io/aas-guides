@@ -155,19 +155,21 @@ For the structure of the content for the human-readable part of SMT, the SMT doc
 [width="100%",cols="37%,63%",options="header",]
 |===
 |*(Sub-) Section* |*Aim*
-|General |Provide general overview.
-|About this document |Provide very brief introduction to AAS and associated documents. Only referring to other documents. Typically taken unchanged from the template.
-|Scope of the Submodel |Give precise but concise definition of the scope, clarifying industry segments, stakeholders, life cycle steps, associated assets and subject matter to be represented.
-|Relevant standards |The use of existing standards is encouraged.
-|Approach of the Submodel |Different subsections explaining background and approaches, which lead to the current design of the SMT. Often, a UML diagram of the SMT entities is given. Often, a preview of how the subject matter could be presented to the user, is given, e.g. a screenshot of a plugin for the AASX Package Explorer, or inside an authoring system.
-|Assets |Shortly describes which assets are targeted by the SMT. In particular, it distinguishes between type assets and instance assets.
-|Use cases |Provides a brief overview of use cases for the SMT, e.g. by providing a table with 2-4 use cases and brief explanations (e.g. 2 sentences).
-|Data providers, consumers |Provides a short explanation of which roles/ organizations/ technical elements are providers and consumers of the Submodel data concerned in the SMT.
-|Submodel and SubmodelElements |Detailed description of the different entities by means of the defined table format.
-|{Further normative} |Further sections with normative content.
+|1 General |Provide general overview.
+|1.1 About this document |Provide very brief introduction to AAS and associated documents. Only referring to other documents. Typically taken unchanged from the template.
+|1.2 Scope of the Submodel |Give precise but concise definition of the scope, clarifying industry segments, stakeholders, life cycle steps, associated assets and subject matter to be represented.
+|1.3 Relevant standards for the Submodel template |The use of existing standards is encouraged.
+|2 Information set for Submodel <Submodel name> |Different subsections explaining background and approaches, which lead to the current design of the SMT. Often, a UML diagram of the SMT entities is given. Often, a preview of how the subject matter could be presented to the user, is given, e.g. a screenshot of a plugin for the AASX Package Explorer, or inside an authoring system.
+|2.1 General | General informtion of Submodel template
+|2.2 Assets |Shortly describes which assets are targeted by the SMT. In particular, it distinguishes between type assets and instance assets.
+|2.3 Use cases |Provides a brief overview of use cases for the SMT, e.g. by providing a table with 2-4 use cases and brief explanations (e.g. 2 sentences).
+|2.4 Data providers, consumers |Provides a short explanation of which roles/ organizations/ technical elements are providers and consumers of the Submodel data concerned in the SMT.
+|2.5 Overview UML model | Overview of UML model, typically without showing attributes but only structure
+|3 Information structures and attributes |Detailed description of the different entities by means of the defined table format.
+|4 {Further normative} |Further sections with normative content.
 |Annex A – Explanations on used table formats |To allow the understanding of the definitions without extensive referring to other documents, this most important information shall be given in every SMT.
-|Annex B - Bibliography |If possible, refer to more extensive material instead of re-describing.
-|Annex C – Change log |If not the initial version, outline changes from the last version to the current version on a per-item basis.
+|Annex B – Changes to the Submodel template |If not the initial version, outline changes from the last version to the current version on a per-item basis.
+|Bibliography |If possible, refer to more extensive material instead of re-describing.
 |Imprint |Imprint IDTA.
 |===
 
@@ -219,6 +221,15 @@ For the "(6) Review" phase of the process xref:annex/resources.adoc#res1[[R1\]] 
 |===
 |Artifact |Description |Cardinality
 |SMT specification |Word processor document, representing the SMT specification at a whole |One
+|SMT specification asciidoc AASX file a|An AASX for the SMT model with an additional Submodel for the asciidoc documentation 
+(for details see xref:index.adoc#workflow-with-github-based-asciidoc-working-draft-document[]) 
+
+[Note]
+====
+This file will not be published but only is for internal generation of documentation.
+====
+
+|One
 |SMT model a|
 Logical model with Submodel of kind = Template and respective ConceptDescriptions representing the template definition of the SMT.
 
@@ -231,6 +242,17 @@ see below)
 |Generic forms preset(s) |Option file(s) for the AasxPluginGenericForms in JSON format to allow easy creation and filling out of SMTs |ZeroToMany
 |Source format file for given figures |If the SMT specification uses figures for illustrations, the source format files shall be given for later maintenance. |ZeroToMany
 |===
+
+The following requirements for SubmodelTemplates (aasx) standardized in IDTA hold:
+*	idShort for all elements is mandatory (including element within SML)
+*	semanticId for all elements is mandatory
+*	ConceptDescription for Submodel and all SubmodelElements is mandatory
+*	Version information is mandatory
+*	creator information is mandatory
+In case of joint creation of a SMT in different organizations the IDTA creator ID is used but the logos of all participants are added to the cover including a note that it was developed jointly
+*	cardinality qualifier are mandatory to be added to all SubmodelElements
+*	hasKind attribute shall be set to "Template"
+
 
 [#recommendations]
 === Recommendations
@@ -1516,6 +1538,8 @@ Suitable files are binary files, such as images, but also e.g. large markup file
 Encoding will be preserved.
 
 Via the Extension (see below), it can be controlled, if a reference/ link is written to the generated AsciiDoc markup.
+
+Can be referenced in blob with semanticId `\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/textblock/1/0` via  +<<idShort of File>>+.
 a|
 /aasx/idta-smt-badge.png
 
@@ -1534,6 +1558,9 @@ Via the Extension (see below), it can be controlled, if a reference/ link is wri
 ====
 Note: .svg-format is recommended for vector content and .png-format is recommended for bitmap images.
 ====
+
+Can be referenced in blob with semanticId `\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/textblock/1/0` via +<<idShort of File>>+.
+
 a|
 ABC
 
@@ -1552,6 +1579,9 @@ Identifies a structure of SubmodelElements which shall be generated as UML class
 Via the Extension (see below), details of the generation process can be specified.
 
 The idShort is used to generate a dedicated PlantUML (.puml)-file for the input; the idShort shall be unique in the temporary working directory.
+
+Can be referenced in blob with semanticId `\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/textblock/1/0` via +<<idShort of ReferenceElement>>+.
+
 a|
 [Submodel] www.example.com/ids/sm/1225_9020_5022_1974
 
@@ -1563,11 +1593,33 @@ Markings
 Identifies a structure of SubmodelElements which shall be generated as table in the generated markdown.
 
 Via the Extension (see below), details of the generation process can be specified.
+
+Can be referenced in blob with semanticId `\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/textblock/1/0` via +<<idShort of ReferenceElement>+.
+
 a|
 [Submodel] www.example.com/ids/sm/1225_9020_5022_1974
 
 [SubmodelElementList] +
 Markings
+
+|ReferenceElement a|
+`\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/**generate-enum-table**/1/0`
+
+Identifies the definition of an enumeration defined via a valueList in a ConceptDescription. 
+
+Can be referenced in blob with semanticId `\http://admin-shell.io/aasx-package-explorer/functions/asciidoc/textblock/1/0` via +<<idShort of ReferenceElement>+.
+a|
+
+[idShort] Table_Granularity
+
+[ConceptDescription] `\https://admin-shell.io/idta/cds/granularity/1`
+in text referenced via +<<Table_Granularity>>+
+
+
+
+
+
+
 |===
 
 [#further-semanticids-for-identification-of-model-contents]
