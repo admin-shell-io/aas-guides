@@ -16,5 +16,5 @@ Major changes compared to version 1.0 of this document:
 * Definition of SMT Dropins (see section xref:index.adoc#smt-dropins[SMT Dropins])
 * Adapted table formats to AsciiDoc (see section xref:index.adoc#table-format-for-submodels-and-submodelelements[Table Formats])
 * Clarify templateId and semanticId (see section xref:index.adoc#templateid-and-semanticid-of-smt[Template ID and Semantic ID])
-* Marking arbitrary content in SubmodelElement data (see xref:index.adoc#marking-arbitrary-content-in-submodelelement-data)
+* Marking arbitrary content in SubmodelElement data (see xref:index.adoc#marking-arbitrary-content-in-submodelelement-data[Arbitrary Content])
 * SemanticIds and Extensions for the generation of AsciiDoc markup language (see xref:index.adoc#semanticids-and-extensions-for-the-generation-of-asciidoc-markup-language[SemanticId for asciidoc generation])
