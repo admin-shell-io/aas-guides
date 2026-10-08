@@ -243,6 +243,17 @@ see below)
 |Source format file for given figures |If the SMT specification uses figures for illustrations, the source format files shall be given for later maintenance. |ZeroToMany
 |===
 
+The following requirements for SubmodelTemplates (aasx) standardized in IDTA hold:
+*	idShort for all elements is mandatory (including element within SML)
+*	semanticId for all elements is mandatory
+*	ConceptDescription for Submodel and all SubmodelElements is mandatory
+*	Version information is mandatory
+*	creator information is mandatory
+In case of joint creation of a SMT in different organizations the IDTA creator ID is used but the logos of all participants are added to the cover including a note that it was developed jointly
+*	cardinality qualifier are mandatory to be added to all SubmodelElements
+*	hasKind attribute shall be set to "Template"
+
+
 [#recommendations]
 === Recommendations
 
