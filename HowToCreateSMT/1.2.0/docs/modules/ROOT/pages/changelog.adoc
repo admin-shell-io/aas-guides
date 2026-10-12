@@ -1,0 +1,29 @@
+////
+Copyright (c) 2023 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+////
+
+[#change-log]
+== Annex C. Change log
+
+=== Version 1.2
+
+Major changes compared to version 1.1 of this document:
+
+* Updated Annex on Tables on Submodels and SubmodelElements, new table for enumerations
+* Update Chapter on Template ID and semanticId, new subchapter for derived a Submodel Template from another Submodel Template (see xref:index.adoc#templateid-and-semanticid-of-smt)
+
+=== Version 1.1
+
+Major changes compared to version 1.0 of this document:
+
+* Artifacts to be delivered (see xref:index.adoc#artifacts-to-be-deliveredartifacts-to-be-delivered)
+* Added two workflows for AsciiDoc (see section xref:index.adoc#workflows)
+* Definition of SMT Dropins (see section xref:index.adoc#smt-dropins)
+* Adapted table formats to AsciiDoc (see section xref:index.adoc#table-format-for-submodels-and-submodelelements)
+* Clarify templateId and semanticId (see section xref:index.adoc#templateid-and-semanticid-of-smt)
+* Marking arbitrary content in SubmodelElement data (see xref:index.adoc#marking-arbitrary-content-in-submodelelement-data)
+* SemanticIds and Extensions for the generation of AsciiDoc markup language (see xref:index.adoc#semanticids-and-extensions-for-the-generation-of-asciidoc-markup-language)
